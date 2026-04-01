@@ -85,6 +85,29 @@ const translations = {
       erro: "Ops! Algo deu errado. Tente novamente.",
       tentarNovamente: "Tentar novamente",
     },
+    // Resultado (funil)
+    resultado: {
+      title: (nome: string) => `A página do ${nome} ficou pronta!`,
+      subtitle: "Veja como ficou a página de colorir personalizada",
+      baixar: "Baixar Imagem",
+      aguardando: "Estamos finalizando sua página...",
+      aguardandoSub: "Falta pouco! Enquanto isso...",
+      fallback:
+        "Sua página está sendo finalizada com carinho ✨ Enviaremos no seu WhatsApp em alguns minutos.",
+    },
+
+    // Contato
+    contato: {
+      title: "Falta pouco para ver o resultado!",
+      subtitle:
+        "Deixe seu contato para receber a página de colorir personalizada",
+      whatsappLabel: "WhatsApp",
+      whatsappPlaceholder: "(11) 99999-9999",
+      emailLabel: "E-mail",
+      emailPlaceholder: "seu@email.com",
+      lgpd: "Concordo em receber comunicações sobre o Colory",
+      continuar: "Ver resultado",
+    },
   },
 } as const;
 

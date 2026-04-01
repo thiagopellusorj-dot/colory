@@ -19,7 +19,6 @@ export default function UploadPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [dragOver, setDragOver] = useState(false);
 
-  // Guard: sem nome no store → volta pro quiz
   useEffect(() => {
     if (!store.nome_filho) {
       router.replace("/quiz");
@@ -66,13 +65,31 @@ export default function UploadPage() {
     setIsSubmitting(true);
 
     try {
-      // Converter para base64
       const base64 = await fileToBase64(file);
       store.setFotoOriginal(base64);
 
+      // Disparar geração na Kie.ai em background
+      const response = await fetch("/api/gerar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          image_base64: base64,
+          nome_filho: store.nome_filho,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.task_id) {
+        store.setJobId(data.task_id);
+      }
+
       posthog.capture("upload_completed");
+
+      // Vai para processando — geração continua em background
       router.push("/processando");
-    } catch {
+    } catch (error) {
+      console.error("Upload error:", error);
       setIsSubmitting(false);
     }
   };
@@ -81,7 +98,6 @@ export default function UploadPage() {
 
   return (
     <main className="flex min-h-screen flex-col bg-white">
-      {/* Barra de progresso — continua do quiz */}
       <div className="w-full h-1.5 bg-purple-100">
         <div className="h-full bg-purple-600 rounded-r-full" style={{ width: "100%" }} />
       </div>
@@ -93,7 +109,6 @@ export default function UploadPage() {
             <p className="text-gray-500">{txt.subtitle}</p>
           </div>
 
-          {/* Drop zone ou preview */}
           {!preview ? (
             <div
               onDragOver={(e) => {
@@ -159,7 +174,6 @@ export default function UploadPage() {
             onChange={handleFileChange}
           />
 
-          {/* Botão gerar */}
           {preview && (
             <button
               onClick={handleSubmit}

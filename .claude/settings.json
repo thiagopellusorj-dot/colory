@@ -8,7 +8,11 @@
       "Bash(npm list:*)",
       "Bash(node -e \"try { require\\('sharp'\\); console.log\\('sharp ok'\\) } catch\\(e\\) { console.log\\('no sharp'\\) }\")",
       "Bash(SUPABASE_ACCESS_TOKEN=sbp_429bb3ae6f4695bd29936453b531b4f43cbcc384 npx supabase db query --linked -f temp-bucket.sql)",
-      "Bash(rm temp-bucket.sql)"
+      "Bash(rm temp-bucket.sql)",
+      "WebFetch(domain:docs.kie.ai)",
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_429bb3ae6f4695bd29936453b531b4f43cbcc384 npx supabase db query --linked -f temp-jobs.sql)",
+      "Bash(rm temp-jobs.sql)",
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_429bb3ae6f4695bd29936453b531b4f43cbcc384 npx supabase projects list)"
     ]
   }
 }

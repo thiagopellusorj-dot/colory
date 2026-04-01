@@ -18,7 +18,7 @@ App web (mobile-first) que transforma fotos de crianças em páginas de colorir 
 - **Framework:** Next.js 16 com App Router
 - **Estilização:** Tailwind CSS v4
 - **Banco de dados + Auth + Storage:** Supabase (SSR com @supabase/ssr)
-- **Geração de imagem:** fal.ai (modelo: fal-ai/imageutils/lineart)
+- **Geração de imagem:** Kie.ai (modelo: Nano Banana 2, image-to-image)
 - **Pagamento:** Perfect Pay (webhook para liberar acesso)
 - **Analytics:** Posthog (posthog-js)
 - **Deploy:** Vercel
@@ -122,6 +122,18 @@ CREATE TABLE imagens (
   criado_em TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- Jobs de geração de imagem (Kie.ai)
+CREATE TABLE jobs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  task_id TEXT UNIQUE NOT NULL,
+  status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'processing', 'completed', 'failed')),
+  url_original TEXT,
+  url_gerada TEXT,
+  nome_filho TEXT,
+  criado_em TIMESTAMPTZ DEFAULT NOW(),
+  completado_em TIMESTAMPTZ
+);
+
 -- OTOs comprados
 CREATE TABLE compras (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -147,13 +159,17 @@ CREATE TABLE compras (
   → Tela transição: "Preparando algo especial para o [nome]..." (2s, barra loading roxa)
   P4: Objetivo (4 opções — clique avança direto)
   ↓
-/upload (foto + geração em background no fal.ai)
+/upload (foto enviada → dispara Kie.ai em background)
   ↓
-/processando (animação enquanto IA processa)
+/processando (animação 12-15s enquanto geração roda em background)
   ↓
-/contato (captura WhatsApp + email — ANTES de ver resultado)
+/contato (captura WhatsApp + email — geração continua em background)
   ↓
-/assinar (paywall — imagem borrada + curiosity gap)
+/resultado (mostra imagem pronta + botão "Baixar" fake)
+  → Se imagem não pronta: loading com fatos curiosos
+  → Clicou em "Baixar" → vai para /assinar
+  ↓
+/assinar (paywall)
   → Headline muda baseado na P4 (4 variações)
   → Anual R$99,90 destacado / Semanal R$14,90
   → Sem order bump (captura depois via WhatsApp)
@@ -208,13 +224,34 @@ CREATE TABLE compras (
 
 ## 🔗 INTEGRAÇÕES EXTERNAS
 
-### fal.ai
-- Modelo: `fal-ai/imageutils/lineart`
-- Auth: Header `Authorization: Key ${FAL_KEY}`
-- Input: imagem em base64
-- Output: PNG com traço de colorir
-- Timeout: 60 segundos
+### Kie.ai (Geração de Imagem)
+- Modelo: `nano-banana-2` (image-to-image)
+- Endpoint: `POST https://api.kie.ai/api/v1/jobs/createTask`
+- Auth: Header `Authorization: Bearer ${KIE_API_KEY}`
+- Custo: $0.020 por imagem
+- Tempo médio: ~105 segundos
 - Comprime imagem para max 1200px / 2MB antes de enviar
+- Prompt padrão: "Transform this photo into a clean black and white coloring book page for children. White background, black outlines only. Preserve the child's face clearly."
+
+**Estratégia de geração (webhook):**
+1. `/api/gerar` dispara job na Kie.ai com `callBackUrl` → retorna `taskId`
+2. `taskId` salvo na tabela `jobs` do Supabase (status: 'pending')
+3. Kie.ai envia POST para `/api/webhook/kie` quando terminar
+4. Webhook atualiza job no Supabase (status: 'completed', url da imagem)
+5. Frontend faz polling leve no Supabase (a cada 3s) para saber quando ficou pronto
+
+**Fluxo do usuário (geração em background):**
+- Upload foto → /processando (animação 12-15s) → /contato (WhatsApp + email)
+- → /resultado (mostra imagem pronta + botão "Baixar" fake) → /assinar (paywall)
+- Geração roda em background durante processando + contato (~105s)
+- Se não estiver pronta ao chegar em /resultado, mostra loading com fatos curiosos
+
+**Fallback se timeout (>120s):**
+"Sua página está sendo finalizada com carinho ✨ Enviaremos no seu WhatsApp em alguns minutos."
+
+**Webhook verification:**
+- Headers: `X-Webhook-Timestamp`, `X-Webhook-Signature`
+- HMAC-SHA256: `taskId + "." + timestamp` com `webhookHmacKey`
 
 ### Perfect Pay
 - Webhook POST para `/api/webhook`
@@ -273,8 +310,8 @@ NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
 
-# fal.ai
-FAL_KEY=
+# Kie.ai
+KIE_API_KEY=
 
 # Perfect Pay
 PERFECTPAY_WEBHOOK_SECRET=
@@ -337,7 +374,7 @@ Próximo: Fase 2 — Quiz + Landing Page
 
 - **Zustand vs Context API:** Zustand escolhido pela persistência mais fácil com localStorage
 - **Perfect Pay vs Stripe:** Perfect Pay escolhido por ter PIX nativo e ser mais comum no BR
-- **fal.ai vs Replicate:** fal.ai escolhido pelo cold start mais rápido (<2s)
+- **Kie.ai vs fal.ai:** Kie.ai (Nano Banana 2) escolhido pela qualidade superior em image-to-image. fal.ai lineart dava 404. Custo $0.02/img, ~105s geração via webhook.
 - **App Router vs Pages Router:** App Router — é o padrão do Next.js 16
 - **@supabase/ssr vs @supabase/supabase-js puro:** SSR escolhido para melhor integração com Server Components e middleware
 
