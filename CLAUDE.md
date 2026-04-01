@@ -1,7 +1,7 @@
 # CLAUDE.md — Colory
 
 > Arquivo de contexto persistente. Leia isso no início de cada sessão antes de qualquer coisa.
-> Última atualização: 31/03/2026
+> Última atualização: 01/04/2026
 
 ---
 
@@ -15,11 +15,12 @@ App web (mobile-first) que transforma fotos de crianças em páginas de colorir 
 
 ## 🏗️ STACK TÉCNICO
 
-- **Framework:** Next.js 14 com App Router
-- **Estilização:** Tailwind CSS
-- **Banco de dados + Auth + Storage:** Supabase
+- **Framework:** Next.js 16 com App Router
+- **Estilização:** Tailwind CSS v4
+- **Banco de dados + Auth + Storage:** Supabase (SSR com @supabase/ssr)
 - **Geração de imagem:** fal.ai (modelo: fal-ai/imageutils/lineart)
 - **Pagamento:** Perfect Pay (webhook para liberar acesso)
+- **Analytics:** Posthog (posthog-js)
 - **Deploy:** Vercel
 - **OS de desenvolvimento:** Windows (C:\Users\Pichau\Desktop\Programas em Desenvolvimento\Colory)
 - **IDE:** Antigravity + Claude Code
@@ -44,7 +45,7 @@ colory/
 │   │   └── obrigado/page.tsx
 │   ├── (app)/                # Rotas do app pós-pagamento
 │   │   ├── criar/page.tsx    # Home do app
-│   │   ├── processando/page.tsx
+│   │   ├── gerando/page.tsx  # Processando (renomeado para evitar conflito com funil)
 │   │   ├── resultado/page.tsx
 │   │   ├── paginas/page.tsx  # Galeria de criações
 │   │   └── configuracoes/page.tsx
@@ -58,9 +59,11 @@ colory/
 │   ├── funil/                # Componentes do funil
 │   └── app/                  # Componentes do app
 ├── lib/
-│   ├── supabase.ts
+│   ├── supabase.ts           # Client browser (@supabase/ssr)
+│   ├── supabase-server.ts    # Client server (Server Components + API routes)
 │   ├── fal.ts
 │   └── perfectpay.ts
+├── middleware.ts              # Supabase session refresh
 ├── store/
 │   └── funilStore.ts         # Zustand — estado global do funil
 ├── Telas Geradas Figma/      # Referência visual
@@ -135,9 +138,14 @@ CREATE TABLE compras (
 
 ### FUNIL DE AQUISIÇÃO
 ```
-/ (landing page)
+/ (landing page — colagem antes/depois, CTA "Criar agora — é grátis")
   ↓
-/quiz (4 perguntas: gênero → idade → nome → objetivo)
+/quiz
+  P1: Gênero (👦/👧 — clique avança direto)
+  P2: Idade (🍼 0-2 / 🎨 3-5 / 📚 6-8 / ⭐ 9-12 — clique avança direto)
+  P3: Nome (campo texto + botão continuar)
+  → Tela transição: "Preparando algo especial para o [nome]..." (2s, barra loading roxa)
+  P4: Objetivo (4 opções — clique avança direto)
   ↓
 /upload (foto + geração em background no fal.ai)
   ↓
@@ -145,19 +153,22 @@ CREATE TABLE compras (
   ↓
 /contato (captura WhatsApp + email — ANTES de ver resultado)
   ↓
-/assinar (paywall — pico de curiosidade)
-  Perfect Pay checkout externo
+/assinar (paywall — imagem borrada + curiosity gap)
+  → Headline muda baseado na P4 (4 variações)
+  → Anual R$99,90 destacado / Semanal R$14,90
+  → Sem order bump (captura depois via WhatsApp)
+  → Perfect Pay checkout externo
   ↓ webhook confirma pagamento
 /oto1 → /oto2 → /oto3
   ↓
-/obrigado (email com link de acesso)
+/obrigado (email com magic link de acesso)
 ```
 
 ### APP PÓS-PAGAMENTO
 ```
 /criar (home — upload + estilo)
   ↓
-/processando
+/gerando (processando — renomeado para evitar conflito de rota)
   ↓
 /resultado (download + compartilhar + OTOs bloqueados)
   ↓
@@ -171,13 +182,15 @@ CREATE TABLE compras (
 
 | Produto | Preço | Tipo |
 |---|---|---|
-| Plano Semanal | R$29,90/mês (comunicado como R$14,90/sem) | Assinatura |
-| Plano Anual | R$99,90/ano | Assinatura |
-| Order Bump | +R$9,90 | One-time |
+| Plano Semanal | R$14,90/sem (comunicado como R$29,90/mês) | Assinatura |
+| Plano Anual | R$99,90/ano (destacado como "Mais popular") | Assinatura |
 | OTO 1 — Livro Personalizado | R$67 (downsell R$47) | One-time |
 | OTO 2 — Música Personalizada | R$37 | One-time |
 | OTO 3 — Clube Anual | R$97 | One-time |
 | Vídeo Personalizado | R$47 | WhatsApp D+3 |
+
+**Sem order bump no paywall** — captura depois via WhatsApp.
+**Sem trial grátis** — preço direto com garantia 30 dias.
 
 ---
 
@@ -211,8 +224,23 @@ CREATE TABLE compras (
 
 ### Supabase
 - Auth: email magic link (sem senha)
+- Sessão do usuário dura 30 dias após login
 - Storage: bucket `imagens` para fotos geradas
 - RLS habilitado em todas as tabelas
+- SSR: usa @supabase/ssr com middleware para refresh de sessão
+
+### Posthog (Analytics)
+- Instalar `posthog-js`
+- Eventos do funil:
+  - `landing_page_viewed`
+  - `quiz_started`
+  - `quiz_step_completed` (com step e resposta)
+  - `upload_started`
+  - `upload_completed`
+  - `contato_submitted`
+  - `paywall_viewed`
+  - `paywall_plan_selected` (com plano escolhido)
+  - `purchase_initiated`
 
 ---
 
@@ -274,9 +302,20 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 ## ✅ O QUE JÁ FOI FEITO
 
-- [ ] Setup inicial do projeto
-- [ ] Schema do Supabase criado
-- [ ] Variáveis de ambiente configuradas
+- [x] Setup inicial do projeto (Next.js 16 + Tailwind v4 + TypeScript)
+- [x] Estrutura de pastas completa (funil + app + API routes)
+- [x] Schema do Supabase criado (5 tabelas)
+- [x] Supabase SSR configurado (client + server + middleware)
+- [x] Zustand store com persist (localStorage)
+- [x] Variáveis de ambiente configuradas
+- [x] Git init + push para GitHub
+- [ ] Fase 2 — Quiz + Landing Page
+- [ ] Fase 3 — Upload + IA
+- [ ] Fase 4 — Paywall
+- [ ] Fase 5 — OTOs
+- [ ] Fase 6 — App
+- [ ] Fase 7 — Webhook
+- [ ] Fase 8 — Deploy
 
 *(atualizar após cada sessão)*
 
@@ -284,13 +323,13 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 ## 🔄 EM PROGRESSO
 
-*(preencher no início de cada sessão)*
+Próximo: Fase 2 — Quiz + Landing Page
 
 ---
 
 ## 🐛 ERROS CONHECIDOS E SOLUÇÕES
 
-*(preencher conforme aparecerem)*
+- **Conflito de rota /processando:** `(funil)/processando` e `(app)/processando` resolviam para mesmo path. Solução: renomear app para `/gerando`.
 
 ---
 
@@ -299,7 +338,45 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 - **Zustand vs Context API:** Zustand escolhido pela persistência mais fácil com localStorage
 - **Perfect Pay vs Stripe:** Perfect Pay escolhido por ter PIX nativo e ser mais comum no BR
 - **fal.ai vs Replicate:** fal.ai escolhido pelo cold start mais rápido (<2s)
-- **App Router vs Pages Router:** App Router — é o padrão do Next.js 14
+- **App Router vs Pages Router:** App Router — é o padrão do Next.js 16
+- **@supabase/ssr vs @supabase/supabase-js puro:** SSR escolhido para melhor integração com Server Components e middleware
+
+---
+
+## 📝 DECISÕES DO FUNIL
+
+### Landing Page
+- Colagem de fotos de crianças (antes/depois colorindo) na parte superior
+- Sem menu de navegação — uma ação só
+- CTA roxo "Criar agora — é grátis" → vai direto para /quiz
+- NÃO pular a landing page — ela qualifica o tráfego antes do quiz
+
+### Quiz
+- Barra de progresso no topo crescendo a cada tela (sem número)
+- Animação slide da direita ao avançar
+- SEM botão de voltar — funil é de uma via
+- Feedback visual 1 segundo após cada clique antes de avançar
+- Micro-validação após cada resposta (texto editável via admin futuramente)
+- Tela de transição entre P3 e P4: "Preparando algo especial para o [nome]..." (2s, barra loading roxa)
+
+### Paywall
+- Curiosity gap: imagem borrada + desbloqueio
+- Headline muda baseado na resposta da P4 (4 variações)
+- Anual R$99,90 destacado como "Mais popular" com borda roxa
+- Semanal R$14,90/sem com menos destaque
+- Âncora: "Sem o plano: R$514/ano"
+- Garantia 30 dias com ícone cadeado
+- Review 5 estrelas fictício
+- Sem order bump (captura depois via WhatsApp)
+- Sem trial grátis — preço direto com garantia
+
+### Autenticação
+- Magic link para acesso ao app (não senha)
+- Sessão do usuário dura 30 dias após login
+
+### Tracking (Posthog)
+- Disparar eventos em cada etapa do funil
+- Ver lista completa na seção Integrações > Posthog
 
 ---
 

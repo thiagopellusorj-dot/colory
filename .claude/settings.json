@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p public/images/lp)",
+      "Bash(cp \"/c/Users/Pichau/Downloads/imagens-LP/imagem_1.jpg\" public/images/lp/foto-original.jpg)",
+      "Bash(cp \"/c/Users/Pichau/Downloads/imagens-LP/image_2.png\" public/images/lp/pagina-colorir.png)",
+      "Bash(cp \"/c/Users/Pichau/Downloads/imagens-LP/imagem_3.png\" public/images/lp/antes-depois.png)",
+      "Bash(npm list:*)",
+      "Bash(node -e \"try { require\\('sharp'\\); console.log\\('sharp ok'\\) } catch\\(e\\) { console.log\\('no sharp'\\) }\")"
+    ]
+  }
+}

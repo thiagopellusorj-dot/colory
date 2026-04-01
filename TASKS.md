@@ -18,9 +18,9 @@
 ## STATUS GERAL
 
 ```
-Fase 1 — Setup          [ ] Em andamento
-Fase 2 — Quiz + Funil   [ ] Não iniciado
-Fase 3 — Upload + IA    [ ] Não iniciado
+Fase 1 — Setup          [x] Concluída (01/04/2026)
+Fase 2 — Quiz + Funil   [x] Concluída (01/04/2026)
+Fase 3 — Upload + IA    [ ] Próximo
 Fase 4 — Paywall        [ ] Não iniciado
 Fase 5 — OTOs           [ ] Não iniciado
 Fase 6 — App            [ ] Não iniciado
@@ -45,16 +45,15 @@ No final rode `npm run dev` e confirme que está funcionando.
 ```
 
 **Tasks:**
-- [ ] `npx create-next-app@14 colory --typescript --tailwind --app`
-- [ ] Criar estrutura de pastas conforme CLAUDE.md
-- [ ] Instalar dependências: `@supabase/supabase-js zustand`
-- [ ] Configurar `.env.local` com todas as variáveis
-- [ ] Criar `lib/supabase.ts`
-- [ ] Criar `store/funilStore.ts` com Zustand
-- [ ] Executar SQL do schema no Supabase
-- [ ] Testar conexão com Supabase
-- [ ] `npm run dev` rodando sem erros
-- [ ] Push inicial para GitHub
+- [x] Next.js 16 + TypeScript + Tailwind v4 + App Router
+- [x] Criar estrutura de pastas conforme CLAUDE.md
+- [x] Instalar dependências: `@supabase/supabase-js @supabase/ssr zustand`
+- [x] Configurar `.env.local` com todas as variáveis
+- [x] Criar `lib/supabase.ts` + `lib/supabase-server.ts` + `middleware.ts` (SSR)
+- [x] Criar `store/funilStore.ts` com Zustand + persist
+- [x] Executar SQL do schema no Supabase (5 tabelas)
+- [x] `npm run dev` rodando sem erros
+- [x] Push inicial para GitHub (thiagopellusorj-dot/colory)
 
 ---
 
@@ -72,15 +71,26 @@ O estado do quiz deve ser salvo no Zustand E no localStorage.
 Identidade visual: roxo suave (#9333EA), mobile-first, Inter font.
 ```
 
+**Decisões confirmadas:**
+- Landing: colagem antes/depois no topo, sem menu, CTA "Criar agora — é grátis"
+- Quiz: barra progresso (sem número), slide direita, sem voltar, feedback 1s
+- Tela transição entre P3→P4: "Preparando algo especial para o [nome]..." (2s)
+- Instalar posthog-js e disparar eventos em cada tela
+
 **Tasks:**
-- [ ] Landing page (/) com headline, subheadline e CTA
-- [ ] Rota /quiz criada
-- [ ] Tela P1 — Gênero (👦/👧, clique avança)
-- [ ] Tela P2 — Idade (4 opções com ícone, feedback animado)
-- [ ] Tela P3 — Nome (campo texto, feedback personalizado)
-- [ ] Tela P4 — Objetivo (4 opções, salva para personalizar paywall)
-- [ ] Indicador de progresso (4 pontos)
-- [ ] Animação de transição entre telas
+- [ ] Instalar posthog-js e configurar provider
+- [ ] Landing page (/) com colagem antes/depois + headline + CTA roxo
+- [ ] Evento: landing_page_viewed
+- [ ] Rota /quiz com barra de progresso no topo (crescente, sem número)
+- [ ] Tela P1 — Gênero (👦/👧, clique avança direto, feedback 1s)
+- [ ] Tela P2 — Idade (🍼 0-2 / 🎨 3-5 / 📚 6-8 / ⭐ 9-12, clique avança direto, feedback 1s)
+- [ ] Tela P3 — Nome (campo texto + botão continuar)
+- [ ] Tela transição: "Preparando algo especial para o [nome]..." (2s, barra loading roxa)
+- [ ] Tela P4 — Objetivo (4 opções, clique avança direto, feedback 1s)
+- [ ] Animação slide da direita entre telas
+- [ ] SEM botão de voltar (funil de uma via)
+- [ ] Micro-validação após cada resposta (texto animado)
+- [ ] Eventos: quiz_started, quiz_step_completed (step + resposta)
 - [ ] Estado salvo no Zustand + localStorage
 - [ ] Redirect para /upload ao terminar quiz
 - [ ] Testar fluxo completo no mobile (Chrome DevTools)
@@ -131,18 +141,25 @@ O headline do paywall deve mudar baseado na resposta da P4 do quiz (4 variaçõe
 O botão de compra redireciona para o link do Perfect Pay (configurável via variável de ambiente).
 ```
 
+**Decisões confirmadas:**
+- Sem order bump no paywall (captura depois via WhatsApp)
+- Curiosity gap: imagem borrada + desbloqueio
+- Sem trial grátis — preço direto com garantia 30 dias
+- Headline do paywall muda baseado na P4 (4 variações)
+
 **Tasks:**
 - [ ] Tela /contato com campos WhatsApp (máscara BR) + email
 - [ ] Checkbox LGPD obrigatório
 - [ ] Salvar lead no Supabase antes de avançar
-- [ ] Tela /assinar com preview borrado da imagem
-- [ ] Headline personalizado por objetivo (4 variações)
-- [ ] Planos: Anual destacado + Semanal
+- [ ] Evento: contato_submitted
+- [ ] Tela /assinar com preview borrado da imagem (curiosity gap)
+- [ ] Headline personalizado por objetivo (4 variações da P4)
+- [ ] Planos: Anual R$99,90 destacado ("Mais popular", borda roxa) + Semanal R$14,90
 - [ ] Âncora de preço ("Sem o plano: R$514/ano")
-- [ ] Order bump checkbox (+R$9,90)
-- [ ] Garantia 30 dias
-- [ ] Review 5 estrelas
+- [ ] Garantia 30 dias com ícone cadeado
+- [ ] Review 5 estrelas fictício
 - [ ] Botão → link Perfect Pay (via env var)
+- [ ] Eventos: paywall_viewed, paywall_plan_selected, purchase_initiated
 - [ ] Guard: sem estado do quiz → redirect para /
 
 ---
@@ -192,7 +209,7 @@ Guard: usuário sem sessão Supabase ativa → redirect para landing page.
 - [ ] Tela /criar (upload + seleção de estilo + botão gerar)
 - [ ] Estilos bloqueados com 🔒 e blur
 - [ ] Bottom navigation (Criar / Minhas Páginas / Configurações)
-- [ ] Tela /processando (reutilizar componente da fase 3)
+- [ ] Tela /gerando (reutilizar componente da fase 3, renomeado de /processando)
 - [ ] Tela /resultado (download + compartilhar + OTOs bloqueados)
 - [ ] Watermark discreta nas imagens compartilhadas
 - [ ] Timer "Oferta especial" nos cards de OTO
@@ -268,4 +285,12 @@ Faça o deploy e teste o fluxo completo:
 ### 31/03/2026
 - Projeto planejado, CLAUDE.md + PRD.md + TASKS.md criados
 - Telas geradas no Figma AI salvas em /Telas Geradas Figma
-- Próximo passo: Fase 1 — Setup do projeto
+
+### 01/04/2026 — Sessão 1
+- Fase 1 concluída: Next.js 16 + Tailwind v4 + Supabase SSR + Zustand
+- Schema do banco criado (5 tabelas: leads, usuarios, filhos, imagens, compras)
+- Push para GitHub: thiagopellusorj-dot/colory
+- Bug fix: conflito rota /processando → renomeado para /gerando no app
+- Decisões do funil documentadas: sem order bump, sem trial, curiosity gap, Posthog
+- Decisões do quiz: barra progresso, slide direita, sem voltar, feedback 1s, tela transição
+- Próximo passo: Fase 2 — Quiz + Landing Page

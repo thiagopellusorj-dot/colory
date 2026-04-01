@@ -1,4 +1,4 @@
-export default function ProcessandoAppPage() {
+export default function GerandoAppPage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
       <h1 className="text-2xl font-bold text-purple-700">Processando</h1>
