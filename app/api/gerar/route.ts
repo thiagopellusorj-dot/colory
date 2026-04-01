@@ -46,9 +46,10 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ url: publicUrl.publicUrl });
   } catch (error) {
-    console.error("API /gerar error:", error);
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("API /gerar error:", message);
     return NextResponse.json(
-      { error: "Erro ao processar imagem" },
+      { error: "Erro ao processar imagem", details: message },
       { status: 500 }
     );
   }
