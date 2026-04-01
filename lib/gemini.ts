@@ -1,11 +1,10 @@
-const GEMINI_MODEL = "gemini-3.1-flash-image-preview";
+const GEMINI_MODEL = "gemini-2.5-flash-image";
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
 export const COLORING_PROMPT =
   "Transform this photo into a clean black and white coloring book page for children. White background, black outlines only. Preserve the child's face clearly. No shading, no gray areas, just clean outlines suitable for coloring with crayons.";
 
 export interface GeminiImageResponse {
-  url: string;
   mimeType: string;
   base64: string;
 }
@@ -19,7 +18,6 @@ export async function generateColoringPage(
     throw new Error("GEMINI_API_KEY not configured");
   }
 
-  // Remover prefixo data:image/...;base64, se existir
   const base64Data = imageBase64.includes(",")
     ? imageBase64.split(",")[1]
     : imageBase64;
@@ -33,8 +31,8 @@ export async function generateColoringPage(
           parts: [
             { text: COLORING_PROMPT },
             {
-              inline_data: {
-                mime_type: mimeType,
+              inlineData: {
+                mimeType: mimeType,
                 data: base64Data,
               },
             },
@@ -42,7 +40,7 @@ export async function generateColoringPage(
         },
       ],
       generationConfig: {
-        responseModalities: ["TEXT", "IMAGE"],
+        responseModalities: ["IMAGE"],
       },
     }),
   });
@@ -54,24 +52,25 @@ export async function generateColoringPage(
 
   const result = await response.json();
 
-  // Encontrar a parte com imagem na resposta
   const candidates = result.candidates?.[0]?.content?.parts;
   if (!candidates) {
+    console.error("Gemini full response:", JSON.stringify(result, null, 2).slice(0, 500));
     throw new Error("No candidates in Gemini response");
   }
 
+  // Gemini usa camelCase (inlineData) na resposta
   const imagePart = candidates.find(
-    (part: { inline_data?: { mime_type: string; data: string } }) =>
-      part.inline_data?.mime_type?.startsWith("image/")
+    (part: { inlineData?: { mimeType: string; data: string } }) =>
+      part.inlineData?.mimeType?.startsWith("image/")
   );
 
-  if (!imagePart?.inline_data) {
+  if (!imagePart?.inlineData) {
+    console.error("Gemini parts:", JSON.stringify(candidates.map((p: Record<string, unknown>) => Object.keys(p))));
     throw new Error("No image in Gemini response");
   }
 
   return {
-    url: "",
-    mimeType: imagePart.inline_data.mime_type,
-    base64: imagePart.inline_data.data,
+    mimeType: imagePart.inlineData.mimeType,
+    base64: imagePart.inlineData.data,
   };
 }

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createServerSupabase } from "@/lib/supabase-server";
+import { createAdminSupabase } from "@/lib/supabase-server";
 import { generateColoringPage } from "@/lib/gemini";
 
 export const maxDuration = 60;
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     const result = await generateColoringPage(image_base64);
 
     // 2. Salvar imagem gerada no Supabase Storage
-    const supabase = await createServerSupabase();
+    const supabase = createAdminSupabase();
     const buffer = Buffer.from(result.base64, "base64");
     const ext = result.mimeType === "image/png" ? "png" : "jpg";
     const fileName = `geradas/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;

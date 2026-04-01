@@ -56,7 +56,6 @@ export default function ProcessandoPage() {
     if (hasStarted.current || !store.url_foto_original) return;
     hasStarted.current = true;
 
-    let cancelled = false;
     const timeoutId = setTimeout(() => setIsTimeout(true), 45000);
 
     async function gerarImagem() {
@@ -67,31 +66,21 @@ export default function ProcessandoPage() {
           body: JSON.stringify({ image_base64: store.url_foto_original }),
         });
 
-        if (cancelled) return;
-
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
         const data = await response.json();
 
-        if (cancelled) return;
-
         if (data.url) {
           store.setFotoGerada(data.url);
           posthog.capture("upload_completed");
-
-          // Espera animação da última etapa
           setEtapaAtual(3);
-          setTimeout(() => {
-            if (!cancelled) router.push("/contato");
-          }, 1500);
+          setTimeout(() => router.push("/contato"), 1500);
         } else {
           throw new Error(data.error || "No URL in response");
         }
       } catch (error) {
-        if (!cancelled) {
-          console.error("Erro ao gerar:", error);
-          setErro(true);
-        }
+        console.error("Erro ao gerar:", error);
+        setErro(true);
       } finally {
         clearTimeout(timeoutId);
       }
@@ -99,10 +88,7 @@ export default function ProcessandoPage() {
 
     gerarImagem();
 
-    return () => {
-      cancelled = true;
-      clearTimeout(timeoutId);
-    };
+    return () => clearTimeout(timeoutId);
   }, [store, router]);
 
   const handleRetry = () => {

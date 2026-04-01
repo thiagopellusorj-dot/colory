@@ -13,7 +13,23 @@
       "Bash(SUPABASE_ACCESS_TOKEN=sbp_429bb3ae6f4695bd29936453b531b4f43cbcc384 npx supabase db query --linked -f temp-jobs.sql)",
       "Bash(rm temp-jobs.sql)",
       "Bash(SUPABASE_ACCESS_TOKEN=sbp_429bb3ae6f4695bd29936453b531b4f43cbcc384 npx supabase projects list)",
-      "WebFetch(domain:ai.google.dev)"
+      "WebFetch(domain:ai.google.dev)",
+      "Bash(curl -s -X POST \"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=AIzaSyC2zgCjRhlRoY9h_stCq9oVk-jo0EwiL8g\" -H \"Content-Type: application/json\" -d '{\"contents\":[{\"parts\":[{\"text\":\"Hello, respond with just OK\"}]}]}')",
+      "Bash(curl -s -w '\\\\n%{http_code} %{time_total}s' -X POST 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=AIzaSyC2zgCjRhlRoY9h_stCq9oVk-jo0EwiL8g' -H 'Content-Type: application/json' -d '{:*)",
+      "Bash(curl -s -X POST 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=AIzaSyC2zgCjRhlRoY9h_stCq9oVk-jo0EwiL8g' -H 'Content-Type: application/json' -d '{:*)",
+      "Bash(python3 -c \"import sys,json; r=json.load\\(sys.stdin\\); parts=r.get\\('candidates',[{}]\\)[0].get\\('content',{}\\).get\\('parts',[]\\); print\\([\\('IMAGE' if 'inline_data' in p else 'TEXT'\\) for p in parts]\\)\")",
+      "Bash(node -e \"const d=[];process.stdin.on\\('data',c=>d.push\\(c\\)\\);process.stdin.on\\('end',\\(\\)=>{const r=JSON.parse\\(Buffer.concat\\(d\\)\\);const parts=r.candidates?.[0]?.content?.parts||[];console.log\\(parts.map\\(p=>p.inline_data?'IMAGE:'+p.inline_data.mime_type:'TEXT:'+String\\(p.text\\).slice\\(0,100\\)\\)\\)}\\)\")",
+      "Bash(node -e \"const d=[];process.stdin.on\\('data',c=>d.push\\(c\\)\\);process.stdin.on\\('end',\\(\\)=>{const r=JSON.parse\\(Buffer.concat\\(d\\)\\);console.log\\(JSON.stringify\\(r,null,2\\).slice\\(0,500\\)\\)}\\)\")",
+      "Bash(curl -s \"https://generativelanguage.googleapis.com/v1beta/models?key=AIzaSyC2zgCjRhlRoY9h_stCq9oVk-jo0EwiL8g\")",
+      "Bash(node -e \"const d=[];process.stdin.on\\('data',c=>d.push\\(c\\)\\);process.stdin.on\\('end',\\(\\)=>{const r=JSON.parse\\(Buffer.concat\\(d\\)\\);const models=r.models||[];const imgModels=models.filter\\(m=>m.supportedGenerationMethods?.includes\\('generateContent'\\)&&m.name.includes\\('flash'\\)\\);imgModels.forEach\\(m=>console.log\\(m.name\\)\\)}\\)\")",
+      "Bash(curl -s -w '\\\\nHTTP_%{http_code} TIME_%{time_total}s' -X POST 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=AIzaSyC2zgCjRhlRoY9h_stCq9oVk-jo0EwiL8g' -H 'Content-Type: application/json' -d '{:*)",
+      "Bash(node -e \"const d=[];process.stdin.on\\('data',c=>d.push\\(c\\)\\);process.stdin.on\\('end',\\(\\)=>{const s=Buffer.concat\\(d\\).toString\\(\\);const lines=s.split\\('\\\\n'\\);const httpLine=lines.pop\\(\\);const r=JSON.parse\\(lines.join\\('\\\\n'\\)\\);const parts=r.candidates?.[0]?.content?.parts||[];console.log\\('Parts:',parts.map\\(p=>p.inline_data?'IMAGE\\('+p.inline_data.mime_type+','+p.inline_data.data.length+'chars\\)':'TEXT\\('+String\\(p.text\\).slice\\(0,80\\)+'...\\)'\\)\\);console.log\\(httpLine\\)}\\)\")",
+      "Bash(curl -s -w '\\\\nHTTP_%{http_code} TIME_%{time_total}s' -X POST 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-image:generateContent?key=AIzaSyC2zgCjRhlRoY9h_stCq9oVk-jo0EwiL8g' -H 'Content-Type: application/json' -d '{:*)",
+      "Bash(node -e \"const d=[];process.stdin.on\\('data',c=>d.push\\(c\\)\\);process.stdin.on\\('end',\\(\\)=>{const s=Buffer.concat\\(d\\).toString\\(\\);try{const r=JSON.parse\\(s.split\\('\\\\n'\\).filter\\(l=>l.startsWith\\('{'\\)||l.startsWith\\('['\\)\\).join\\(''\\)\\);const parts=r.candidates?.[0]?.content?.parts||[];console.log\\('Parts:',parts.map\\(p=>p.inline_data?'IMAGE\\('+p.inline_data.mime_type+','+p.inline_data.data.length+'chars\\)':'TEXT'\\)\\);if\\(r.error\\)console.log\\('Error:',r.error.message\\)}catch\\(e\\){console.log\\(s.slice\\(0,500\\)\\)}}\\)\")",
+      "Bash(node -e \"const d=[];process.stdin.on\\('data',c=>d.push\\(c\\)\\);process.stdin.on\\('end',\\(\\)=>{const s=Buffer.concat\\(d\\).toString\\(\\);try{const r=JSON.parse\\(s\\);const parts=r.candidates?.[0]?.content?.parts||[];console.log\\('Parts:',parts.map\\(p=>p.inline_data?'IMAGE\\('+p.inline_data.mime_type+','+p.inline_data.data.length+'chars\\)':'TEXT'\\)\\);if\\(r.error\\)console.log\\('Error:',r.error.message\\)}catch\\(e\\){console.log\\(s.slice\\(0,300\\)\\)}}\\)\")",
+      "Bash(node -e ':*)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/contato)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/preview)"
     ]
   }
 }
