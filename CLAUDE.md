@@ -176,7 +176,7 @@ CREATE TABLE compras (
   → Sem order bump (captura depois via WhatsApp)
   → Perfect Pay checkout externo
   ↓ webhook confirma pagamento
-/oto1 → /oto2 → /oto3
+/oto1 → /oto3 (OTO2 pulado por enquanto)
   ↓
 /obrigado (email com magic link de acesso)
 ```
@@ -347,21 +347,22 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 - [x] Zustand store com persist (localStorage)
 - [x] Variáveis de ambiente configuradas
 - [x] Git init + push para GitHub
-- [ ] Fase 2 — Quiz + Landing Page
-- [ ] Fase 3 — Upload + IA
-- [ ] Fase 4 — Paywall
-- [ ] Fase 5 — OTOs
-- [ ] Fase 6 — App
-- [ ] Fase 7 — Webhook
-- [ ] Fase 8 — Deploy
+- [x] Fase 2 — Quiz + Landing Page
+- [x] Fase 3 — Upload + IA (Gemini 3.1 Flash)
+- [x] Fase 4 — Paywall (headline personalizada + blur preview)
+- [x] Fase 5 — OTOs (OTO1 com BookPreview + garantia + FAQ, OTO3, Obrigado)
+- [x] Deploy Vercel (https://colory-eight.vercel.app)
+- [ ] Fase 6 — App pós-pagamento
+- [ ] Fase 7 — Webhook Perfect Pay
+- [ ] Fase 8 — Domínio custom + ajustes finais
 
-*(atualizar após cada sessão)*
+*(atualizado: 01/04/2026)*
 
 ---
 
 ## 🔄 EM PROGRESSO
 
-Próximo: Fase 2 — Quiz + Landing Page
+Próximo: Fase 6 — App pós-pagamento (auth guard, /criar, /gerando, /resultado, /paginas, /configuracoes, bottom nav)
 
 ---
 
@@ -378,6 +379,10 @@ Próximo: Fase 2 — Quiz + Landing Page
 - **Kie.ai vs fal.ai:** Kie.ai (Nano Banana 2) escolhido pela qualidade superior em image-to-image. fal.ai lineart dava 404. Custo $0.02/img, ~105s geração via webhook.
 - **App Router vs Pages Router:** App Router — é o padrão do Next.js 16
 - **@supabase/ssr vs @supabase/supabase-js puro:** SSR escolhido para melhor integração com Server Components e middleware
+- **Gemini 3.1 Flash vs Kie.ai:** Gemini escolhido para funil (rápido, ~5-15s, $0.07/geração). Kie.ai reservado para app interno (maior qualidade, ~105s)
+- **OTO2 pulado:** Fluxo atual é OTO1 → OTO3. OTO2 (música) existe mas não está no fluxo
+- **OtoLayout reutilizável:** Componente com 10 blocos de direct response, props opcionais garantiaSection e faqItems
+- **BookPreview:** Imagens reais extraídas de PDFs de livros de exemplo (10 JPGs em public/images/books/)
 
 ---
 
