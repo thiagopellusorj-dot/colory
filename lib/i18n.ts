@@ -53,6 +53,38 @@ const translations = {
       feedbackLembranca: "Que lindo! Uma memória pra guardar pra sempre!",
       feedbackAprendizado: "Colorir ensina de um jeito divertido!",
     },
+
+    // Upload
+    upload: {
+      title: (nome: string) => `Agora envie uma foto do ${nome}`,
+      subtitle: "Escolha a melhor foto — de preferência com o rosto bem visível",
+      dragDrop: "Arraste uma foto aqui",
+      ou: "ou",
+      selectButton: "Selecionar foto",
+      trocar: "Trocar foto",
+      gerar: "Gerar página de colorir",
+      formatos: "JPG, PNG ou WEBP — máx. 10MB",
+      comprimindo: "Otimizando imagem...",
+    },
+
+    // Processando
+    processando: {
+      etapa1: (nome: string) => `Foto do ${nome} recebida`,
+      etapa2: "Analisando detalhes do rosto",
+      etapa3: "Criando os traços para colorir...",
+      etapa4: "Finalizando sua página...",
+      fatos: [
+        "Colorir ajuda no desenvolvimento da coordenação motora fina das crianças.",
+        "Crianças que colorem regularmente têm melhor concentração na escola.",
+        "A atividade de colorir reduz o estresse e a ansiedade em crianças.",
+        "Colorir estimula a criatividade e a expressão artística desde cedo.",
+        "Páginas de colorir personalizadas aumentam o engajamento da criança.",
+      ],
+      fatoLabel: "Você sabia?",
+      timeout: "Está demorando mais que o esperado. Já já fica pronto!",
+      erro: "Ops! Algo deu errado. Tente novamente.",
+      tentarNovamente: "Tentar novamente",
+    },
   },
 } as const;
 

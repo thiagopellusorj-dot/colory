@@ -20,7 +20,7 @@
 ```
 Fase 1 — Setup          [x] Concluída (01/04/2026)
 Fase 2 — Quiz + Funil   [x] Concluída (01/04/2026)
-Fase 3 — Upload + IA    [ ] Próximo
+Fase 3 — Upload + IA    [x] Concluída (01/04/2026)
 Fase 4 — Paywall        [ ] Não iniciado
 Fase 5 — OTOs           [ ] Não iniciado
 Fase 6 — App            [ ] Não iniciado
@@ -294,3 +294,12 @@ Faça o deploy e teste o fluxo completo:
 - Decisões do funil documentadas: sem order bump, sem trial, curiosity gap, Posthog
 - Decisões do quiz: barra progresso, slide direita, sem voltar, feedback 1s, tela transição
 - Próximo passo: Fase 2 — Quiz + Landing Page
+
+### 01/04/2026 — Sessão 2
+- Fase 2 concluída: Landing page com imagens reais + Quiz completo + i18n + Posthog
+- Fase 3 concluída: Upload com compressão + API fal.ai + tela processando
+- Bucket "imagens" criado no Supabase Storage (público)
+- lib/compress.ts: compressão client-side (max 1200px, 2MB, qualidade adaptativa)
+- API /api/gerar: fal.ai lineart → Supabase Storage → URL pública
+- Tela /processando: 4 etapas animadas + fatos curiosos rotativos + timeout handling
+- Próximo passo: Fase 4 — Captura + Paywall
