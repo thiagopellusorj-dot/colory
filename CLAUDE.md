@@ -18,7 +18,8 @@ App web (mobile-first) que transforma fotos de crianças em páginas de colorir 
 - **Framework:** Next.js 16 com App Router
 - **Estilização:** Tailwind CSS v4
 - **Banco de dados + Auth + Storage:** Supabase (SSR com @supabase/ssr)
-- **Geração de imagem:** Kie.ai (modelo: Nano Banana 2, image-to-image)
+- **Geração de imagem (funil):** Gemini 3.1 Flash (image-to-image, ~5-15s, $0.07/geração)
+- **Geração de imagem (app interno):** Kie.ai Nano Banana 2 (reservado para futuro, maior qualidade)
 - **Pagamento:** Perfect Pay (webhook para liberar acesso)
 - **Analytics:** Posthog (posthog-js)
 - **Deploy:** Vercel

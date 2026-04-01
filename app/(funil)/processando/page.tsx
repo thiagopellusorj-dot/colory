@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useFunilStore } from "@/store/funilStore";
+import { posthog } from "@/lib/posthog";
 import { t } from "@/lib/i18n";
 
-const ETAPAS_DELAY = [0, 3000, 7000, 11000];
-const REDIRECT_DELAY = 14000; // 14s total de animação
+const ETAPAS_DELAY = [0, 2000, 5000, 8000];
 
 export default function ProcessandoPage() {
   const router = useRouter();
@@ -15,6 +15,9 @@ export default function ProcessandoPage() {
   const txt = t().processando;
   const [etapaAtual, setEtapaAtual] = useState(0);
   const [fatoIndex, setFatoIndex] = useState(0);
+  const [isTimeout, setIsTimeout] = useState(false);
+  const [erro, setErro] = useState(false);
+  const hasStarted = useRef(false);
   const nome = store.nome_filho || "seu filho";
 
   const etapas = [
@@ -41,26 +44,97 @@ export default function ProcessandoPage() {
 
   // Rotação de fatos curiosos
   useEffect(() => {
+    if (!store.url_foto_original) return;
     const interval = setInterval(() => {
       setFatoIndex((prev) => (prev + 1) % txt.fatos.length);
     }, 4000);
     return () => clearInterval(interval);
-  }, [txt.fatos.length]);
+  }, [txt.fatos.length, store.url_foto_original]);
 
-  // Redirect automático após 14s → /contato
-  // A geração continua em background via webhook
+  // Chamar Gemini API
   useEffect(() => {
-    const timer = setTimeout(() => {
-      router.push("/contato");
-    }, REDIRECT_DELAY);
-    return () => clearTimeout(timer);
-  }, [router]);
+    if (hasStarted.current || !store.url_foto_original) return;
+    hasStarted.current = true;
+
+    let cancelled = false;
+    const timeoutId = setTimeout(() => setIsTimeout(true), 45000);
+
+    async function gerarImagem() {
+      try {
+        const response = await fetch("/api/gerar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ image_base64: store.url_foto_original }),
+        });
+
+        if (cancelled) return;
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const data = await response.json();
+
+        if (cancelled) return;
+
+        if (data.url) {
+          store.setFotoGerada(data.url);
+          posthog.capture("upload_completed");
+
+          // Espera animação da última etapa
+          setEtapaAtual(3);
+          setTimeout(() => {
+            if (!cancelled) router.push("/contato");
+          }, 1500);
+        } else {
+          throw new Error(data.error || "No URL in response");
+        }
+      } catch (error) {
+        if (!cancelled) {
+          console.error("Erro ao gerar:", error);
+          setErro(true);
+        }
+      } finally {
+        clearTimeout(timeoutId);
+      }
+    }
+
+    gerarImagem();
+
+    return () => {
+      cancelled = true;
+      clearTimeout(timeoutId);
+    };
+  }, [store, router]);
+
+  const handleRetry = () => {
+    setErro(false);
+    setIsTimeout(false);
+    hasStarted.current = false;
+    setEtapaAtual(0);
+  };
+
+  if (erro) {
+    return (
+      <main className="flex min-h-screen flex-col items-center justify-center bg-white px-6">
+        <div className="text-center space-y-6 max-w-md">
+          <div className="w-16 h-16 mx-auto rounded-full bg-red-100 flex items-center justify-center">
+            <span className="text-3xl">😕</span>
+          </div>
+          <h2 className="text-xl font-bold text-gray-900">{txt.erro}</h2>
+          <button
+            onClick={handleRetry}
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white py-4 rounded-full font-semibold text-lg transition-all"
+          >
+            {txt.tentarNovamente}
+          </button>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="flex min-h-screen flex-col bg-white">
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-10">
         <div className="w-full max-w-md space-y-8">
-          {/* Preview da foto */}
           {store.url_foto_original && (
             <div className="relative w-32 h-32 mx-auto rounded-2xl overflow-hidden shadow-lg">
               <Image
@@ -76,7 +150,6 @@ export default function ProcessandoPage() {
             </div>
           )}
 
-          {/* Etapas */}
           <div className="space-y-4">
             {etapas.map((etapa, i) => (
               <div
@@ -117,7 +190,12 @@ export default function ProcessandoPage() {
             ))}
           </div>
 
-          {/* Fato curioso */}
+          {isTimeout && (
+            <p className="text-center text-sm text-amber-600 font-medium animate-fade-in">
+              {txt.timeout}
+            </p>
+          )}
+
           <div className="bg-purple-50 rounded-2xl p-5 space-y-2">
             <p className="text-xs font-semibold text-purple-600 uppercase tracking-wide">
               {txt.fatoLabel}

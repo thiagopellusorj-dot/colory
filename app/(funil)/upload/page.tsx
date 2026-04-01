@@ -67,26 +67,9 @@ export default function UploadPage() {
     try {
       const base64 = await fileToBase64(file);
       store.setFotoOriginal(base64);
-
-      // Disparar geração na Kie.ai em background
-      const response = await fetch("/api/gerar", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          image_base64: base64,
-          nome_filho: store.nome_filho,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (data.task_id) {
-        store.setJobId(data.task_id);
-      }
-
       posthog.capture("upload_completed");
 
-      // Vai para processando — geração continua em background
+      // Vai para processando — API Gemini será chamada lá
       router.push("/processando");
     } catch (error) {
       console.error("Upload error:", error);
