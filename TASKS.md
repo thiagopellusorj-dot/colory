@@ -21,7 +21,7 @@
 Fase 1 — Setup          [x] Concluída (01/04/2026)
 Fase 2 — Quiz + Funil   [x] Concluída (01/04/2026)
 Fase 3 — Upload + IA    [x] Concluída (01/04/2026)
-Fase 4 — Paywall        [ ] Não iniciado
+Fase 4 — Paywall        [x] Concluída (01/04/2026)
 Fase 5 — OTOs           [ ] Não iniciado
 Fase 6 — App            [ ] Não iniciado
 Fase 7 — Admin + Webhook[ ] Não iniciado

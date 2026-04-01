@@ -108,6 +108,53 @@ const translations = {
       lgpd: "Concordo em receber comunicações sobre o Colory",
       continuar: "Ver resultado",
     },
+
+    // Paywall
+    paywall: {
+      // Headlines por objetivo (P4)
+      headlines: {
+        sem_tela:
+          "Troque 1 hora de celular por algo que ele vai colorir e guardar pra sempre.",
+        lembranca:
+          "Essa é a memória que vai ficar na geladeira da vovó por anos.",
+        criativo:
+          "Imprima, sente com ele e criem juntos. Esse momento não tem preço.",
+        aprendizado:
+          "Coordenação, criatividade e foco — colorindo o próprio rosto.",
+      } as Record<string, string>,
+      headlineDefault:
+        "Desbloqueie a página de colorir personalizada do seu filho agora.",
+      subtitleBlur: "Sua página está pronta! Desbloqueie para baixar.",
+
+      // Planos
+      maisPopular: "Mais popular",
+      planoAnualNome: "Plano Anual",
+      planoAnualPreco: "R$99,90",
+      planoAnualPeriodo: "/ano",
+      planoAnualDestaque: "Economize 83%",
+      planoSemanalNome: "Plano Semanal",
+      planoSemanalPreco: "R$14,90",
+      planoSemanalPeriodo: "/semana",
+      planoSemanalObs: "equivale a R$29,90/mês",
+      ancora: "Sem o plano: R$514/ano",
+
+      // Trust
+      garantiaTitulo: "Garantia de 30 dias",
+      garantiaTexto:
+        "Se não gostar, devolvemos 100% do seu dinheiro. Sem perguntas.",
+      reviewNome: "Camila S.",
+      reviewTexto:
+        "Meu filho amou! Já imprimimos mais de 20 páginas. Ele pede toda semana pra fazer uma nova.",
+      reviewEstrelas: 5,
+
+      // CTA
+      ctaAnual: (nome: string) =>
+        `Desbloquear a página do ${nome} agora`,
+      ctaSemanal: "Começar por R$14,90/semana",
+
+      // Eventos
+      geracoesFree: "Você usou sua geração gratuita",
+    },
   },
 } as const;
 
