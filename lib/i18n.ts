@@ -155,6 +155,63 @@ const translations = {
       // Eventos
       geracoesFree: "Você usou sua geração gratuita",
     },
+
+    // OTOs
+    oto: {
+      timerLabel: "Oferta expira em",
+      simQuero: "SIM, eu quero!",
+      naoObrigado: "Não, obrigado",
+
+      // OTO1 — Livro
+      oto1Titulo: (nome: string) =>
+        `Transforme as aventuras do ${nome} em um livro de história!`,
+      oto1Desc:
+        "2 livros PDF personalizados com seu filho como protagonista. Histórias únicas que ele vai pedir pra ler toda noite.",
+      oto1De: "R$97",
+      oto1Por: "R$67",
+      oto1Emoji: "📖",
+
+      // OTO1 Downsell
+      oto1DownsellTitulo: "Que tal começar com 1 livro?",
+      oto1DownsellDesc:
+        "1 livro PDF personalizado com seu filho como protagonista. Uma história única só dele.",
+      oto1DownsellPor: "R$47",
+
+      // OTO2 — Música
+      oto2Titulo: (nome: string) =>
+        `Uma música só do ${nome}!`,
+      oto2Desc:
+        "Música personalizada com o nome e características do seu filho. Perfeita pra tocar no carro, na hora de dormir ou no aniversário.",
+      oto2Por: "R$37",
+      oto2Emoji: "🎵",
+
+      // OTO3 — Clube
+      oto3Titulo: (nome: string) =>
+        `${nome} no Clube de Atividades!`,
+      oto3Desc:
+        "Acesso anual ao clube com atividades semanais personalizadas: colorir, recortar, ligar os pontos e muito mais.",
+      oto3Por: "R$97",
+      oto3PorPeriodo: "pagamento único",
+      oto3Emoji: "🎨",
+    },
+
+    // Obrigado
+    obrigado: {
+      titulo: (nome: string) =>
+        `Pronto! A página do ${nome} está liberada!`,
+      subtitulo: "Enviamos também no seu WhatsApp e e-mail.",
+      baixar: "Baixar Imagem",
+      resumoTitulo: "Resumo da sua compra",
+      plano: "Plano",
+      otos: "Extras",
+      nomesProdutos: {
+        livro: "📖 Livro Personalizado",
+        livro_downsell: "📖 Livro Personalizado (1 un.)",
+        musica: "🎵 Música Personalizada",
+        clube: "🎨 Clube de Atividades",
+      } as Record<string, string>,
+      acessoApp: "Acesse o app completo pelo link que enviamos no seu e-mail.",
+    },
   },
 } as const;
 

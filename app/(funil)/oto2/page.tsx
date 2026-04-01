@@ -1,8 +1,23 @@
+"use client";
+
+import { OtoLayout } from "@/components/funil/OtoLayout";
+import { useFunilStore } from "@/store/funilStore";
+import { t } from "@/lib/i18n";
+
 export default function Oto2Page() {
+  const store = useFunilStore();
+  const txt = t().oto;
+  const nome = store.nome_filho || "seu filho";
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
-      <h1 className="text-2xl font-bold text-purple-700">OTO 2 — Musica</h1>
-      <p className="mt-2 text-sm text-gray-400">Placeholder — Fase 5</p>
-    </main>
+    <OtoLayout
+      otoId="musica"
+      emoji={txt.oto2Emoji}
+      titulo={txt.oto2Titulo(nome)}
+      descricao={txt.oto2Desc}
+      precoAtual={txt.oto2Por}
+      perfectPayEnvVar={process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO2 ?? ""}
+      nextRoute="/oto3"
+    />
   );
 }
