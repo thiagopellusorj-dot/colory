@@ -7,30 +7,67 @@ import { t } from "@/lib/i18n";
 import { useFunilStore } from "@/store/funilStore";
 
 const TIMER_KEY = "colory-oto-timer-start";
-const TIMER_DURATION = 10 * 60 * 1000; // 10 minutos
+const TIMER_DURATION = 10 * 60 * 1000;
 
-interface OtoLayoutProps {
-  otoId: string;
+interface Depoimento {
+  nome: string;
+  texto: string;
+  cidade: string;
+}
+
+interface ModuloItem {
   emoji: string;
   titulo: string;
   descricao: string;
-  precoOriginal?: string;
-  precoAtual: string;
+  valorIndividual: string;
+}
+
+interface OtoLayoutProps {
+  otoId: string;
+  // Bloco 1 — Pattern Interrupt
+  passoLabel: string;
+  alertaTexto: string;
+  // Bloco 2 — Validation + Incompleteness
+  validacaoTexto: string;
+  fomoTexto: string;
+  // Bloco 3 — Curiosity Gap
+  curiosidadeTexto: string;
+  // Bloco 5 — Emotional Reframe
+  reframeTitulo: string;
+  reframeTexto: string;
+  beneficios: string[];
+  // Bloco 7 — Depoimentos
+  depoimentos: Depoimento[];
+  // Bloco 8 — Value Stack
+  modulos: ModuloItem[];
+  valorTotal: string;
+  // Bloco 9 — Price Reveal
+  precoOriginal: string;
+  precoFinal: string;
   periodoPagamento?: string;
-  perfectPayEnvVar: string;
+  // Config
+  perfectPayLink: string;
   nextRoute: string;
-  onDecline?: () => void; // override para downsell
+  onDecline?: () => void;
 }
 
 export function OtoLayout({
   otoId,
-  emoji,
-  titulo,
-  descricao,
+  passoLabel,
+  alertaTexto,
+  validacaoTexto,
+  fomoTexto,
+  curiosidadeTexto,
+  reframeTitulo,
+  reframeTexto,
+  beneficios,
+  depoimentos,
+  modulos,
+  valorTotal,
   precoOriginal,
-  precoAtual,
+  precoFinal,
   periodoPagamento,
-  perfectPayEnvVar,
+  perfectPayLink,
   nextRoute,
   onDecline,
 }: OtoLayoutProps) {
@@ -39,30 +76,23 @@ export function OtoLayout({
   const txt = t().oto;
   const [timeLeft, setTimeLeft] = useState(TIMER_DURATION);
 
-  // Iniciar timer no localStorage (só na primeira vez)
   useEffect(() => {
-    const stored = localStorage.getItem(TIMER_KEY);
-    if (!stored) {
+    if (!localStorage.getItem(TIMER_KEY)) {
       localStorage.setItem(TIMER_KEY, Date.now().toString());
     }
   }, []);
 
-  // Countdown
   useEffect(() => {
     const interval = setInterval(() => {
       const start = parseInt(localStorage.getItem(TIMER_KEY) || "0");
       if (!start) return;
-
-      const elapsed = Date.now() - start;
-      const remaining = Math.max(0, TIMER_DURATION - elapsed);
+      const remaining = Math.max(0, TIMER_DURATION - (Date.now() - start));
       setTimeLeft(remaining);
-
       if (remaining <= 0) {
         clearInterval(interval);
         router.push("/obrigado");
       }
     }, 1000);
-
     return () => clearInterval(interval);
   }, [router]);
 
@@ -76,10 +106,8 @@ export function OtoLayout({
   const handleAccept = () => {
     store.addOto(otoId);
     posthog.capture("oto_accepted", { oto: otoId });
-
-    const link = perfectPayEnvVar;
-    if (link && link !== "https://perfectpay.com.br/pay/xxx") {
-      window.location.href = link;
+    if (perfectPayLink && perfectPayLink !== "https://perfectpay.com.br/pay/xxx") {
+      window.location.href = perfectPayLink;
     } else {
       alert("Link de pagamento será configurado em breve.");
     }
@@ -96,60 +124,147 @@ export function OtoLayout({
 
   return (
     <main className="flex min-h-screen flex-col bg-white">
-      {/* Timer */}
-      <div className="bg-red-600 text-white py-2 px-4 text-center text-sm font-semibold">
-        {txt.timerLabel}{" "}
-        <span className="font-mono">
+      {/* BLOCO 1: Pattern Interrupt + Timer */}
+      <div className="bg-red-600 text-white py-3 px-4 text-center space-y-1">
+        <p className="text-xs font-bold uppercase tracking-wide">
+          {passoLabel}
+        </p>
+        <p className="text-sm font-semibold">{alertaTexto}</p>
+        <p className="font-mono text-2xl font-bold">
           {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
-        </span>
+        </p>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-6 py-8">
-        <div className="w-full max-w-md space-y-6">
-          {/* Emoji */}
-          <div className="text-center">
-            <span className="text-6xl">{emoji}</span>
-          </div>
-
-          {/* Titulo + Descricao */}
-          <div className="text-center space-y-3">
-            <h1 className="text-2xl font-bold text-gray-900 leading-tight">
-              {titulo}
-            </h1>
-            <p className="text-gray-600">{descricao}</p>
-          </div>
-
-          {/* Preço */}
-          <div className="text-center space-y-1">
-            {precoOriginal && (
-              <p className="text-gray-400 line-through text-lg">
-                {precoOriginal}
-              </p>
-            )}
-            <p className="text-4xl font-bold text-purple-600">
-              {precoAtual}
+      <div className="flex-1 flex flex-col items-center px-5 py-8">
+        <div className="w-full max-w-md space-y-8">
+          {/* BLOCO 2: Validation + Incompleteness */}
+          <div className="space-y-3 text-center">
+            <p className="text-green-600 font-semibold text-sm">
+              ✅ {validacaoTexto}
             </p>
-            {periodoPagamento && (
-              <p className="text-sm text-gray-500">{periodoPagamento}</p>
-            )}
+            <p className="text-gray-700 leading-relaxed">{fomoTexto}</p>
           </div>
 
-          {/* Botões */}
+          {/* Divider */}
+          <div className="border-t border-gray-100" />
+
+          {/* BLOCO 3: Curiosity Gap */}
+          <p className="text-center text-lg font-bold text-gray-900 leading-snug">
+            {curiosidadeTexto}
+          </p>
+
+          {/* BLOCO 4: Micro CTA */}
+          <p className="text-center text-purple-600 text-sm font-medium animate-bounce">
+            ↓ Continue lendo ↓
+          </p>
+
+          {/* BLOCO 5: Emotional Reframe */}
+          <div className="bg-purple-50 rounded-2xl p-6 space-y-4">
+            <h2 className="text-xl font-bold text-gray-900">{reframeTitulo}</h2>
+            <p className="text-gray-600 leading-relaxed">{reframeTexto}</p>
+
+            <div className="space-y-2">
+              {beneficios.map((b, i) => (
+                <div key={i} className="flex items-start gap-2">
+                  <span className="text-purple-600 mt-0.5">✦</span>
+                  <p className="text-sm text-gray-700">{b}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* BLOCO 7: Depoimentos */}
+          <div className="space-y-4">
+            {depoimentos.map((dep, i) => (
+              <div key={i} className="bg-gray-50 rounded-xl p-4 space-y-2">
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: 5 }).map((_, j) => (
+                    <span key={j} className="text-yellow-400 text-xs">★</span>
+                  ))}
+                </div>
+                <p className="text-sm text-gray-700 italic">
+                  &ldquo;{dep.texto}&rdquo;
+                </p>
+                <p className="text-xs text-gray-500 font-medium">
+                  — {dep.nome}, {dep.cidade}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* BLOCO 8: Value Stack */}
           <div className="space-y-3">
+            <h3 className="text-lg font-bold text-gray-900 text-center">
+              O que você vai receber:
+            </h3>
+            {modulos.map((mod, i) => (
+              <div
+                key={i}
+                className="flex items-start gap-3 bg-white border border-gray-100 rounded-xl p-4 shadow-sm"
+              >
+                <span className="text-2xl">{mod.emoji}</span>
+                <div className="flex-1">
+                  <p className="font-semibold text-gray-900 text-sm">
+                    {mod.titulo}
+                  </p>
+                  <p className="text-xs text-gray-500">{mod.descricao}</p>
+                </div>
+                <span className="text-xs text-gray-400 line-through whitespace-nowrap">
+                  {mod.valorIndividual}
+                </span>
+              </div>
+            ))}
+
+            <div className="text-center pt-2">
+              <p className="text-sm text-gray-500">
+                Valor total: <span className="line-through">{valorTotal}</span>
+              </p>
+            </div>
+          </div>
+
+          {/* BLOCO 9: Price Reveal */}
+          <div className="bg-gradient-to-b from-purple-600 to-purple-700 rounded-2xl p-6 text-center text-white space-y-3">
+            <p className="text-sm opacity-80">Preço normal</p>
+            <p className="text-2xl line-through opacity-60">{precoOriginal}</p>
+            <p className="text-sm opacity-80">Hoje, apenas:</p>
+            <p className="text-5xl font-bold">{precoFinal}</p>
+            {periodoPagamento && (
+              <p className="text-sm opacity-80">{periodoPagamento}</p>
+            )}
+
             <button
               onClick={handleAccept}
-              className="w-full bg-purple-600 hover:bg-purple-700 active:scale-[0.98] text-white py-4 rounded-full font-semibold text-lg transition-all shadow-lg shadow-purple-200"
+              className="w-full bg-white text-purple-700 py-4 rounded-full font-bold text-lg transition-all hover:bg-purple-50 active:scale-[0.98] shadow-lg mt-2"
             >
               {txt.simQuero}
             </button>
-
-            <button
-              onClick={handleDecline}
-              className="w-full text-gray-400 hover:text-gray-600 py-3 text-sm transition-colors"
-            >
-              {txt.naoObrigado}
-            </button>
           </div>
+
+          {/* BLOCO 11: Scarcity Final */}
+          <div className="text-center space-y-2">
+            <p className="text-xs text-red-500 font-semibold uppercase">
+              ⚠ Esta oferta só existe nesta página
+            </p>
+            <p className="text-xs text-gray-400">
+              Ao sair, você não terá acesso a esse preço novamente.
+            </p>
+          </div>
+
+          {/* CTA repetido */}
+          <button
+            onClick={handleAccept}
+            className="w-full bg-purple-600 hover:bg-purple-700 active:scale-[0.98] text-white py-4 rounded-full font-bold text-lg transition-all shadow-lg shadow-purple-200"
+          >
+            {txt.simQuero}
+          </button>
+
+          {/* Decline */}
+          <button
+            onClick={handleDecline}
+            className="w-full text-gray-400 hover:text-gray-600 py-3 text-xs transition-colors"
+          >
+            {txt.naoObrigado}
+          </button>
         </div>
       </div>
     </main>
