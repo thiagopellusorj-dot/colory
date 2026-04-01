@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { posthog } from "@/lib/posthog";
 import { t } from "@/lib/i18n";
 import { useFunilStore } from "@/store/funilStore";
+import { FaqAccordion } from "@/components/funil/FaqAccordion";
 
 const TIMER_KEY = "colory-oto-timer-start";
 const TIMER_DURATION = 10 * 60 * 1000;
@@ -32,6 +33,8 @@ interface OtoLayoutProps {
   fomoTexto: string;
   // Bloco 3 — Curiosity Gap
   curiosidadeTexto: string;
+  // Bloco 3.5 — Product Preview (optional)
+  previewSection?: React.ReactNode;
   // Bloco 5 — Emotional Reframe
   reframeTitulo: string;
   reframeTexto: string;
@@ -45,6 +48,9 @@ interface OtoLayoutProps {
   precoOriginal: string;
   precoFinal: string;
   periodoPagamento?: string;
+  // Objection handling (optional)
+  garantiaSection?: React.ReactNode;
+  faqItems?: Array<{ pergunta: string; resposta: string }>;
   // Config
   perfectPayLink: string;
   nextRoute: string;
@@ -58,6 +64,7 @@ export function OtoLayout({
   validacaoTexto,
   fomoTexto,
   curiosidadeTexto,
+  previewSection,
   reframeTitulo,
   reframeTexto,
   beneficios,
@@ -67,6 +74,8 @@ export function OtoLayout({
   precoOriginal,
   precoFinal,
   periodoPagamento,
+  garantiaSection,
+  faqItems,
   perfectPayLink,
   nextRoute,
   onDecline,
@@ -158,6 +167,11 @@ export function OtoLayout({
             ↓ Continue lendo ↓
           </p>
 
+          {/* BLOCO 3.5: Product Preview */}
+          {previewSection && (
+            <div className="py-2">{previewSection}</div>
+          )}
+
           {/* BLOCO 5: Emotional Reframe */}
           <div className="bg-purple-50 rounded-2xl p-6 space-y-4">
             <h2 className="text-xl font-bold text-gray-900">{reframeTitulo}</h2>
@@ -239,6 +253,14 @@ export function OtoLayout({
               {txt.simQuero}
             </button>
           </div>
+
+          {/* Guarantee (optional) */}
+          {garantiaSection && <div>{garantiaSection}</div>}
+
+          {/* FAQ (optional) */}
+          {faqItems && faqItems.length > 0 && (
+            <FaqAccordion items={faqItems} />
+          )}
 
           {/* BLOCO 11: Scarcity Final */}
           <div className="text-center space-y-2">
