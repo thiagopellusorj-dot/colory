@@ -1,19 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminSupabase } from "@/lib/supabase-server";
 
-const PRODUCT_CODES = {
-  anual: process.env.PERFECTPAY_PRODUCT_ANUAL!,
-  mensal: process.env.PERFECTPAY_PRODUCT_MENSAL!,
-  creditos: process.env.PERFECTPAY_PRODUCT_CREDITOS!,
-  oto1: process.env.PERFECTPAY_PRODUCT_OTO1!,
-  oto3: process.env.PERFECTPAY_PRODUCT_OTO3!,
-};
-
 const CREDITOS_INICIAIS = 15;
 const CREDITOS_EXTRA = 20;
 const CICLO_DIAS = 30;
 
 export async function POST(request: NextRequest) {
+  const PRODUCT_CODES = {
+    anual: process.env.PERFECTPAY_PRODUCT_ANUAL || "PPLQQP2CV",
+    mensal: process.env.PERFECTPAY_PRODUCT_MENSAL || "PPLQQP2D2",
+    creditos: process.env.PERFECTPAY_PRODUCT_CREDITOS || "PPLQQP2H7",
+    oto1: process.env.PERFECTPAY_PRODUCT_OTO1 || "PPLQQP2HA",
+    oto3: process.env.PERFECTPAY_PRODUCT_OTO3 || "PPLQQP2HF",
+  };
+
   try {
     const body = await request.json();
 
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
 
       if (existente) {
         // Atualizar plano e créditos
-        await supabase
+        const { error: updateErr } = await supabase
           .from("usuarios")
           .update({
             plano,
@@ -68,7 +68,8 @@ export async function POST(request: NextRequest) {
           })
           .eq("id", existente.id);
 
-        console.log(`[Webhook] Usuario atualizado: ${email} → plano ${plano}`);
+        if (updateErr) console.error("[Webhook] Update error:", updateErr);
+        else console.log(`[Webhook] Usuario atualizado: ${email} → plano ${plano}`);
       } else {
         // Criar lead_id se existir lead com esse email
         const { data: lead } = await supabase
@@ -78,7 +79,7 @@ export async function POST(request: NextRequest) {
           .single();
 
         // Criar usuario
-        await supabase.from("usuarios").insert({
+        const { error: insertErr } = await supabase.from("usuarios").insert({
           email,
           plano,
           status: "ativo",
@@ -90,7 +91,8 @@ export async function POST(request: NextRequest) {
             : null,
         });
 
-        console.log(`[Webhook] Usuario criado: ${email} → plano ${plano}`);
+        if (insertErr) console.error("[Webhook] Insert error:", insertErr);
+        else console.log(`[Webhook] Usuario criado: ${email} → plano ${plano}`);
       }
 
       // Criar usuario no Supabase Auth (se não existe) e enviar magic link
