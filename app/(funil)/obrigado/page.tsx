@@ -142,7 +142,7 @@ export default function ObrigadoPage() {
             <div className="space-y-2.5">
               <div className="flex items-start gap-2.5">
                 <span className="text-lg mt-0.5">📧</span>
-                <p className="text-sm text-purple-800">Link de acesso ao app Colory — crie páginas de colorir ilimitadas</p>
+                <p className="text-sm text-purple-800">Link de acesso ao app Colory — crie páginas de colorir agora!</p>
               </div>
               {comprouLivro && (
                 <div className="flex items-start gap-2.5">

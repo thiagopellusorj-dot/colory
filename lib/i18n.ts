@@ -136,7 +136,7 @@ const translations = {
       // Headlines por objetivo (P4)
       headlines: {
         sem_tela:
-          "Troque o tempo de tela por algo que ele vai colorir e guardar pra sempre.",
+          "Troque o tempo de tela por algo que ele vai colorir e guardar pra sempre",
         lembranca:
           "Essa é a memória que vai ficar na geladeira da vovó por anos.",
         criativo:

@@ -37,7 +37,7 @@ export default function AssinarPage() {
     const link =
       plano === "anual"
         ? process.env.NEXT_PUBLIC_PERFECTPAY_LINK_ANUAL
-        : process.env.NEXT_PUBLIC_PERFECTPAY_LINK_SEMANAL;
+        : process.env.NEXT_PUBLIC_PERFECTPAY_LINK_MENSAL;
 
     if (link && link !== "https://perfectpay.com.br/pay/xxx") {
       window.location.href = link;
