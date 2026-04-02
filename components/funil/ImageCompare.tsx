@@ -63,10 +63,10 @@ export function ImageCompare({
           priority
         />
 
-        {/* Before (foto original) — clipped */}
+        {/* Before (foto original) — clipped via clip-path for true overlay */}
         <div
-          className="absolute inset-0 overflow-hidden"
-          style={{ width: `${position}%` }}
+          className="absolute inset-0"
+          style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
         >
           <Image
             src={before}
