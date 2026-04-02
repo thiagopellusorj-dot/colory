@@ -75,7 +75,7 @@ export default function AssinarPage() {
         )}
       </div>
 
-      <div className="flex-1 flex flex-col items-center px-5 -mt-3">
+      <div className="flex-1 flex flex-col items-center px-5 pt-5">
         <div className="w-full max-w-md space-y-4">
           {/* Headline */}
           <h1 className="text-xl font-bold text-gray-900 text-center leading-tight">
