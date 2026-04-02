@@ -352,17 +352,75 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 - [x] Fase 4 — Paywall (headline personalizada + blur preview)
 - [x] Fase 5 — OTOs (OTO1 com BookPreview + garantia + FAQ, OTO3, Obrigado)
 - [x] Deploy Vercel (https://colory-eight.vercel.app)
-- [ ] Fase 6 — App pós-pagamento
-- [ ] Fase 7 — Webhook Perfect Pay
+- [x] Fase 6 — App pós-pagamento (criar, gerando, resultado, paginas, configuracoes, bottom nav)
+- [x] Fase 7 — Webhook Perfect Pay + Sistema de Créditos + Auth (login + Google)
 - [ ] Fase 8 — Domínio custom + ajustes finais
 
-*(atualizado: 01/04/2026)*
+*(atualizado: 02/04/2026)*
 
 ---
 
 ## 🔄 EM PROGRESSO
 
-Próximo: Fase 6 — App pós-pagamento (auth guard, /criar, /gerando, /resultado, /paginas, /configuracoes, bottom nav)
+Próximo: Fase 8 — Deploy final + testes
+
+---
+
+## 📋 PRÓXIMOS PASSOS
+
+### Pra lançar (esta semana)
+1. **Domínio custom** — registrar (colory.app ou colory.com.br) e apontar pra Vercel
+2. **Teste de compra real** — fazer compra teste no Perfect Pay e verificar fluxo completo: webhook → usuario criado → magic link → login → app
+3. **Meta Pixel** — instalar quando for rodar tráfego pago
+
+### Pra melhorar conversão
+4. **Imagem OG personalizada** — criar imagem 1200x630 pra preview em WhatsApp/Instagram
+5. **WhatsApp follow-up D+3** — automação oferecendo vídeo personalizado (R$47)
+6. **Testar os 4 estilos** — gerar com cada estilo e validar qualidade
+
+### Pra escalar
+7. **Testar RLS** — verificar que usuario não vê dados de outro
+8. **Monitoramento Posthog** — alertas se conversão cair
+9. **Backup Supabase** — habilitar backups automáticos
+
+### Técnico
+10. **Reativar guards do funil** — guards da /obrigado e outras páginas estão comentados
+11. **Testes E2E** — Playwright pro fluxo completo
+12. **Cache de imagens** — otimizar carregamento
+
+---
+
+## 🔗 WEBHOOK PERFECT PAY — STATUS
+
+**URL configurada:** `https://colory-eight.vercel.app/api/webhook/perfectpay`
+**Token:** configurado no .env.local e Vercel
+**Produtos:** Colory + Imagine Book + Clube de Atividades selecionados
+**Eventos:** Todos os eventos ativados
+**Status:** Configurado mas NUNCA TESTADO com compra real
+
+### O que o webhook faz (por produto):
+| Produto | Código | Ação |
+|---|---|---|
+| Plano Anual | PPLQQP2CV | Cria usuario + 15 créditos + magic link por email |
+| Plano Mensal | PPLQQP2D2 | Cria usuario + 15 créditos + magic link por email |
+| Crédito Extra | PPLQQP2H7 | Soma +20 créditos no usuario existente |
+| OTO1 Livro | PPLQQP2HA | Registra compra na tabela `compras` |
+| OTO3 Clube | PPLQQP2HF | Registra compra na tabela `compras` |
+
+### Fluxo esperado:
+```
+Perfect Pay envia POST → /api/webhook/perfectpay
+  → Valida token (ed70f63b...)
+  → Checa sale_status_enum === 1 (aprovado)
+  → Identifica produto pelo product.code
+  → Executa ação correspondente
+  → Retorna 200
+```
+
+### ⚠️ PENDENTE DE VALIDAÇÃO:
+- Nunca recebeu um webhook real do Perfect Pay
+- Magic link pode não estar sendo enviado corretamente (depende de config do Supabase Auth)
+- Precisa de uma compra teste pra validar todo o fluxo
 
 ---
 
