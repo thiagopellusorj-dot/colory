@@ -7,11 +7,11 @@ const CICLO_DIAS = 30;
 
 export async function POST(request: NextRequest) {
   const PRODUCT_CODES = {
-    anual: process.env.PERFECTPAY_PRODUCT_ANUAL || "PPLQQP2CV",
-    mensal: process.env.PERFECTPAY_PRODUCT_MENSAL || "PPLQQP2D2",
-    creditos: process.env.PERFECTPAY_PRODUCT_CREDITOS || "PPLQQP2H7",
-    oto1: process.env.PERFECTPAY_PRODUCT_OTO1 || "PPLQQP2HA",
-    oto3: process.env.PERFECTPAY_PRODUCT_OTO3 || "PPLQQP2HF",
+    anual: (process.env.PERFECTPAY_PRODUCT_ANUAL || "PPLQQP2CV").trim(),
+    mensal: (process.env.PERFECTPAY_PRODUCT_MENSAL || "PPLQQP2D2").trim(),
+    creditos: (process.env.PERFECTPAY_PRODUCT_CREDITOS || "PPLQQP2H7").trim(),
+    oto1: (process.env.PERFECTPAY_PRODUCT_OTO1 || "PPLQQP2HA").trim(),
+    oto3: (process.env.PERFECTPAY_PRODUCT_OTO3 || "PPLQQP2HF").trim(),
   };
 
   try {
