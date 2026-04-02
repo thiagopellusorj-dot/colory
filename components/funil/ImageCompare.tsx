@@ -8,6 +8,7 @@ interface ImageCompareProps {
   after: string;
   beforeLabel?: string;
   afterLabel?: string;
+  hint?: string;
 }
 
 export function ImageCompare({
@@ -15,6 +16,7 @@ export function ImageCompare({
   after,
   beforeLabel = "Foto original",
   afterLabel = "Página de colorir",
+  hint = "Arraste para comparar",
 }: ImageCompareProps) {
   const [position, setPosition] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -101,7 +103,7 @@ export function ImageCompare({
       </div>
 
       <p className="text-center text-xs text-gray-400">
-        ← Arraste para comparar →
+        ← {hint} →
       </p>
     </div>
   );

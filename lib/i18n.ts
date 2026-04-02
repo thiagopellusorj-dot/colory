@@ -11,6 +11,7 @@ const translations = {
       fotoOriginal: "Foto original",
       paginaColorir: "Página de colorir",
       antesDepois: "Antes e depois",
+      arrasteComparar: "Arraste para comparar",
     },
 
     // Quiz
@@ -354,6 +355,7 @@ const translations = {
       fotoOriginal: "Original photo",
       paginaColorir: "Coloring page",
       antesDepois: "Before and after",
+      arrasteComparar: "Drag to compare",
     },
 
     // Quiz
@@ -697,6 +699,7 @@ const translations = {
       fotoOriginal: "Foto original",
       paginaColorir: "Página para colorear",
       antesDepois: "Antes y después",
+      arrasteComparar: "Arrastra para comparar",
     },
 
     // Quiz
@@ -1040,6 +1043,7 @@ const translations = {
       fotoOriginal: "Photo originale",
       paginaColorir: "Page de coloriage",
       antesDepois: "Avant et après",
+      arrasteComparar: "Glissez pour comparer",
     },
 
     // Quiz
@@ -1383,6 +1387,7 @@ const translations = {
       fotoOriginal: "Foto originale",
       paginaColorir: "Pagina da colorare",
       antesDepois: "Prima e dopo",
+      arrasteComparar: "Trascina per confrontare",
     },
 
     // Quiz

@@ -1,7 +1,7 @@
 "use client";
 
-import { Suspense, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { posthog } from "@/lib/posthog";
 import { t, setLocale, getLocale, type Locale } from "@/lib/i18n";
@@ -10,34 +10,34 @@ import { ImageCompare } from "@/components/funil/ImageCompare";
 
 const VALID_LOCALES = ["pt-BR", "en", "es", "fr", "it"];
 
-function LocaleDetector() {
-  const searchParams = useSearchParams();
+export default function LandingPage() {
+  const router = useRouter();
+  const [localeReady, setLocaleReady] = useState(false);
 
+  // Detect language from ?lang= on first load, then force re-render
   useEffect(() => {
-    const lang = searchParams.get("lang");
+    const params = new URLSearchParams(window.location.search);
+    const lang = params.get("lang");
     if (lang && VALID_LOCALES.includes(lang)) {
       setLocale(lang as Locale);
       updatePosthogLocale();
     }
-  }, [searchParams]);
-
-  return null;
-}
-
-export default function LandingPage() {
-  const router = useRouter();
-  const txt = t().landing;
+    setLocaleReady(true);
+  }, []);
 
   useEffect(() => {
-    posthog.capture("landing_page_viewed", { locale: getLocale() });
-  }, []);
+    if (localeReady) {
+      posthog.capture("landing_page_viewed", { locale: getLocale() });
+    }
+  }, [localeReady]);
+
+  // Wait for locale detection before rendering translated content
+  if (!localeReady) return null;
+
+  const txt = t().landing;
 
   return (
     <main className="flex min-h-screen flex-col bg-white">
-      <Suspense>
-        <LocaleDetector />
-      </Suspense>
-
       {/* Hero — imagens antes/depois */}
       <div className="relative bg-gradient-to-b from-purple-100 to-white px-4 pt-8 pb-4">
         <div className="mx-auto max-w-md space-y-3">
@@ -79,6 +79,9 @@ export default function LandingPage() {
           <ImageCompare
             before="/images/lp/capa-original.jpg"
             after="/images/lp/capa-gerada.jpg"
+            beforeLabel={txt.fotoOriginal}
+            afterLabel={txt.paginaColorir}
+            hint={txt.arrasteComparar}
           />
         </div>
       </div>
