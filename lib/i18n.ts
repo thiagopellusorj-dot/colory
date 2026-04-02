@@ -41,7 +41,29 @@ const translations = {
       // Transição
       transicaoTitle: (nome: string) => `Preparando algo especial para o ${nome}...`,
 
-      // P4 — Objetivo
+      // P4 — Tempo de tela
+      tempoTelaTitle: (nome: string) =>
+        `Quanto tempo por dia o ${nome} passa em frente às telas?`,
+      tempoTela1h: "Menos de 1 hora",
+      tempoTela2h: "1 a 2 horas",
+      tempoTela4h: "2 a 4 horas",
+      tempoTela4hMais: "Mais de 4 horas",
+      feedbackTela1h: "Ótimo! Atividades offline ajudam a manter assim!",
+      feedbackTela2h: "Normal, mas trocar parte por algo criativo faz diferença!",
+      feedbackTela4h: "Muitas mães passam por isso. Temos a solução perfeita!",
+      feedbackTela4hMais: "Você não está sozinha. Vamos mudar isso juntas!",
+
+      // P5 — Conexão
+      conexaoTitle: (nome: string) =>
+        `Você sente que poderia ter mais momentos de conexão com o ${nome}?`,
+      conexaoSim: "Sim, quero mais momentos juntos",
+      conexaoCorrido: "Sim, o dia a dia corrido não ajuda",
+      conexaoFalta: "Às vezes sinto falta disso",
+      feedbackConexaoSim: "Colorir juntos cria esses momentos mágicos!",
+      feedbackConexaoCorrido: "Entendemos! Em 5 minutos vocês já estão colorindo juntos.",
+      feedbackConexaoFalta: "Cada página é uma oportunidade de conexão!",
+
+      // P6 — Objetivo
       objetivoTitle: (nome: string) =>
         `O que você mais quer proporcionar para o ${nome}?`,
       objetivoCriativo: "Momentos criativos",
@@ -114,7 +136,7 @@ const translations = {
       // Headlines por objetivo (P4)
       headlines: {
         sem_tela:
-          "Troque 1 hora de celular por algo que ele vai colorir e guardar pra sempre.",
+          "Troque o tempo de tela por algo que ele vai colorir e guardar pra sempre.",
         lembranca:
           "Essa é a memória que vai ficar na geladeira da vovó por anos.",
         criativo:

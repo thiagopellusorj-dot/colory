@@ -6,17 +6,14 @@ import { useFunilStore } from "@/store/funilStore";
 import { posthog } from "@/lib/posthog";
 import { t } from "@/lib/i18n";
 
-type QuizStep = "genero" | "idade" | "nome" | "transicao" | "objetivo";
+type QuizStep = "genero" | "idade" | "nome" | "transicao" | "tempo_tela" | "conexao" | "objetivo";
+
+const STEP_ORDER: QuizStep[] = ["genero", "idade", "nome", "transicao", "tempo_tela", "conexao", "objetivo"];
 
 function getProgressWidth(step: QuizStep): number {
-  const map: Record<QuizStep, number> = {
-    genero: 25,
-    idade: 50,
-    nome: 75,
-    transicao: 75,
-    objetivo: 100,
-  };
-  return map[step];
+  const idx = STEP_ORDER.indexOf(step);
+  if (step === "transicao") return getProgressWidth("nome");
+  return Math.round(((idx + 1) / (STEP_ORDER.length - 1)) * 100); // -1 to exclude transicao
 }
 
 export default function QuizPage() {
@@ -87,11 +84,32 @@ export default function QuizPage() {
   useEffect(() => {
     if (step === "transicao") {
       const timer = setTimeout(() => {
-        advanceToStep("objetivo");
+        advanceToStep("tempo_tela");
       }, 2000);
       return () => clearTimeout(timer);
     }
   }, [step, advanceToStep]);
+
+  const handleTempoTela = (tempo: string) => {
+    store.setTempoTela(tempo);
+    const feedbacks: Record<string, string> = {
+      "menos_1h": txt.feedbackTela1h,
+      "1_2h": txt.feedbackTela2h,
+      "2_4h": txt.feedbackTela4h,
+      "mais_4h": txt.feedbackTela4hMais,
+    };
+    handleSelect("tempo_tela", tempo, feedbacks[tempo] ?? "", "conexao");
+  };
+
+  const handleConexao = (conexao: string) => {
+    store.setConexao(conexao);
+    const feedbacks: Record<string, string> = {
+      "mais_momentos": txt.feedbackConexaoSim,
+      "corrido": txt.feedbackConexaoCorrido,
+      "falta": txt.feedbackConexaoFalta,
+    };
+    handleSelect("conexao", conexao, feedbacks[conexao] ?? "", "objetivo");
+  };
 
   const handleObjetivo = (objetivo: string) => {
     store.setObjetivo(objetivo);
@@ -145,6 +163,12 @@ export default function QuizPage() {
             />
           )}
           {step === "transicao" && <StepTransicao nome={store.nome_filho} />}
+          {step === "tempo_tela" && (
+            <StepTempoTela onSelect={handleTempoTela} feedback={feedback} nome={store.nome_filho} />
+          )}
+          {step === "conexao" && (
+            <StepConexao onSelect={handleConexao} feedback={feedback} nome={store.nome_filho} />
+          )}
           {step === "objetivo" && (
             <StepObjetivo onSelect={handleObjetivo} feedback={feedback} nome={store.nome_filho} />
           )}
@@ -296,6 +320,93 @@ function StepTransicao({ nome }: { nome: string }) {
       <div className="w-full max-w-xs mx-auto h-2 bg-purple-100 rounded-full overflow-hidden">
         <div className="h-full bg-purple-600 rounded-full animate-loading-bar" />
       </div>
+    </div>
+  );
+}
+
+function StepTempoTela({
+  onSelect,
+  feedback,
+  nome,
+}: {
+  onSelect: (t: string) => void;
+  feedback: string | null;
+  nome: string;
+}) {
+  const txt = t().quiz;
+
+  const opcoes = [
+    { valor: "menos_1h", emoji: "📱", label: txt.tempoTela1h },
+    { valor: "1_2h", emoji: "📺", label: txt.tempoTela2h },
+    { valor: "2_4h", emoji: "🎮", label: txt.tempoTela4h },
+    { valor: "mais_4h", emoji: "😰", label: txt.tempoTela4hMais },
+  ];
+
+  return (
+    <div className="text-center space-y-8">
+      <h2 className="text-2xl font-bold text-gray-900">
+        {txt.tempoTelaTitle(nome)}
+      </h2>
+
+      <div className="space-y-3">
+        {opcoes.map((op) => (
+          <button
+            key={op.valor}
+            onClick={() => onSelect(op.valor)}
+            className="w-full flex items-center gap-4 p-4 rounded-2xl border-2 border-gray-200 hover:border-purple-400 hover:bg-purple-50 transition-all active:scale-[0.98] text-left"
+          >
+            <span className="text-3xl">{op.emoji}</span>
+            <span className="font-medium text-gray-700 text-lg">{op.label}</span>
+          </button>
+        ))}
+      </div>
+
+      {feedback && (
+        <p className="text-purple-600 font-medium animate-fade-in">{feedback}</p>
+      )}
+    </div>
+  );
+}
+
+function StepConexao({
+  onSelect,
+  feedback,
+  nome,
+}: {
+  onSelect: (c: string) => void;
+  feedback: string | null;
+  nome: string;
+}) {
+  const txt = t().quiz;
+
+  const opcoes = [
+    { valor: "mais_momentos", emoji: "💛", label: txt.conexaoSim },
+    { valor: "corrido", emoji: "😔", label: txt.conexaoCorrido },
+    { valor: "falta", emoji: "🤔", label: txt.conexaoFalta },
+  ];
+
+  return (
+    <div className="text-center space-y-8">
+      <h2 className="text-2xl font-bold text-gray-900">
+        {txt.conexaoTitle(nome)}
+      </h2>
+
+      <div className="space-y-3">
+        {opcoes.map((op) => (
+          <button
+            key={op.valor}
+            onClick={() => onSelect(op.valor)}
+            className="w-full flex items-center gap-4 p-4 rounded-2xl border-2 border-gray-200 hover:border-purple-400 hover:bg-purple-50 transition-all active:scale-[0.98] text-left"
+          >
+            <span className="text-3xl">{op.emoji}</span>
+            <span className="font-medium text-gray-700 text-lg">{op.label}</span>
+          </button>
+        ))}
+      </div>
+
+      {feedback && (
+        <p className="text-purple-600 font-medium animate-fade-in">{feedback}</p>
+      )}
     </div>
   );
 }
