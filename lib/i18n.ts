@@ -131,15 +131,16 @@ const translations = {
       planoAnualNome: "Plano Anual",
       planoAnualPreco: "R$99,90",
       planoAnualPeriodo: "/ano",
-      planoAnualDestaque: "Economize 83%",
-      planoSemanalNome: "Plano Semanal",
-      planoSemanalPreco: "R$14,90",
-      planoSemanalPeriodo: "/semana",
-      planoSemanalObs: "equivale a R$29,90/mês",
-      ancora: "Sem o plano: R$514/ano",
+      planoAnualDestaque: "Economize 79%",
+      planoAnualObs: "apenas R$8,33/mês",
+      planoMensalNome: "Plano Mensal",
+      planoMensalPreco: "R$39,90",
+      planoMensalPeriodo: "/mês",
+      planoMensalObs: "cancele quando quiser",
+      ancora: "Sem o plano: R$478/ano",
 
       // Trust
-      garantiaTitulo: "Garantia de 30 dias",
+      garantiaTitulo: "Garantia de 7 dias",
       garantiaTexto:
         "Se não gostar, devolvemos 100% do seu dinheiro. Sem perguntas.",
       reviewNome: "Camila S.",
@@ -150,7 +151,7 @@ const translations = {
       // CTA
       ctaAnual: (nome: string) =>
         `Desbloquear a página do ${nome} agora`,
-      ctaSemanal: "Começar por R$14,90/semana",
+      ctaMensal: "Começar por R$39,90/mês",
 
       // Eventos
       geracoesFree: "Você usou sua geração gratuita",
@@ -193,6 +194,61 @@ const translations = {
       oto3Por: "R$97",
       oto3PorPeriodo: "pagamento único",
       oto3Emoji: "🎨",
+    },
+
+    // App — Criar
+    app: {
+      criarTitle: "Nova Página de Colorir",
+      criarSubtitle: "Escolha uma foto e um estilo para criar",
+      selecioneFilho: "Para quem é a página?",
+      adicionarFilho: "Adicionar filho",
+      estiloTitle: "Estilo da página",
+      estilos: {
+        classico: "Clássico",
+        cartoon: "Cartoon",
+        detalhado: "Detalhado",
+        simples: "Simples",
+        mandala: "Mandala",
+        anime: "Anime",
+      } as Record<string, string>,
+      estiloBloqueado: "Disponível no Clube",
+      enviarFoto: "Enviar foto",
+      gerarPagina: "Gerar página de colorir",
+      trocarFoto: "Trocar foto",
+
+      // Gerando
+      gerandoTitle: "Criando sua página...",
+
+      // Resultado
+      resultadoTitle: (nome: string) => `A página do ${nome} ficou pronta!`,
+      resultadoSubtitle: "Imprima e divirta-se colorindo!",
+      baixar: "Baixar Imagem",
+      compartilhar: "Compartilhar",
+      criarOutra: "Criar outra página",
+      ofertaEspecial: "Oferta especial para você",
+      desbloquear: "Desbloquear",
+
+      // Páginas
+      paginasTitle: "Minhas Páginas",
+      paginasEmpty: "Você ainda não criou nenhuma página",
+      paginasEmptyCta: "Criar minha primeira página",
+      filtrarPor: "Filtrar por:",
+      todos: "Todos",
+      clubeCard: "Desbloqueie estilos exclusivos e atividades semanais!",
+      clubeCta: "Conhecer o Clube",
+
+      // Configurações
+      configTitle: "Minha Conta",
+      configEmail: "E-mail",
+      configPlano: "Plano",
+      configFilhos: "Filhos cadastrados",
+      configAdicionarFilho: "Adicionar filho",
+      configNome: "Nome",
+      configGenero: "Gênero",
+      configIdade: "Idade",
+      configSalvar: "Salvar",
+      configSair: "Sair da conta",
+      configSuporte: "Precisa de ajuda? Fale conosco no WhatsApp",
     },
 
     // Obrigado

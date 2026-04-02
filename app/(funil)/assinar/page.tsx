@@ -7,7 +7,7 @@ import { useFunilStore } from "@/store/funilStore";
 import { posthog } from "@/lib/posthog";
 import { t } from "@/lib/i18n";
 
-type Plano = "anual" | "semanal";
+type Plano = "anual" | "mensal";
 
 export default function AssinarPage() {
   const router = useRouter();
@@ -48,43 +48,41 @@ export default function AssinarPage() {
 
   return (
     <main className="flex min-h-screen flex-col bg-white">
-      {/* HERO COMPACTO — imagem borrada + headline + CTA na primeira dobra */}
+      {/* HERO — imagem borrada compacta */}
       <div className="relative">
-        {/* Imagem borrada como background — altura compacta */}
         {store.url_foto_gerada ? (
-          <div className="relative h-48 overflow-hidden">
+          <div className="relative h-44 overflow-hidden">
             <Image
               src={store.url_foto_gerada}
               alt="Preview"
               fill
-              className="object-cover blur-xl scale-125 brightness-90"
+              className="object-cover blur-xl scale-125 brightness-75"
               sizes="100vw"
               unoptimized
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-white" />
-            {/* Lock badge */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-white" />
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="bg-white/90 backdrop-blur-sm rounded-2xl px-5 py-3 text-center shadow-lg">
+              <div className="bg-white/95 backdrop-blur-sm rounded-2xl px-5 py-3 text-center shadow-lg">
                 <span className="text-2xl">🔒</span>
-                <p className="text-xs font-semibold text-purple-700 mt-0.5">
+                <p className="text-xs font-bold text-purple-700 mt-0.5">
                   {txt.subtitleBlur}
                 </p>
               </div>
             </div>
           </div>
         ) : (
-          <div className="h-24 bg-gradient-to-b from-purple-100 to-white" />
+          <div className="h-20 bg-gradient-to-b from-purple-100 to-white" />
         )}
       </div>
 
-      <div className="flex-1 flex flex-col items-center px-5 -mt-4">
-        <div className="w-full max-w-md space-y-5">
-          {/* Headline personalizado */}
-          <h1 className="text-xl font-bold text-gray-900 text-center leading-tight pt-2">
+      <div className="flex-1 flex flex-col items-center px-5 -mt-3">
+        <div className="w-full max-w-md space-y-4">
+          {/* Headline */}
+          <h1 className="text-xl font-bold text-gray-900 text-center leading-tight">
             {headline}
           </h1>
 
-          {/* Contador de mães */}
+          {/* Social proof */}
           <div className="flex items-center justify-center gap-2">
             <div className="flex -space-x-2">
               {["👩", "👩‍🦰", "👩‍🦱"].map((emoji, i) => (
@@ -94,11 +92,11 @@ export default function AssinarPage() {
               ))}
             </div>
             <p className="text-xs text-gray-500">
-              <span className="font-semibold text-purple-600">2.847 mães</span> já assinaram esta semana
+              <span className="font-semibold text-purple-600">2.847 mães</span> já assinaram
             </p>
           </div>
 
-          {/* Âncora de preço */}
+          {/* Âncora */}
           <p className="text-center text-sm text-gray-400 line-through">
             {txt.ancora}
           </p>
@@ -121,6 +119,7 @@ export default function AssinarPage() {
                 <div>
                   <p className="font-semibold text-gray-900">{txt.planoAnualNome}</p>
                   <p className="text-xs text-purple-600 font-medium">{txt.planoAnualDestaque}</p>
+                  <p className="text-xs text-gray-400 mt-0.5">{txt.planoAnualObs}</p>
                 </div>
                 <div className="text-right">
                   <span className="text-2xl font-bold text-gray-900">{txt.planoAnualPreco}</span>
@@ -136,73 +135,84 @@ export default function AssinarPage() {
               </div>
             </button>
 
-            {/* Plano Semanal */}
+            {/* Plano Mensal */}
             <button
-              onClick={() => setPlanoSelecionado("semanal")}
+              onClick={() => setPlanoSelecionado("mensal")}
               className={`w-full relative rounded-2xl p-4 text-left transition-all ${
-                planoSelecionado === "semanal"
+                planoSelecionado === "mensal"
                   ? "border-2 border-purple-600 bg-purple-50 shadow-md"
                   : "border-2 border-gray-200"
               }`}
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-semibold text-gray-900">{txt.planoSemanalNome}</p>
-                  <p className="text-xs text-gray-500">{txt.planoSemanalObs}</p>
+                  <p className="font-semibold text-gray-900">{txt.planoMensalNome}</p>
+                  <p className="text-xs text-gray-500">{txt.planoMensalObs}</p>
                 </div>
                 <div className="text-right">
-                  <span className="text-2xl font-bold text-gray-900">{txt.planoSemanalPreco}</span>
-                  <span className="text-sm text-gray-500">{txt.planoSemanalPeriodo}</span>
+                  <span className="text-2xl font-bold text-gray-900">{txt.planoMensalPreco}</span>
+                  <span className="text-sm text-gray-500">{txt.planoMensalPeriodo}</span>
                 </div>
               </div>
               <div className="absolute top-4 right-4">
                 <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                  planoSelecionado === "semanal" ? "border-purple-600" : "border-gray-300"
+                  planoSelecionado === "mensal" ? "border-purple-600" : "border-gray-300"
                 }`}>
-                  {planoSelecionado === "semanal" && <div className="w-3 h-3 rounded-full bg-purple-600" />}
+                  {planoSelecionado === "mensal" && <div className="w-3 h-3 rounded-full bg-purple-600" />}
                 </div>
               </div>
             </button>
           </div>
 
-          {/* CTA principal */}
+          {/* CTA */}
           <button
             onClick={() => handleComprar(planoSelecionado)}
             className="w-full bg-purple-600 hover:bg-purple-700 active:scale-[0.98] text-white py-4 rounded-full font-bold text-lg transition-all shadow-lg shadow-purple-200"
           >
             {planoSelecionado === "anual"
               ? txt.ctaAnual(nome)
-              : txt.ctaSemanal}
+              : txt.ctaMensal}
           </button>
 
-          {/* Trust badges inline */}
-          <div className="flex items-center justify-center gap-4 text-xs text-gray-400">
+          {/* Trust badges */}
+          <div className="flex items-center justify-center gap-3 text-xs text-gray-400">
             <span>🔒 Pagamento seguro</span>
             <span>•</span>
-            <span>↩️ Garantia 30 dias</span>
+            <span>↩️ Garantia 7 dias</span>
             <span>•</span>
             <span>⚡ Acesso imediato</span>
           </div>
 
-          {/* O que está incluído */}
-          <div className="bg-purple-50 rounded-2xl p-5 space-y-3">
+          {/* Comparativo visual — o que cada plano inclui */}
+          <div className="bg-gray-50 rounded-2xl p-5 space-y-3">
             <h3 className="font-bold text-gray-900 text-sm text-center">
-              O que você recebe ao assinar:
+              Ambos os planos incluem:
             </h3>
-            <div className="space-y-2">
+            <div className="space-y-2.5">
               {[
-                "Páginas de colorir ilimitadas com a foto do seu filho",
-                "Vários estilos artísticos para escolher",
-                "PDF em alta resolução — imprima quantas vezes quiser",
-                "Novas páginas toda semana — ele nunca enjoa",
-                `Personalizado com o nome e rosto do ${nome}`,
+                { icon: "🎨", text: "Até 15 páginas de colorir por mês" },
+                { icon: "📸", text: `Personalizadas com o rosto do ${nome}` },
+                { icon: "✨", text: "Vários estilos artísticos para escolher" },
+                { icon: "📄", text: "PDF em alta resolução — imprima quantas vezes quiser" },
+                { icon: "📱", text: "Receba pelo e-mail ou direto no celular" },
+                { icon: "🔄", text: "Novas páginas toda semana — ele nunca enjoa" },
               ].map((item, i) => (
-                <div key={i} className="flex items-start gap-2">
-                  <span className="text-purple-600 text-sm mt-0.5">✓</span>
-                  <p className="text-sm text-gray-700">{item}</p>
+                <div key={i} className="flex items-start gap-3">
+                  <span className="text-base flex-shrink-0">{item.icon}</span>
+                  <p className="text-sm text-gray-700">{item.text}</p>
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Urgência — oferta limitada */}
+          <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-center space-y-1">
+            <p className="text-sm font-bold text-amber-800">
+              ⏳ Oferta especial de lançamento
+            </p>
+            <p className="text-xs text-amber-700">
+              Esse preço é exclusivo para quem acabou de criar a primeira página. Ao sair, o valor volta ao normal.
+            </p>
           </div>
 
           {/* Garantia */}
@@ -252,7 +262,7 @@ export default function AssinarPage() {
             ))}
           </div>
 
-          {/* FAQ rápido */}
+          {/* FAQ */}
           <div className="space-y-3">
             <h3 className="font-bold text-gray-900 text-sm text-center">
               Dúvidas frequentes
@@ -260,15 +270,19 @@ export default function AssinarPage() {
             {[
               {
                 p: "Como funciona?",
-                r: "Você envia a foto do seu filho, escolhe o estilo e a IA gera uma página de colorir personalizada em segundos. É só imprimir!",
+                r: "Você envia a foto do seu filho, escolhe o estilo e a IA gera uma página de colorir personalizada em segundos. Receba por e-mail ou direto no celular!",
+              },
+              {
+                p: "Quantas páginas posso criar?",
+                r: "Até 15 páginas de colorir por mês. Suficiente pra ele ter uma nova quase todo dia!",
               },
               {
                 p: "Posso cancelar quando quiser?",
-                r: "Sim! Cancele a qualquer momento sem burocracia. E nos primeiros 30 dias, devolvemos 100% do valor.",
+                r: "Sim! Cancele a qualquer momento sem burocracia. E nos primeiros 7 dias, devolvemos 100% do valor.",
               },
               {
-                p: "Funciona no celular?",
-                r: "Sim! Você cria pelo celular e recebe o PDF por e-mail. Imprima em casa ou na gráfica.",
+                p: "Como recebo as páginas?",
+                r: "Você recebe o PDF por e-mail ou acessa direto pelo celular. Imprima em casa ou na gráfica — sem limite de cópias.",
               },
             ].map((faq, i) => (
               <div key={i} className="border border-gray-100 rounded-xl p-4">
@@ -278,20 +292,22 @@ export default function AssinarPage() {
             ))}
           </div>
 
-          {/* CTA repetido */}
-          <button
-            onClick={() => handleComprar(planoSelecionado)}
-            className="w-full bg-purple-600 hover:bg-purple-700 active:scale-[0.98] text-white py-4 rounded-full font-bold text-lg transition-all shadow-lg shadow-purple-200"
-          >
-            {planoSelecionado === "anual"
-              ? txt.ctaAnual(nome)
-              : txt.ctaSemanal}
-          </button>
+          {/* CTA final */}
+          <div className="space-y-2 pt-2">
+            <button
+              onClick={() => handleComprar(planoSelecionado)}
+              className="w-full bg-purple-600 hover:bg-purple-700 active:scale-[0.98] text-white py-4 rounded-full font-bold text-lg transition-all shadow-lg shadow-purple-200"
+            >
+              {planoSelecionado === "anual"
+                ? txt.ctaAnual(nome)
+                : txt.ctaMensal}
+            </button>
+            <p className="text-center text-xs text-gray-400">
+              {txt.geracoesFree}
+            </p>
+          </div>
 
-          {/* Geração free usada */}
-          <p className="text-center text-xs text-gray-400 pb-4">
-            {txt.geracoesFree}
-          </p>
+          <div className="h-6" />
         </div>
       </div>
     </main>
