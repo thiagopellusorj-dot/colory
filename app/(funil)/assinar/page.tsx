@@ -93,7 +93,7 @@ export default function AssinarPage() {
               ))}
             </div>
             <p className="text-xs text-gray-500">
-              <span className="font-semibold text-purple-600">2.847 mães</span> já assinaram
+              <span className="font-semibold text-purple-600">{txt.socialProofCount}</span> {txt.socialProofText}
             </p>
           </div>
 
@@ -177,26 +177,26 @@ export default function AssinarPage() {
 
           {/* Trust badges */}
           <div className="flex items-center justify-center gap-3 text-xs text-gray-400">
-            <span>🔒 Pagamento seguro</span>
+            <span>🔒 {txt.trustPagamento}</span>
             <span>•</span>
-            <span>↩️ Garantia 7 dias</span>
+            <span>↩️ {txt.trustGarantia}</span>
             <span>•</span>
-            <span>⚡ Acesso imediato</span>
+            <span>⚡ {txt.trustAcesso}</span>
           </div>
 
           {/* Comparativo visual — o que cada plano inclui */}
           <div className="bg-gray-50 rounded-2xl p-5 space-y-3">
             <h3 className="font-bold text-gray-900 text-sm text-center">
-              Ambos os planos incluem:
+              {txt.beneficiosTitulo}
             </h3>
             <div className="space-y-2.5">
               {[
-                { icon: "🎨", text: "Até 15 páginas de colorir por mês" },
-                { icon: "📸", text: `Personalizadas com o rosto do ${nome}` },
-                { icon: "✨", text: "Vários estilos artísticos para escolher" },
-                { icon: "📄", text: "PDF em alta resolução — imprima quantas vezes quiser" },
-                { icon: "📱", text: "Receba pelo e-mail ou direto no celular" },
-                { icon: "🔄", text: "Novas páginas toda semana — ele nunca enjoa" },
+                { icon: "🎨", text: txt.beneficio1 },
+                { icon: "📸", text: txt.beneficio2(nome) },
+                { icon: "✨", text: txt.beneficio3 },
+                { icon: "📄", text: txt.beneficio4 },
+                { icon: "📱", text: txt.beneficio5 },
+                { icon: "🔄", text: txt.beneficio6(nome) },
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <span className="text-base flex-shrink-0">{item.icon}</span>
@@ -209,10 +209,10 @@ export default function AssinarPage() {
           {/* Urgência — oferta limitada */}
           <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-center space-y-1">
             <p className="text-sm font-bold text-amber-800">
-              ⏳ Oferta especial de lançamento
+              ⏳ {txt.urgenciaTitulo}
             </p>
             <p className="text-xs text-amber-700">
-              Esse preço é exclusivo para quem acabou de criar a primeira página. Ao sair, o valor volta ao normal.
+              {txt.urgenciaTexto}
             </p>
           </div>
 
@@ -232,25 +232,9 @@ export default function AssinarPage() {
           {/* Depoimentos */}
           <div className="space-y-3">
             <h3 className="font-bold text-gray-900 text-sm text-center">
-              O que outras mães dizem:
+              {txt.depoimentosTitulo}
             </h3>
-            {[
-              {
-                nome: "Camila S.",
-                cidade: "São Paulo",
-                texto: "Meu filho amou! Já imprimimos mais de 20 páginas. Ele pede toda semana pra fazer uma nova.",
-              },
-              {
-                nome: "Renata M.",
-                cidade: "Belo Horizonte",
-                texto: "Melhor investimento que fiz. Ele larga o celular na hora que vê a página de colorir dele. Vale cada centavo.",
-              },
-              {
-                nome: "Juliana P.",
-                cidade: "Curitiba",
-                texto: "A professora pediu pra fazer pra turma inteira depois que viu a do meu filho. Incrível!",
-              },
-            ].map((dep, i) => (
+            {txt.depoimentos.map((dep, i) => (
               <div key={i} className="bg-gray-50 rounded-xl p-4 space-y-2">
                 <div className="flex items-center gap-1">
                   {Array.from({ length: 5 }).map((_, j) => (
@@ -266,26 +250,9 @@ export default function AssinarPage() {
           {/* FAQ */}
           <div className="space-y-3">
             <h3 className="font-bold text-gray-900 text-sm text-center">
-              Dúvidas frequentes
+              {txt.faqTitulo}
             </h3>
-            {[
-              {
-                p: "Como funciona?",
-                r: "Você envia a foto do seu filho, escolhe o estilo e a IA gera uma página de colorir personalizada em segundos. Receba por e-mail ou direto no celular!",
-              },
-              {
-                p: "Quantas páginas posso criar?",
-                r: "Até 15 páginas de colorir por mês. Suficiente pra ele ter uma nova quase todo dia!",
-              },
-              {
-                p: "Posso cancelar quando quiser?",
-                r: "Sim! Cancele a qualquer momento sem burocracia. E nos primeiros 7 dias, devolvemos 100% do valor.",
-              },
-              {
-                p: "Como recebo as páginas?",
-                r: "Você recebe o PDF por e-mail ou acessa direto pelo celular. Imprima em casa ou na gráfica — sem limite de cópias.",
-              },
-            ].map((faq, i) => (
+            {txt.faqs.map((faq, i) => (
               <div key={i} className="border border-gray-100 rounded-xl p-4">
                 <p className="text-sm font-semibold text-gray-800">{faq.p}</p>
                 <p className="text-xs text-gray-600 mt-1 leading-relaxed">{faq.r}</p>

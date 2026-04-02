@@ -164,7 +164,7 @@ export function OtoLayout({
 
           {/* BLOCO 4: Micro CTA */}
           <p className="text-center text-purple-600 text-sm font-medium animate-bounce">
-            ↓ Continue lendo ↓
+            {txt.continueLendo}
           </p>
 
           {/* BLOCO 3.5: Product Preview */}
@@ -209,7 +209,7 @@ export function OtoLayout({
           {/* BLOCO 8: Value Stack */}
           <div className="space-y-3">
             <h3 className="text-lg font-bold text-gray-900 text-center">
-              O que você vai receber:
+              {txt.oQueVoceRecebe}
             </h3>
             {modulos.map((mod, i) => (
               <div
@@ -231,16 +231,16 @@ export function OtoLayout({
 
             <div className="text-center pt-2">
               <p className="text-sm text-gray-500">
-                Valor total: <span className="line-through">{valorTotal}</span>
+                {txt.valorTotalLabel} <span className="line-through">{valorTotal}</span>
               </p>
             </div>
           </div>
 
           {/* BLOCO 9: Price Reveal */}
           <div className="bg-gradient-to-b from-purple-600 to-purple-700 rounded-2xl p-6 text-center text-white space-y-3">
-            <p className="text-sm opacity-80">Preço normal</p>
+            <p className="text-sm opacity-80">{txt.precoNormal}</p>
             <p className="text-2xl line-through opacity-60">{precoOriginal}</p>
-            <p className="text-sm opacity-80">Hoje, apenas:</p>
+            <p className="text-sm opacity-80">{txt.hojeApenas}</p>
             <p className="text-5xl font-bold">{precoFinal}</p>
             {periodoPagamento && (
               <p className="text-sm opacity-80">{periodoPagamento}</p>
@@ -265,10 +265,10 @@ export function OtoLayout({
           {/* BLOCO 11: Scarcity Final */}
           <div className="text-center space-y-2">
             <p className="text-xs text-red-500 font-semibold uppercase">
-              ⚠ Esta oferta só existe nesta página
+              ⚠ {txt.scarcityTitle}
             </p>
             <p className="text-xs text-gray-400">
-              Ao sair, você não terá acesso a esse preço novamente.
+              {txt.scarcityText}
             </p>
           </div>
 

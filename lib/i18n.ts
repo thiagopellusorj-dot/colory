@@ -179,6 +179,45 @@ const translations = {
 
       // Eventos
       geracoesFree: "Você usou sua geração gratuita",
+
+      // Social proof
+      socialProofCount: "2.847",
+      socialProofText: "mães já assinaram",
+
+      // Trust badges
+      trustPagamento: "Pagamento seguro",
+      trustGarantia: "Garantia 7 dias",
+      trustAcesso: "Acesso imediato",
+
+      // Benefits
+      beneficiosTitulo: "Ambos os planos incluem:",
+      beneficio1: "Até 15 páginas de colorir por mês",
+      beneficio2: (nome: string) => `Personalizadas com o rosto do ${nome}`,
+      beneficio3: "Vários estilos artísticos para escolher",
+      beneficio4: "PDF em alta resolução — imprima quantas vezes quiser",
+      beneficio5: "Receba pelo e-mail ou direto no celular",
+      beneficio6: (nome: string) => `Novas páginas toda semana — ${nome} nunca enjoa`,
+
+      // Urgency
+      urgenciaTitulo: "Oferta especial de lançamento",
+      urgenciaTexto: "Esse preço é exclusivo para quem acabou de criar a primeira página. Ao sair, o valor volta ao normal.",
+
+      // Testimonials
+      depoimentosTitulo: "O que outras mães dizem:",
+      depoimentos: [
+        { nome: "Camila S.", cidade: "São Paulo", texto: "Meu filho amou! Já imprimimos mais de 20 páginas. Ele pede toda semana pra fazer uma nova." },
+        { nome: "Renata M.", cidade: "Belo Horizonte", texto: "Melhor investimento que fiz. Ele larga o celular na hora que vê a página de colorir dele. Vale cada centavo." },
+        { nome: "Juliana P.", cidade: "Curitiba", texto: "A professora pediu pra fazer pra turma inteira depois que viu a do meu filho. Incrível!" },
+      ] as { nome: string; cidade: string; texto: string }[],
+
+      // FAQ
+      faqTitulo: "Dúvidas frequentes",
+      faqs: [
+        { p: "Como funciona?", r: "Você envia a foto do seu filho, escolhe o estilo e a IA gera uma página de colorir personalizada em segundos. Receba por e-mail ou direto no celular!" },
+        { p: "Quantas páginas posso criar?", r: "Até 15 páginas de colorir por mês. Suficiente pra ele ter uma nova quase todo dia!" },
+        { p: "Posso cancelar quando quiser?", r: "Sim! Cancele a qualquer momento sem burocracia. E nos primeiros 7 dias, devolvemos 100% do valor." },
+        { p: "Como recebo as páginas?", r: "Você recebe o PDF por e-mail ou acessa direto pelo celular. Imprima em casa ou na gráfica — sem limite de cópias." },
+      ] as { p: string; r: string }[],
     },
 
     // OTOs
@@ -218,6 +257,15 @@ const translations = {
       oto3Por: "R$97",
       oto3PorPeriodo: "pagamento único",
       oto3Emoji: "🎨",
+
+      // OtoLayout framework text
+      continueLendo: "↓ Continue lendo ↓",
+      oQueVoceRecebe: "O que você vai receber:",
+      valorTotalLabel: "Valor total:",
+      precoNormal: "Preço normal",
+      hojeApenas: "Hoje, apenas:",
+      scarcityTitle: "Esta oferta só existe nesta página",
+      scarcityText: "Ao sair, você não terá acesso a esse preço novamente.",
     },
 
     // App — Criar
@@ -474,6 +522,45 @@ const translations = {
 
       // Events
       geracoesFree: "You've used your free generation",
+
+      // Social proof
+      socialProofCount: "2,847",
+      socialProofText: "moms have already subscribed",
+
+      // Trust badges
+      trustPagamento: "Secure payment",
+      trustGarantia: "7-day guarantee",
+      trustAcesso: "Instant access",
+
+      // Benefits
+      beneficiosTitulo: "Both plans include:",
+      beneficio1: "Up to 15 coloring pages per month",
+      beneficio2: (nome: string) => `Personalized with ${nome}'s face`,
+      beneficio3: "Multiple artistic styles to choose from",
+      beneficio4: "High-resolution PDF — print as many times as you want",
+      beneficio5: "Receive by email or straight to your phone",
+      beneficio6: (nome: string) => `New pages every week — ${nome} never gets bored`,
+
+      // Urgency
+      urgenciaTitulo: "Special launch offer",
+      urgenciaTexto: "This price is exclusive for those who just created their first page. Once you leave, the price goes back to normal.",
+
+      // Testimonials
+      depoimentosTitulo: "What other moms are saying:",
+      depoimentos: [
+        { nome: "Sarah T.", cidade: "New York", texto: "My son loved it! We've already printed over 20 pages. He asks every week to make a new one." },
+        { nome: "Emily R.", cidade: "London", texto: "Best investment I've made. He puts down the tablet the second he sees his coloring page. Worth every penny." },
+        { nome: "Jessica M.", cidade: "Chicago", texto: "His teacher asked me to make one for the whole class after seeing his. Incredible!" },
+      ] as { nome: string; cidade: string; texto: string }[],
+
+      // FAQ
+      faqTitulo: "Frequently asked questions",
+      faqs: [
+        { p: "How does it work?", r: "You upload your child's photo, choose a style, and the AI generates a personalized coloring page in seconds. Receive it by email or straight to your phone!" },
+        { p: "How many pages can I create?", r: "Up to 15 coloring pages per month. Enough for a new one almost every day!" },
+        { p: "Can I cancel anytime?", r: "Yes! Cancel at any time, no hassle. And within the first 7 days, we'll refund 100% of your payment." },
+        { p: "How do I receive the pages?", r: "You receive the PDF by email or access it directly on your phone. Print at home or at a print shop — unlimited copies." },
+      ] as { p: string; r: string }[],
     },
 
     // OTOs
@@ -513,6 +600,15 @@ const translations = {
       oto3Por: "$19.90",
       oto3PorPeriodo: "one-time payment",
       oto3Emoji: "🎨",
+
+      // OtoLayout framework text
+      continueLendo: "↓ Keep reading ↓",
+      oQueVoceRecebe: "What you'll receive:",
+      valorTotalLabel: "Total value:",
+      precoNormal: "Regular price",
+      hojeApenas: "Today only:",
+      scarcityTitle: "This offer only exists on this page",
+      scarcityText: "Once you leave, you won't have access to this price again.",
     },
 
     // App — Create
@@ -769,6 +865,45 @@ const translations = {
 
       // Eventos
       geracoesFree: "Usaste tu generación gratuita",
+
+      // Social proof
+      socialProofCount: "2.847",
+      socialProofText: "mamás ya se suscribieron",
+
+      // Trust badges
+      trustPagamento: "Pago seguro",
+      trustGarantia: "Garantía 7 días",
+      trustAcesso: "Acceso inmediato",
+
+      // Benefits
+      beneficiosTitulo: "Ambos planes incluyen:",
+      beneficio1: "Hasta 15 páginas para colorear al mes",
+      beneficio2: (nome: string) => `Personalizadas con el rostro de ${nome}`,
+      beneficio3: "Varios estilos artísticos para elegir",
+      beneficio4: "PDF en alta resolución — imprímelo cuantas veces quieras",
+      beneficio5: "Recíbelo por correo o directo en el celular",
+      beneficio6: (nome: string) => `Nuevas páginas cada semana — ${nome} nunca se aburre`,
+
+      // Urgency
+      urgenciaTitulo: "Oferta especial de lanzamiento",
+      urgenciaTexto: "Este precio es exclusivo para quienes acaban de crear su primera página. Al salir, el precio vuelve a la normalidad.",
+
+      // Testimonials
+      depoimentosTitulo: "Lo que dicen otras mamás:",
+      depoimentos: [
+        { nome: "María C.", cidade: "Madrid", texto: "¡A mi hijo le encantó! Ya imprimimos más de 20 páginas. Cada semana pide hacer una nueva." },
+        { nome: "Laura G.", cidade: "Buenos Aires", texto: "La mejor inversión que hice. Suelta el celular en cuanto ve su página para colorear. Vale cada centavo." },
+        { nome: "Ana P.", cidade: "México", texto: "¡La maestra pidió hacer una para toda la clase después de ver la de mi hijo. Increíble!" },
+      ] as { nome: string; cidade: string; texto: string }[],
+
+      // FAQ
+      faqTitulo: "Preguntas frecuentes",
+      faqs: [
+        { p: "¿Cómo funciona?", r: "Envías la foto de tu hijo, eliges el estilo y la IA genera una página para colorear personalizada en segundos. ¡Recíbela por correo o directo en el celular!" },
+        { p: "¿Cuántas páginas puedo crear?", r: "Hasta 15 páginas para colorear al mes. ¡Suficiente para tener una nueva casi cada día!" },
+        { p: "¿Puedo cancelar cuando quiera?", r: "¡Sí! Cancela en cualquier momento sin complicaciones. Y en los primeros 7 días, te devolvemos el 100% del valor." },
+        { p: "¿Cómo recibo las páginas?", r: "Recibes el PDF por correo o lo accedes directo desde el celular. Imprímelo en casa o en una imprenta — sin límite de copias." },
+      ] as { p: string; r: string }[],
     },
 
     // OTOs
@@ -808,6 +943,15 @@ const translations = {
       oto3Por: "$19.90",
       oto3PorPeriodo: "pago único",
       oto3Emoji: "🎨",
+
+      // OtoLayout framework text
+      continueLendo: "↓ Sigue leyendo ↓",
+      oQueVoceRecebe: "Lo que vas a recibir:",
+      valorTotalLabel: "Valor total:",
+      precoNormal: "Precio normal",
+      hojeApenas: "Hoy, solo:",
+      scarcityTitle: "Esta oferta solo existe en esta página",
+      scarcityText: "Al salir, no tendrás acceso a este precio de nuevo.",
     },
 
     // App — Crear
@@ -1064,6 +1208,45 @@ const translations = {
 
       // Événements
       geracoesFree: "Vous avez utilisé votre génération gratuite",
+
+      // Social proof
+      socialProofCount: "2 847",
+      socialProofText: "mamans se sont déjà abonnées",
+
+      // Trust badges
+      trustPagamento: "Paiement sécurisé",
+      trustGarantia: "Garantie 7 jours",
+      trustAcesso: "Accès immédiat",
+
+      // Benefits
+      beneficiosTitulo: "Les deux plans incluent :",
+      beneficio1: "Jusqu'à 15 pages de coloriage par mois",
+      beneficio2: (nome: string) => `Personnalisées avec le visage de ${nome}`,
+      beneficio3: "Plusieurs styles artistiques au choix",
+      beneficio4: "PDF haute résolution — imprimez autant de fois que vous voulez",
+      beneficio5: "Recevez par e-mail ou directement sur votre téléphone",
+      beneficio6: (nome: string) => `Nouvelles pages chaque semaine — ${nome} ne s'ennuie jamais`,
+
+      // Urgency
+      urgenciaTitulo: "Offre spéciale de lancement",
+      urgenciaTexto: "Ce prix est exclusif pour ceux qui viennent de créer leur première page. En quittant, le prix revient à la normale.",
+
+      // Testimonials
+      depoimentosTitulo: "Ce que disent les autres mamans :",
+      depoimentos: [
+        { nome: "Sophie M.", cidade: "Paris", texto: "Mon fils a adoré ! Nous avons déjà imprimé plus de 20 pages. Il en demande une nouvelle chaque semaine." },
+        { nome: "Claire B.", cidade: "Lyon", texto: "Le meilleur investissement que j'ai fait. Il lâche la tablette dès qu'il voit sa page de coloriage. Ça vaut chaque centime." },
+        { nome: "Marie L.", cidade: "Marseille", texto: "La maîtresse a demandé à en faire pour toute la classe après avoir vu celle de mon fils. Incroyable !" },
+      ] as { nome: string; cidade: string; texto: string }[],
+
+      // FAQ
+      faqTitulo: "Questions fréquentes",
+      faqs: [
+        { p: "Comment ça marche ?", r: "Vous envoyez la photo de votre enfant, choisissez un style et l'IA génère une page de coloriage personnalisée en quelques secondes. Recevez-la par e-mail ou directement sur votre téléphone !" },
+        { p: "Combien de pages puis-je créer ?", r: "Jusqu'à 15 pages de coloriage par mois. Suffisant pour en avoir une nouvelle presque chaque jour !" },
+        { p: "Puis-je annuler quand je veux ?", r: "Oui ! Annulez à tout moment sans tracas. Et dans les 7 premiers jours, nous remboursons 100% du montant." },
+        { p: "Comment je reçois les pages ?", r: "Vous recevez le PDF par e-mail ou y accédez directement depuis votre téléphone. Imprimez à la maison ou chez l'imprimeur — copies illimitées." },
+      ] as { p: string; r: string }[],
     },
 
     // OTOs
@@ -1103,6 +1286,15 @@ const translations = {
       oto3Por: "$19.90",
       oto3PorPeriodo: "paiement unique",
       oto3Emoji: "🎨",
+
+      // OtoLayout framework text
+      continueLendo: "↓ Continuez à lire ↓",
+      oQueVoceRecebe: "Ce que vous allez recevoir :",
+      valorTotalLabel: "Valeur totale :",
+      precoNormal: "Prix normal",
+      hojeApenas: "Aujourd'hui seulement :",
+      scarcityTitle: "Cette offre n'existe que sur cette page",
+      scarcityText: "En quittant, vous n'aurez plus accès à ce prix.",
     },
 
     // App — Créer
@@ -1359,6 +1551,45 @@ const translations = {
 
       // Eventi
       geracoesFree: "Hai usato la tua generazione gratuita",
+
+      // Social proof
+      socialProofCount: "2.847",
+      socialProofText: "mamme si sono già abbonate",
+
+      // Trust badges
+      trustPagamento: "Pagamento sicuro",
+      trustGarantia: "Garanzia 7 giorni",
+      trustAcesso: "Accesso immediato",
+
+      // Benefits
+      beneficiosTitulo: "Entrambi i piani includono:",
+      beneficio1: "Fino a 15 pagine da colorare al mese",
+      beneficio2: (nome: string) => `Personalizzate con il viso di ${nome}`,
+      beneficio3: "Diversi stili artistici tra cui scegliere",
+      beneficio4: "PDF ad alta risoluzione — stampa quante volte vuoi",
+      beneficio5: "Ricevi via e-mail o direttamente sul cellulare",
+      beneficio6: (nome: string) => `Nuove pagine ogni settimana — ${nome} non si annoia mai`,
+
+      // Urgency
+      urgenciaTitulo: "Offerta speciale di lancio",
+      urgenciaTexto: "Questo prezzo è esclusivo per chi ha appena creato la prima pagina. Uscendo, il prezzo torna alla normalità.",
+
+      // Testimonials
+      depoimentosTitulo: "Cosa dicono le altre mamme:",
+      depoimentos: [
+        { nome: "Giulia R.", cidade: "Roma", texto: "Mio figlio lo ha adorato! Abbiamo già stampato più di 20 pagine. Ogni settimana ne chiede una nuova." },
+        { nome: "Francesca M.", cidade: "Milano", texto: "Il miglior investimento che abbia fatto. Molla il tablet appena vede la sua pagina da colorare. Vale ogni centesimo." },
+        { nome: "Sara B.", cidade: "Napoli", texto: "La maestra ha chiesto di farne una per tutta la classe dopo aver visto quella di mio figlio. Incredibile!" },
+      ] as { nome: string; cidade: string; texto: string }[],
+
+      // FAQ
+      faqTitulo: "Domande frequenti",
+      faqs: [
+        { p: "Come funziona?", r: "Invii la foto del tuo bambino, scegli lo stile e l'IA genera una pagina da colorare personalizzata in pochi secondi. Ricevila via e-mail o direttamente sul cellulare!" },
+        { p: "Quante pagine posso creare?", r: "Fino a 15 pagine da colorare al mese. Abbastanza per averne una nuova quasi ogni giorno!" },
+        { p: "Posso cancellare quando voglio?", r: "Sì! Cancella in qualsiasi momento senza complicazioni. E nei primi 7 giorni, rimborsiamo il 100% dell'importo." },
+        { p: "Come ricevo le pagine?", r: "Ricevi il PDF via e-mail o lo accedi direttamente dal cellulare. Stampa a casa o in tipografia — copie illimitate." },
+      ] as { p: string; r: string }[],
     },
 
     // OTOs
@@ -1398,6 +1629,15 @@ const translations = {
       oto3Por: "$19.90",
       oto3PorPeriodo: "pagamento unico",
       oto3Emoji: "🎨",
+
+      // OtoLayout framework text
+      continueLendo: "↓ Continua a leggere ↓",
+      oQueVoceRecebe: "Cosa riceverai:",
+      valorTotalLabel: "Valore totale:",
+      precoNormal: "Prezzo normale",
+      hojeApenas: "Solo oggi:",
+      scarcityTitle: "Questa offerta esiste solo su questa pagina",
+      scarcityText: "Uscendo, non avrai più accesso a questo prezzo.",
     },
 
     // App — Crea
