@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase";
+import { useCompras } from "@/lib/useCompras";
 
 interface Imagem {
   id: string;
@@ -26,6 +27,11 @@ export default function PaginasPage() {
   const [filhos, setFilhos] = useState<Filho[]>([]);
   const [filtroFilho, setFiltroFilho] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const { comprouLivro, comprouClube } = useCompras();
+
+  const LIVRO_LINK_VENDA = process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO1_UPSELL || "https://perfectpay.com";
+  const LIVRO_LINK_ACESSO = "https://meu-livro-magico-umber.vercel.app/personalizar";
+  const CLUBE_LINK_VENDA = process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO3_UPSELL || "https://perfectpay.com";
 
   useEffect(() => {
     async function loadData() {
@@ -196,45 +202,43 @@ export default function PaginasPage() {
               </button>
             ))}
 
-            {/* Livro de História - Locked Card */}
+            {/* Livro de História */}
             <a
-              href="https://perfectpay.com"
+              href={comprouLivro ? LIVRO_LINK_ACESSO : LIVRO_LINK_VENDA}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-white rounded-xl shadow-md overflow-hidden border-2 border-purple-300 relative block"
+              className={`bg-white rounded-xl shadow-md overflow-hidden relative block ${comprouLivro ? "border-2 border-green-300" : "border-2 border-purple-300"}`}
             >
-              <div className="aspect-[3/4] bg-gradient-to-br from-amber-50 to-orange-50 relative flex items-center justify-center">
-                <div className="absolute inset-0 backdrop-blur-sm bg-white/20"></div>
+              <div className={`aspect-[3/4] relative flex items-center justify-center ${comprouLivro ? "bg-gradient-to-br from-green-50 to-emerald-50" : "bg-gradient-to-br from-amber-50 to-orange-50"}`}>
                 <div className="relative text-center space-y-2 p-5 z-10">
                   <span className="text-5xl block">📖</span>
                   <h3 className="font-bold text-gray-800 text-sm">Livro de História</h3>
                   <p className="text-[11px] text-gray-600 leading-snug">
-                    Seu filho como herói da história
+                    {comprouLivro ? "Personalize seu livro agora!" : "Seu filho como herói da história"}
                   </p>
-                  <span className="inline-block bg-purple-600 text-white px-4 py-2 rounded-full text-xs font-medium shadow-md">
-                    Desbloquear
+                  <span className={`inline-block px-4 py-2 rounded-full text-xs font-medium shadow-md ${comprouLivro ? "bg-green-600 text-white" : "bg-purple-600 text-white"}`}>
+                    {comprouLivro ? "Acessar" : "Desbloquear"}
                   </span>
                 </div>
               </div>
             </a>
 
-            {/* Clube de Atividades - Locked Card */}
+            {/* Clube de Atividades */}
             <a
-              href="https://perfectpay.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white rounded-xl shadow-md overflow-hidden border-2 border-purple-300 relative block"
+              href={comprouClube ? "#" : CLUBE_LINK_VENDA}
+              target={comprouClube ? undefined : "_blank"}
+              rel={comprouClube ? undefined : "noopener noreferrer"}
+              className={`bg-white rounded-xl shadow-md overflow-hidden relative block ${comprouClube ? "border-2 border-green-300" : "border-2 border-purple-300"}`}
             >
-              <div className="aspect-[3/4] bg-gradient-to-br from-purple-100 to-purple-50 relative flex items-center justify-center">
-                <div className="absolute inset-0 backdrop-blur-sm bg-white/20"></div>
+              <div className={`aspect-[3/4] relative flex items-center justify-center ${comprouClube ? "bg-gradient-to-br from-green-50 to-emerald-50" : "bg-gradient-to-br from-purple-100 to-purple-50"}`}>
                 <div className="relative text-center space-y-2 p-5 z-10">
                   <span className="text-5xl block">🎨</span>
                   <h3 className="font-bold text-gray-800 text-sm">Clube de Atividades</h3>
                   <p className="text-[11px] text-gray-600 leading-snug">
-                    52 semanas de atividades para imprimir
+                    {comprouClube ? "Acesso liberado! Verifique seu email" : "52 semanas de atividades para imprimir"}
                   </p>
-                  <span className="inline-block bg-purple-600 text-white px-4 py-2 rounded-full text-xs font-medium shadow-md">
-                    Desbloquear
+                  <span className={`inline-block px-4 py-2 rounded-full text-xs font-medium shadow-md ${comprouClube ? "bg-green-600 text-white" : "bg-purple-600 text-white"}`}>
+                    {comprouClube ? "Acessar" : "Desbloquear"}
                   </span>
                 </div>
               </div>

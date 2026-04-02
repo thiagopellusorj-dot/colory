@@ -3,17 +3,11 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useCompras } from "@/lib/useCompras";
 
-const OTO_CARDS = [
-  {
-    id: "livro",
-    emoji: "📖",
-    titulo: "Livro de História",
-    desc: "como herói da história",
-    preco: "R$67",
-    link: "https://perfectpay.com",
-  },
-];
+const LIVRO_LINK_VENDA = process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO1_UPSELL || "https://perfectpay.com";
+const LIVRO_LINK_ACESSO = "https://meu-livro-magico-umber.vercel.app/personalizar";
+const CLUBE_LINK_VENDA = process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO3_UPSELL || "https://perfectpay.com";
 
 export default function ResultadoPage() {
   const router = useRouter();
@@ -21,6 +15,7 @@ export default function ResultadoPage() {
   const [fotoOriginal, setFotoOriginal] = useState<string | null>(null);
   const [filhoNome, setFilhoNome] = useState("seu filho");
   const [showingOriginal, setShowingOriginal] = useState(false);
+  const { comprouLivro, comprouClube } = useCompras();
 
   useEffect(() => {
     const foto = sessionStorage.getItem("app_foto_gerada");
@@ -264,62 +259,55 @@ export default function ResultadoPage() {
             </svg>
           </button>
 
-          {/* OTO Cards with Lock */}
-          {OTO_CARDS.map((oto, i) => (
-            <div
-              key={oto.id}
-              className={`relative bg-white rounded-xl shadow-md p-4 flex items-center gap-4 ${
-                i === 0 ? "border-2 border-purple-300" : "border border-gray-200"
-              }`}
-            >
-              <div className="relative w-16 h-16 bg-purple-100 rounded-lg overflow-hidden flex-shrink-0">
-                <div className="absolute inset-0 flex items-center justify-center bg-purple-600/20 backdrop-blur-sm">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-6 h-6 text-purple-600">
-                    <path fillRule="evenodd" d="M10 1a4.5 4.5 0 0 0-4.5 4.5V9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5V5.5A4.5 4.5 0 0 0 10 1Zm3 8V5.5a3 3 0 1 0-6 0V9h6Z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div className="text-4xl flex items-center justify-center h-full">{oto.emoji}</div>
-              </div>
-              <div className="flex-1 text-left">
-                <h3 className="font-semibold text-gray-800">
-                  {oto.titulo} do {filhoNome}
-                </h3>
-                <p className="text-sm text-gray-600">
-                  O {filhoNome} {oto.desc} &bull; {oto.preco}
-                </p>
-              </div>
-              <a
-                href={oto.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow-md animate-pulse"
-              >
-                Desbloquear
-              </a>
+          {/* Livro de História */}
+          <a
+            href={comprouLivro ? LIVRO_LINK_ACESSO : LIVRO_LINK_VENDA}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`relative bg-white rounded-xl shadow-md p-4 flex items-center gap-4 ${
+              comprouLivro ? "border border-green-300" : "border-2 border-purple-300"
+            }`}
+          >
+            <div className={`relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 ${comprouLivro ? "bg-green-100" : "bg-purple-100"}`}>
+              <div className="text-4xl flex items-center justify-center h-full">📖</div>
             </div>
-          ))}
+            <div className="flex-1 text-left">
+              <h3 className="font-semibold text-gray-800">
+                Livro de História do {filhoNome}
+              </h3>
+              <p className="text-sm text-gray-600">
+                {comprouLivro ? "Personalize seu livro agora" : `O ${filhoNome} como herói da história \u2022 R$67`}
+              </p>
+            </div>
+            <span className={`px-4 py-2 rounded-full text-sm font-medium shadow-md ${
+              comprouLivro
+                ? "bg-green-600 text-white"
+                : "bg-purple-600 text-white animate-pulse"
+            }`}>
+              {comprouLivro ? "Acessar" : "Desbloquear"}
+            </span>
+          </a>
 
           {/* Clube de Atividades */}
           <a
-            href="https://perfectpay.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full bg-white rounded-xl shadow-md p-4 flex items-center gap-4 border border-gray-200 hover:shadow-lg transition-shadow"
+            href={comprouClube ? "#" : CLUBE_LINK_VENDA}
+            target={comprouClube ? undefined : "_blank"}
+            rel={comprouClube ? undefined : "noopener noreferrer"}
+            className={`w-full bg-white rounded-xl shadow-md p-4 flex items-center gap-4 ${
+              comprouClube ? "border border-green-300" : "border border-gray-200"
+            } hover:shadow-lg transition-shadow`}
           >
-            <div className="relative w-16 h-16 bg-purple-100 rounded-lg overflow-hidden flex-shrink-0">
-              <div className="absolute inset-0 flex items-center justify-center bg-purple-600/20 backdrop-blur-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-6 h-6 text-purple-600">
-                  <path fillRule="evenodd" d="M10 1a4.5 4.5 0 0 0-4.5 4.5V9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5V5.5A4.5 4.5 0 0 0 10 1Zm3 8V5.5a3 3 0 1 0-6 0V9h6Z" clipRule="evenodd" />
-                </svg>
-              </div>
+            <div className={`relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 ${comprouClube ? "bg-green-100" : "bg-purple-100"}`}>
               <div className="text-4xl flex items-center justify-center h-full">🎨</div>
             </div>
             <div className="flex-1 text-left">
               <h3 className="font-semibold text-gray-800">Clube de Atividades</h3>
-              <p className="text-sm text-gray-600">52 semanas de atividades &bull; R$97</p>
+              <p className="text-sm text-gray-600">{comprouClube ? "Acesso liberado! Verifique seu email" : "52 semanas de atividades \u2022 R$97"}</p>
             </div>
-            <span className="bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow-md">
-              Desbloquear
+            <span className={`px-4 py-2 rounded-full text-sm font-medium shadow-md ${
+              comprouClube ? "bg-green-600 text-white" : "bg-purple-600 text-white"
+            }`}>
+              {comprouClube ? "Acessar" : "Desbloquear"}
             </span>
           </a>
         </div>
