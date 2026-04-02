@@ -1,6 +1,8 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 
+const PROTECTED_PATHS = ["/criar", "/gerando", "/resultado", "/paginas", "/configuracoes"];
+
 export async function middleware(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request: { headers: request.headers },
@@ -28,7 +30,18 @@ export async function middleware(request: NextRequest) {
   );
 
   // Refresh session — important for Server Components
-  await supabase.auth.getUser();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  // Auth guard: protected app routes require authenticated user
+  const isProtected = PROTECTED_PATHS.some((path) =>
+    request.nextUrl.pathname.startsWith(path)
+  );
+
+  if (isProtected && !user) {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = "/login";
+    return NextResponse.redirect(redirectUrl);
+  }
 
   return supabaseResponse;
 }

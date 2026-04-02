@@ -123,11 +123,11 @@ export function OtoLayout({
   };
 
   const handleDecline = () => {
-    posthog.capture("oto_declined", { oto: otoId });
+    try { posthog.capture("oto_declined", { oto: otoId }); } catch {}
     if (onDecline) {
       onDecline();
     } else {
-      router.push(nextRoute);
+      window.location.href = nextRoute;
     }
   };
 

@@ -78,8 +78,8 @@ export default function Oto3Page() {
       precoOriginal="R$197"
       precoFinal="R$97"
       periodoPagamento="pagamento único — acesso por 1 ano"
-      perfectPayLink={process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO3 ?? ""}
-      nextRoute="/obrigado"
+      perfectPayLink={process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO3_UPSELL ?? ""}
+      nextRoute="/oto3/down"
     />
   );
 }

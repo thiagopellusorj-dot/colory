@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { OtoLayout } from "@/components/funil/OtoLayout";
 import { BookPreview } from "@/components/funil/BookPreview";
 import { ComoFunciona } from "@/components/funil/ComoFunciona";
@@ -40,65 +39,6 @@ const temas = [
 export default function Oto1Page() {
   const store = useFunilStore();
   const nome = store.nome_filho || "seu filho";
-  const [showDownsell, setShowDownsell] = useState(false);
-
-  if (showDownsell) {
-    return (
-      <OtoLayout
-        otoId="livro_downsell"
-        passoLabel="Última chance"
-        alertaTexto="Espera! Temos algo especial pra você..."
-        validacaoTexto="Entendemos que o valor pode pesar."
-        fomoTexto={`E se você pudesse dar ao ${nome} pelo menos 1 livro personalizado — com ele como protagonista — por menos da metade?`}
-        curiosidadeTexto={`Imagine o ${nome} abrindo um livro e vendo ELE MESMO como herói da história.`}
-        previewSection={<BookPreview nomeFilho={nome} />}
-        reframeTitulo="1 livro. 1 história. 100% dele."
-        reframeTexto="Um livro PDF personalizado com seu filho como protagonista. Pronto pra imprimir ou ler no tablet."
-        beneficios={[
-          "História única gerada por IA com o nome e rosto do seu filho",
-          "Ilustrações personalizadas em cada página",
-          "PDF em alta resolução — imprima quantas vezes quiser",
-          "Seu filho como herói da própria história",
-        ]}
-        depoimentos={[
-          {
-            nome: "Juliana M.",
-            texto:
-              "Meu filho não para de pedir pra ler 'o livro dele'. Toda noite é o mesmo: 'mãe, lê o MEU livro!'",
-            cidade: "Belo Horizonte",
-          },
-          {
-            nome: "Fernanda L.",
-            texto:
-              "Dei de presente de aniversário. Ele chorou de emoção quando viu o nome dele na capa.",
-            cidade: "Curitiba",
-          },
-        ]}
-        modulos={[
-          {
-            emoji: "\uD83D\uDCD6",
-            titulo: "1 Livro PDF Personalizado",
-            descricao: `História com ${nome} como protagonista`,
-            valorIndividual: "R$67",
-          },
-          {
-            emoji: "\uD83C\uDFA8",
-            titulo: "Ilustrações Personalizadas",
-            descricao: "Rosto do seu filho em cada página",
-            valorIndividual: "R$30",
-          },
-        ]}
-        valorTotal="R$97"
-        precoOriginal="R$67"
-        precoFinal="R$47"
-        garantiaSection={<GarantiaBadge />}
-        faqItems={faqItems}
-        perfectPayLink={process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO1 ?? ""}
-        nextRoute="/oto3"
-      />
-    );
-  }
-
   return (
     <OtoLayout
       otoId="livro"
@@ -189,9 +129,8 @@ export default function Oto1Page() {
       precoFinal="R$67"
       garantiaSection={<GarantiaBadge />}
       faqItems={faqItems}
-      perfectPayLink={process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO1 ?? ""}
-      nextRoute="/oto3"
-      onDecline={() => setShowDownsell(true)}
+      perfectPayLink={process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO1_UPSELL ?? ""}
+      nextRoute="/oto1/down"
     />
   );
 }
