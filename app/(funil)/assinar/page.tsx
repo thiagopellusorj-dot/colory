@@ -31,7 +31,6 @@ export default function AssinarPage() {
 
   const handleComprar = (plano: Plano) => {
     setPlanoSelecionado(plano);
-    posthog.capture("paywall_plan_selected", { plano });
     posthog.capture("purchase_initiated", { plano });
 
     const link =
