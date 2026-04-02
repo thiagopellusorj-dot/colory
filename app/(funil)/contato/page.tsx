@@ -113,15 +113,22 @@ export default function ContatoPage() {
             </div>
 
             {/* LGPD */}
-            <label className="flex items-start gap-3 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={lgpd}
-                onChange={(e) => setLgpd(e.target.checked)}
-                className="mt-1 w-5 h-5 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
-              />
-              <span className="text-sm text-gray-500">{txt.lgpd}</span>
-            </label>
+            <div className="space-y-1">
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={lgpd}
+                  onChange={(e) => setLgpd(e.target.checked)}
+                  className="mt-0.5 w-5 h-5 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                />
+                <span className="text-sm text-gray-600">
+                  Concordo com os <a href="#" className="text-purple-600 underline">Termos de Uso</a> e <a href="#" className="text-purple-600 underline">Política de Privacidade</a>
+                </span>
+              </label>
+              {!lgpd && (whatsapp || email) && (
+                <p className="text-xs text-amber-600 ml-8">Aceite os termos para continuar</p>
+              )}
+            </div>
           </div>
 
           <button

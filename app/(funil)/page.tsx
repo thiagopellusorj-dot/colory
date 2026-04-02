@@ -38,13 +38,13 @@ export default function LandingPage() {
 
   return (
     <main className="flex min-h-screen flex-col bg-white">
-      {/* Hero — imagens antes/depois */}
-      <div className="relative bg-gradient-to-b from-purple-100 to-white px-4 pt-8 pb-4">
-        <div className="mx-auto max-w-md space-y-3">
-          {/* Grid lado a lado */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-2xl overflow-hidden shadow-md bg-white">
-              <div className="aspect-square relative">
+      {/* Hero compacto — CTA visível sem scroll */}
+      <div className="relative bg-gradient-to-b from-purple-100 to-white px-4 pt-6 pb-2">
+        <div className="mx-auto max-w-md">
+          {/* Grid lado a lado — menor */}
+          <div className="grid grid-cols-2 gap-2">
+            <div className="rounded-xl overflow-hidden shadow-md bg-white">
+              <div className="aspect-[4/3] relative">
                 <Image
                   src="/images/lp/foto-original.jpg"
                   alt={txt.fotoOriginal}
@@ -54,12 +54,12 @@ export default function LandingPage() {
                   priority
                 />
               </div>
-              <p className="text-xs text-center py-2 text-gray-500 font-medium">
+              <p className="text-[10px] text-center py-1 text-gray-500 font-medium">
                 {txt.fotoOriginal}
               </p>
             </div>
-            <div className="rounded-2xl overflow-hidden shadow-md bg-white">
-              <div className="aspect-square relative">
+            <div className="rounded-xl overflow-hidden shadow-md bg-white">
+              <div className="aspect-[4/3] relative">
                 <Image
                   src="/images/lp/pagina-colorir.png"
                   alt={txt.paginaColorir}
@@ -69,34 +69,25 @@ export default function LandingPage() {
                   priority
                 />
               </div>
-              <p className="text-xs text-center py-2 text-purple-600 font-medium">
+              <p className="text-[10px] text-center py-1 text-purple-600 font-medium">
                 {txt.paginaColorir}
               </p>
             </div>
           </div>
-
-          {/* Slider interativo antes/depois */}
-          <ImageCompare
-            before="/images/lp/capa-original.jpg"
-            after="/images/lp/capa-gerada.jpg"
-            beforeLabel={txt.fotoOriginal}
-            afterLabel={txt.paginaColorir}
-            hint={txt.arrasteComparar}
-          />
         </div>
       </div>
 
-      {/* Conteúdo */}
-      <div className="flex-1 flex flex-col items-center px-6 pt-4 pb-10">
-        <div className="mx-auto max-w-md w-full text-center space-y-5">
+      {/* Conteúdo — mais compacto */}
+      <div className="flex-1 flex flex-col items-center px-6 pt-3 pb-6">
+        <div className="mx-auto max-w-md w-full text-center space-y-3">
           {/* Badge */}
-          <div className="inline-flex items-center gap-1.5 bg-purple-50 text-purple-700 px-4 py-1.5 rounded-full text-sm font-medium">
+          <div className="inline-flex items-center gap-1.5 bg-purple-50 text-purple-700 px-3 py-1 rounded-full text-xs font-medium">
             <span className="text-xs">✨</span>
             {txt.badge}
           </div>
 
           {/* Headline */}
-          <h1 className="text-3xl font-bold text-gray-900 leading-tight">
+          <h1 className="text-2xl font-bold text-gray-900 leading-tight">
             {txt.headline.split(txt.headlineHighlight).map((part, i) =>
               i === 0 ? (
                 <span key={i}>
@@ -121,6 +112,17 @@ export default function LandingPage() {
           </button>
 
           {txt.trust && <p className="text-xs text-gray-400">{txt.trust}</p>}
+
+          {/* Slider abaixo do CTA */}
+          <div className="pt-4">
+            <ImageCompare
+              before="/images/lp/capa-original.jpg"
+              after="/images/lp/capa-gerada.jpg"
+              beforeLabel={txt.fotoOriginal}
+              afterLabel={txt.paginaColorir}
+              hint={txt.arrasteComparar}
+            />
+          </div>
         </div>
       </div>
     </main>

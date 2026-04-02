@@ -22,6 +22,9 @@ export default function QuizPage() {
   const txt = t().quiz;
   const [step, setStep] = useState<QuizStep>("genero");
   const [feedback, setFeedback] = useState<string | null>(null);
+
+  // Prefetch upload page pra transição rápida
+  useEffect(() => { router.prefetch("/upload"); }, [router]);
   const [isAnimating, setIsAnimating] = useState(false);
   const [slideDirection, setSlideDirection] = useState<"enter" | "exit" | null>(null);
 
