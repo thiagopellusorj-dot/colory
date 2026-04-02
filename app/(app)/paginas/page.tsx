@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase";
 import { useCompras } from "@/lib/useCompras";
+import { posthog } from "@/lib/posthog";
 
 interface Imagem {
   id: string;
@@ -77,6 +78,7 @@ export default function PaginasPage() {
       setLoading(false);
     }
     loadData();
+    posthog.capture("app_paginas_viewed");
   }, []);
 
   const imagensFiltradas = filtroFilho

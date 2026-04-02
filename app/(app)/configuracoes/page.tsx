@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase";
+import { posthog } from "@/lib/posthog";
 
 interface Filho {
   id: string;
@@ -64,6 +65,7 @@ export default function ConfiguracoesPage() {
       setLoading(false);
     }
     loadData();
+    posthog.capture("app_configuracoes_viewed");
   }, []);
 
   const handleAddFilho = async () => {

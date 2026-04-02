@@ -1,14 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase";
+import { posthog } from "@/lib/posthog";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    posthog.capture("login_page_viewed");
+  }, []);
 
   const handleMagicLink = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,6 +32,7 @@ export default function LoginPage() {
       });
 
       if (authError) throw authError;
+      posthog.capture("login_magic_link_sent");
       setSent(true);
     } catch (err) {
       setError("Erro ao enviar link. Verifique o email e tente novamente.");
@@ -38,6 +44,7 @@ export default function LoginPage() {
 
   const handleGoogle = async () => {
     try {
+      posthog.capture("login_google_clicked");
       const supabase = createClient();
       await supabase.auth.signInWithOAuth({
         provider: "google",

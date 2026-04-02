@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useCompras } from "@/lib/useCompras";
+import { posthog } from "@/lib/posthog";
 
 const LIVRO_LINK_VENDA = process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO1_UPSELL || "https://perfectpay.com";
 const LIVRO_LINK_ACESSO = "https://meu-livro-magico-umber.vercel.app/personalizar";
@@ -25,6 +26,7 @@ export default function ResultadoPage() {
       return;
     }
     setFotoGerada(foto);
+    posthog.capture("app_resultado_viewed");
     // Prefer URL over base64 for the original photo
     setFotoOriginal(
       sessionStorage.getItem("app_foto_original_url") ||
@@ -36,6 +38,7 @@ export default function ResultadoPage() {
 
   const handleDownload = async () => {
     if (!fotoGerada) return;
+    posthog.capture("app_download_clicked");
     try {
       const response = await fetch(fotoGerada);
       const blob = await response.blob();
@@ -54,6 +57,7 @@ export default function ResultadoPage() {
 
   const handleShare = async () => {
     if (!fotoGerada || !navigator.share) return;
+    posthog.capture("app_share_clicked");
     try {
       const response = await fetch(fotoGerada);
       const blob = await response.blob();
@@ -70,6 +74,7 @@ export default function ResultadoPage() {
 
   const handlePrint = () => {
     if (!fotoGerada) return;
+    posthog.capture("app_print_clicked");
 
     // Remove iframe anterior se existir
     const old = document.getElementById("print-frame");

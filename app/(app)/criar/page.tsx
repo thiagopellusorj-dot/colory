@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { posthog } from "@/lib/posthog";
 import { createClient } from "@/lib/supabase";
 import { compressImage } from "@/lib/compress";
 
@@ -72,6 +73,7 @@ export default function CriarPage() {
       }
     }
     loadCreditos();
+    posthog.capture("app_criar_viewed");
   }, []);
 
   const semCreditos = creditos !== null && creditos <= 0;
@@ -107,6 +109,7 @@ export default function CriarPage() {
         sessionStorage.setItem("app_filho_nome", filhos[0].nome);
         sessionStorage.setItem("app_filho_id", filhos[0].id);
       }
+      posthog.capture("app_generate_started", { estilo: selectedStyle });
       router.push("/gerando");
     } catch (error) {
       console.error("Submit error:", error);
