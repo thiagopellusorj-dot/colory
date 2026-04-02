@@ -1,22 +1,43 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { posthog } from "@/lib/posthog";
-import { t } from "@/lib/i18n";
+import { t, setLocale, getLocale, type Locale } from "@/lib/i18n";
+import { updatePosthogLocale } from "@/lib/posthog";
 import { ImageCompare } from "@/components/funil/ImageCompare";
+
+const VALID_LOCALES = ["pt-BR", "en", "es", "fr", "it"];
+
+function LocaleDetector() {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const lang = searchParams.get("lang");
+    if (lang && VALID_LOCALES.includes(lang)) {
+      setLocale(lang as Locale);
+      updatePosthogLocale();
+    }
+  }, [searchParams]);
+
+  return null;
+}
 
 export default function LandingPage() {
   const router = useRouter();
   const txt = t().landing;
 
   useEffect(() => {
-    posthog.capture("landing_page_viewed");
+    posthog.capture("landing_page_viewed", { locale: getLocale() });
   }, []);
 
   return (
     <main className="flex min-h-screen flex-col bg-white">
+      <Suspense>
+        <LocaleDetector />
+      </Suspense>
+
       {/* Hero — imagens antes/depois */}
       <div className="relative bg-gradient-to-b from-purple-100 to-white px-4 pt-8 pb-4">
         <div className="mx-auto max-w-md space-y-3">
@@ -73,11 +94,11 @@ export default function LandingPage() {
 
           {/* Headline */}
           <h1 className="text-3xl font-bold text-gray-900 leading-tight">
-            {txt.headline.split("páginas de colorir").map((part, i) =>
+            {txt.headline.split(txt.headlineHighlight).map((part, i) =>
               i === 0 ? (
                 <span key={i}>
                   {part}
-                  <span className="text-purple-600">páginas de colorir</span>
+                  <span className="text-purple-600">{txt.headlineHighlight}</span>
                 </span>
               ) : (
                 <span key={i}>{part}</span>

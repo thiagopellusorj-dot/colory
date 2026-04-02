@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useFunilStore } from "@/store/funilStore";
 import { posthog } from "@/lib/posthog";
-import { t } from "@/lib/i18n";
+import { t, getLocale } from "@/lib/i18n";
 
 type Plano = "anual" | "mensal";
 
@@ -31,12 +31,14 @@ export default function AssinarPage() {
 
   const handleComprar = (plano: Plano) => {
     setPlanoSelecionado(plano);
-    posthog.capture("purchase_initiated", { plano });
+    const locale = getLocale();
+    posthog.capture("purchase_initiated", { plano, locale });
 
+    const isIntl = locale !== "pt-BR";
     const link =
       plano === "anual"
-        ? process.env.NEXT_PUBLIC_PERFECTPAY_LINK_ANUAL
-        : process.env.NEXT_PUBLIC_PERFECTPAY_LINK_MENSAL;
+        ? (isIntl ? process.env.NEXT_PUBLIC_CHECKOUT_LINK_ANUAL_INTL : process.env.NEXT_PUBLIC_PERFECTPAY_LINK_ANUAL)
+        : (isIntl ? process.env.NEXT_PUBLIC_CHECKOUT_LINK_MENSAL_INTL : process.env.NEXT_PUBLIC_PERFECTPAY_LINK_MENSAL);
 
     if (link && link !== "https://perfectpay.com.br/pay/xxx") {
       window.location.href = link;

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase";
 import { posthog } from "@/lib/posthog";
+import { getLocale, setLocale, locales, type Locale } from "@/lib/i18n";
 
 interface Filho {
   id: string;
@@ -34,6 +35,7 @@ export default function ConfiguracoesPage() {
   const [saving, setSaving] = useState(false);
   const [creditos, setCreditos] = useState<number | null>(null);
   const [creditosRenovaEm, setCreditosRenovaEm] = useState<string | null>(null);
+  const [currentLang, setCurrentLang] = useState<Locale>(getLocale());
 
   useEffect(() => {
     async function loadData() {
@@ -191,6 +193,34 @@ export default function ConfiguracoesPage() {
             </a>
           </div>
         )}
+
+        {/* Idioma */}
+        <div className="space-y-3">
+          <h3 className="text-sm font-semibold text-gray-600 px-1">Idioma / Language</h3>
+          <div className="bg-white rounded-xl shadow-md p-4">
+            <div className="flex flex-wrap gap-2">
+              {locales.map((loc) => (
+                <button
+                  key={loc.code}
+                  onClick={() => {
+                    setLocale(loc.code);
+                    setCurrentLang(loc.code);
+                    posthog.capture("language_changed", { locale: loc.code });
+                    window.location.reload();
+                  }}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                    currentLang === loc.code
+                      ? "bg-purple-600 text-white shadow-md"
+                      : "bg-gray-100 text-gray-600 hover:bg-purple-50"
+                  }`}
+                >
+                  <span>{loc.flag}</span>
+                  <span>{loc.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
 
         {/* Meus Filhos */}
         <div className="space-y-3">

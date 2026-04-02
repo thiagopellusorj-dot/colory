@@ -230,7 +230,6 @@ function StepIdade({
   genero: "menino" | "menina" | null;
 }) {
   const txt = t().quiz;
-  const pronome = genero === "menina" ? "ela" : "ele";
 
   const opcoes = [
     { valor: "0-2", emoji: "🍼", label: txt.idade02 },
@@ -241,7 +240,7 @@ function StepIdade({
 
   return (
     <div className="text-center space-y-8">
-      <h2 className="text-2xl font-bold text-gray-900">{txt.idadeTitle(pronome)}</h2>
+      <h2 className="text-2xl font-bold text-gray-900">{txt.idadeTitle(genero || "menino")}</h2>
 
       <div className="grid grid-cols-2 gap-3">
         {opcoes.map((op) => (
@@ -275,11 +274,10 @@ function StepNome({
   genero: "menino" | "menina" | null;
 }) {
   const txt = t().quiz;
-  const pronome = genero === "menina" ? "dela" : "dele";
 
   return (
     <div className="text-center space-y-8">
-      <h2 className="text-2xl font-bold text-gray-900">{txt.nomeTitle(pronome)}</h2>
+      <h2 className="text-2xl font-bold text-gray-900">{txt.nomeTitle(genero || "menino")}</h2>
 
       <div className="space-y-4">
         <input

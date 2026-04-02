@@ -2,6 +2,7 @@
 
 import { OtoLayout } from "@/components/funil/OtoLayout";
 import { useFunilStore } from "@/store/funilStore";
+import { getLocale } from "@/lib/i18n";
 
 export default function Oto3DownsellPage() {
   const store = useFunilStore();
@@ -67,7 +68,9 @@ export default function Oto3DownsellPage() {
       precoOriginal="R$97"
       precoFinal="R$47"
       periodoPagamento="pagamento único — acesso por 6 meses"
-      perfectPayLink={process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO3_DOWN ?? ""}
+      perfectPayLink={getLocale() !== "pt-BR"
+        ? (process.env.NEXT_PUBLIC_CHECKOUT_LINK_OTO3_INTL ?? "")
+        : (process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO3_DOWN ?? "")}
       nextRoute="/obrigado"
     />
   );

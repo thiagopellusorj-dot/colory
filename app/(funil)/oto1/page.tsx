@@ -6,6 +6,7 @@ import { ComoFunciona } from "@/components/funil/ComoFunciona";
 import { TransformacaoVisual } from "@/components/funil/TransformacaoVisual";
 import { GarantiaBadge } from "@/components/funil/GarantiaBadge";
 import { useFunilStore } from "@/store/funilStore";
+import { getLocale } from "@/lib/i18n";
 
 const faqItems = [
   {
@@ -129,7 +130,9 @@ export default function Oto1Page() {
       precoFinal="R$67"
       garantiaSection={<GarantiaBadge />}
       faqItems={faqItems}
-      perfectPayLink={process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO1_UPSELL ?? ""}
+      perfectPayLink={getLocale() !== "pt-BR"
+        ? (process.env.NEXT_PUBLIC_CHECKOUT_LINK_OTO1_INTL ?? "")
+        : (process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO1_UPSELL ?? "")}
       nextRoute="/oto1/down"
     />
   );
