@@ -16,7 +16,7 @@ export default function ProcessandoPage() {
   const [etapaAtual, setEtapaAtual] = useState(0);
   const [fatoIndex, setFatoIndex] = useState(0);
   const [isTimeout, setIsTimeout] = useState(false);
-  const [erro, setErro] = useState(false);
+  const [erro, setErro] = useState<string | null>(null);
   const hasStarted = useRef(false);
   const nome = store.nome_filho || "seu filho";
 
@@ -82,8 +82,9 @@ export default function ProcessandoPage() {
           throw new Error(data.error || "No URL in response");
         }
       } catch (error) {
-        console.error("Erro ao gerar:", error);
-        setErro(true);
+        const msg = error instanceof Error ? error.message : String(error);
+        console.error("Erro ao gerar:", msg);
+        setErro(msg);
       } finally {
         clearTimeout(timeoutId);
       }
@@ -95,7 +96,7 @@ export default function ProcessandoPage() {
   }, [store, router]);
 
   const handleRetry = () => {
-    setErro(false);
+    setErro(null);
     setIsTimeout(false);
     hasStarted.current = false;
     setEtapaAtual(0);
@@ -109,6 +110,9 @@ export default function ProcessandoPage() {
             <span className="text-3xl">😕</span>
           </div>
           <h2 className="text-xl font-bold text-gray-900">{txt.erro}</h2>
+          {typeof erro === "string" && erro.length > 0 && (
+            <p className="text-xs text-gray-400 break-all">{erro.slice(0, 200)}</p>
+          )}
           <button
             onClick={handleRetry}
             className="w-full bg-purple-600 hover:bg-purple-700 text-white py-4 rounded-full font-semibold text-lg transition-all"
