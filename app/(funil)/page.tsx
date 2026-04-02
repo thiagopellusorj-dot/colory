@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { posthog } from "@/lib/posthog";
 import { t } from "@/lib/i18n";
 import { ImageCompare } from "@/components/funil/ImageCompare";
@@ -16,9 +17,44 @@ export default function LandingPage() {
 
   return (
     <main className="flex min-h-screen flex-col bg-white">
-      {/* Hero — slider antes/depois interativo */}
+      {/* Hero — imagens antes/depois */}
       <div className="relative bg-gradient-to-b from-purple-100 to-white px-4 pt-8 pb-4">
-        <div className="mx-auto max-w-md">
+        <div className="mx-auto max-w-md space-y-3">
+          {/* Grid lado a lado */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-2xl overflow-hidden shadow-md bg-white">
+              <div className="aspect-square relative">
+                <Image
+                  src="/images/lp/foto-original.jpg"
+                  alt={txt.fotoOriginal}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 45vw, 200px"
+                  priority
+                />
+              </div>
+              <p className="text-xs text-center py-2 text-gray-500 font-medium">
+                {txt.fotoOriginal}
+              </p>
+            </div>
+            <div className="rounded-2xl overflow-hidden shadow-md bg-white">
+              <div className="aspect-square relative">
+                <Image
+                  src="/images/lp/pagina-colorir.png"
+                  alt={txt.paginaColorir}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 45vw, 200px"
+                  priority
+                />
+              </div>
+              <p className="text-xs text-center py-2 text-purple-600 font-medium">
+                {txt.paginaColorir}
+              </p>
+            </div>
+          </div>
+
+          {/* Slider interativo antes/depois */}
           <ImageCompare
             before="/images/lp/capa-original.jpg"
             after="/images/lp/capa-gerada.jpg"
