@@ -66,7 +66,10 @@ export default function ProcessandoPage() {
           body: JSON.stringify({ image_base64: store.url_foto_original }),
         });
 
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.details || errData.error || `HTTP ${response.status}`);
+        }
 
         const data = await response.json();
 

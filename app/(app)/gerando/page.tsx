@@ -91,7 +91,10 @@ export default function GerandoAppPage() {
           }),
         });
 
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.details || errData.error || `HTTP ${response.status}`);
+        }
 
         const data = await response.json();
 
