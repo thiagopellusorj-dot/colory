@@ -1,7 +1,7 @@
 export async function compressImage(
   file: File,
-  maxDimension: number = 1200,
-  maxSize: number = 2 * 1024 * 1024
+  maxDimension: number = 1024,
+  maxSize: number = 1.5 * 1024 * 1024
 ): Promise<File> {
   // Se já está dentro do limite, retorna direto
   if (file.size <= maxSize) {
@@ -32,10 +32,10 @@ export async function compressImage(
   ctx.drawImage(img, 0, 0, width, height);
 
   // Comprime com qualidade decrescente até ficar dentro do limite
-  let quality = 0.9;
+  let quality = 0.7;
   let blob = await canvasToBlob(canvas, "image/jpeg", quality);
 
-  while (blob.size > maxSize && quality > 0.3) {
+  while (blob.size > maxSize && quality > 0.2) {
     quality -= 0.1;
     blob = await canvasToBlob(canvas, "image/jpeg", quality);
   }
