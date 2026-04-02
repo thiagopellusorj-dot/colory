@@ -23,6 +23,27 @@ export default function LoginPage() {
     setError("");
 
     try {
+      // 1. Verificar se email tem assinatura ativa
+      const checkRes = await fetch("/api/verificar-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+      const checkData = await checkRes.json();
+
+      if (!checkData.exists) {
+        setError("Este email não tem uma assinatura ativa.");
+        setLoading(false);
+        return;
+      }
+
+      if (!checkData.active) {
+        setError("Sua assinatura expirou. Renove para continuar.");
+        setLoading(false);
+        return;
+      }
+
+      // 2. Enviar magic link
       const supabase = createClient();
       const { error: authError } = await supabase.auth.signInWithOtp({
         email: email.trim(),
@@ -73,11 +94,10 @@ export default function LoginPage() {
               className="mx-auto rounded-2xl"
             />
             <h1 className="text-2xl font-bold text-gray-900">Acesse sua conta</h1>
-            <p className="text-sm text-gray-500">Entre pra criar páginas de colorir personalizadas</p>
+            <p className="text-sm text-gray-500">Use o mesmo email da compra para entrar</p>
           </div>
 
           {sent ? (
-            /* Sucesso — link enviado */
             <div className="text-center space-y-4 bg-green-50 rounded-2xl p-6">
               <span className="text-5xl block">📧</span>
               <h2 className="text-lg font-bold text-gray-900">Link enviado!</h2>
@@ -89,7 +109,7 @@ export default function LoginPage() {
                 onClick={() => { setSent(false); setEmail(""); }}
                 className="text-sm text-purple-600 font-medium hover:underline"
               >
-                Enviar novamente
+                Tentar outro email
               </button>
             </div>
           ) : (
@@ -121,18 +141,30 @@ export default function LoginPage() {
               {/* Magic Link */}
               <form onSubmit={handleMagicLink} className="space-y-3">
                 <div>
-                  <label className="text-sm font-medium text-gray-700 block mb-1.5">Email</label>
+                  <label className="text-sm font-medium text-gray-700 block mb-1.5">Email de compra</label>
                   <input
                     type="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="seu@email.com"
+                    onChange={(e) => { setEmail(e.target.value); setError(""); }}
+                    placeholder="email@usado-na-compra.com"
                     required
                     className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
                   />
                 </div>
                 {error && (
-                  <p className="text-sm text-red-500">{error}</p>
+                  <div className="bg-red-50 rounded-xl p-3 space-y-2">
+                    <p className="text-sm text-red-600">{error}</p>
+                    {error.includes("não tem") && (
+                      <a href="/assinar" className="text-sm text-purple-600 font-medium hover:underline block">
+                        Assinar o Colory →
+                      </a>
+                    )}
+                    {error.includes("expirou") && (
+                      <a href="/assinar" className="text-sm text-purple-600 font-medium hover:underline block">
+                        Renovar assinatura →
+                      </a>
+                    )}
+                  </div>
                 )}
                 <button
                   type="submit"
@@ -142,7 +174,7 @@ export default function LoginPage() {
                   {loading ? (
                     <span className="flex items-center justify-center gap-2">
                       <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      Enviando...
+                      Verificando...
                     </span>
                   ) : (
                     "Enviar link de acesso"
@@ -156,7 +188,7 @@ export default function LoginPage() {
           <div className="text-center">
             <p className="text-xs text-gray-400">
               Ainda não tem conta?{" "}
-              <a href="/assinar" className="text-purple-600 font-medium hover:underline">
+              <a href="/" className="text-purple-600 font-medium hover:underline">
                 Assine o Colory
               </a>
             </p>
