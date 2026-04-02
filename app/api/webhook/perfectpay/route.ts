@@ -40,7 +40,9 @@ export async function POST(request: NextRequest) {
 
     const supabase = createAdminSupabase();
 
-    console.log(`[Webhook] Venda aprovada: ${productCode} para ${email} (sale: ${saleCode})`);
+    console.log(`[Webhook] Venda aprovada: productCode="${productCode}" email="${email}" sale="${saleCode}"`);
+    console.log(`[Webhook] PRODUCT_CODES:`, JSON.stringify(PRODUCT_CODES));
+    console.log(`[Webhook] Match anual: ${productCode === PRODUCT_CODES.anual}, mensal: ${productCode === PRODUCT_CODES.mensal}`);
 
     // 3. Identificar produto e processar
     if (productCode === PRODUCT_CODES.anual || productCode === PRODUCT_CODES.mensal) {
