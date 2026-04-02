@@ -177,7 +177,7 @@ export async function POST(request: NextRequest) {
       console.log(`[Webhook] Produto desconhecido: ${productCode}`);
     }
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, productCode, email, matched: productCode === PRODUCT_CODES.anual || productCode === PRODUCT_CODES.mensal ? "plano" : productCode === PRODUCT_CODES.creditos ? "creditos" : productCode === PRODUCT_CODES.oto1 || productCode === PRODUCT_CODES.oto3 ? "oto" : "none" });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     console.error("[Webhook] Error:", message);
