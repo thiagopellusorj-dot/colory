@@ -118,7 +118,7 @@ export function OtoLayout({
     if (perfectPayLink && perfectPayLink !== "https://perfectpay.com.br/pay/xxx") {
       window.location.href = perfectPayLink;
     } else {
-      alert("Link de pagamento será configurado em breve.");
+      alert(txt.alertaPagamento);
     }
   };
 

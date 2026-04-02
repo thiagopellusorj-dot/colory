@@ -43,7 +43,7 @@ export default function AssinarPage() {
     if (link && link !== "https://perfectpay.com.br/pay/xxx") {
       window.location.href = link;
     } else {
-      alert("Link de pagamento será configurado em breve.");
+      alert(t().oto.alertaPagamento);
     }
   };
 

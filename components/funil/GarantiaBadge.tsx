@@ -1,4 +1,7 @@
+import { t } from "@/lib/i18n";
+
 export function GarantiaBadge() {
+  const txt = t().componentes;
   return (
     <div className="flex items-start gap-4 bg-green-50 border border-green-200 rounded-2xl p-4">
       <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
@@ -18,10 +21,10 @@ export function GarantiaBadge() {
       </div>
       <div className="space-y-0.5">
         <p className="font-bold text-gray-900 text-sm">
-          Garantia de 30 dias
+          {txt.garantia30Titulo}
         </p>
         <p className="text-xs text-gray-600 leading-relaxed">
-          Se não gostar, devolvemos 100% do seu dinheiro. Sem perguntas.
+          {txt.garantia30Texto}
         </p>
       </div>
     </div>

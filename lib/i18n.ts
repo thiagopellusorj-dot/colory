@@ -267,6 +267,136 @@ const translations = {
       hojeApenas: "Hoje, apenas:",
       scarcityTitle: "Esta oferta só existe nesta página",
       scarcityText: "Ao sair, você não terá acesso a esse preço novamente.",
+
+      // OTO1 content
+      oto1PassoLabel: "Passo 1 de 2 — Não feche esta página",
+      oto1AlertaTexto: "Sua compra NÃO está finalizada ainda...",
+      oto1ValidacaoTexto: "Sua assinatura do Colory foi confirmada!",
+      oto1FomoTexto: (nome: string) => `Você acabou de dar um passo incrível pro ${nome}. Mas precisamos ser honestos: sair desta página agora pode fazer você perder a oportunidade de transformar a experiência dele em algo muito maior.`,
+      oto1CuriosidadeTexto: (nome: string) => `E se o ${nome} pudesse ser o HERÓI da própria história? Imagine ele abrindo um livro e vendo o próprio rosto em cada página.`,
+      oto1ReframeTitulo: "Mais que um livro. Uma memória que ele vai guardar pra sempre.",
+      oto1ReframeTexto: "Livros personalizados não são só entretenimento. São ferramentas que desenvolvem o amor pela leitura, fortalecem a identidade e criam momentos de conexão entre mãe e filho que não tem preço.",
+      oto1Beneficios: (nome: string) => [
+        `${nome} como protagonista — nome e rosto em cada página`,
+        "Estimula o amor pela leitura desde cedo",
+        "Momento de conexão: leia junto toda noite",
+        "Imprima quantas vezes quiser — é seu pra sempre",
+        "Presente perfeito para avós, tios e padrinhos",
+      ] as string[],
+      oto1Depoimentos: [
+        { nome: "Camila R.", texto: "Comprei achando que era bobeira. Meu filho de 4 anos decorou a história inteira. Ele conta pra todo mundo que 'tem um livro dele'. Já fiz 3 cópias pra dar de presente.", cidade: "São Paulo" },
+        { nome: "Patrícia S.", texto: "A vovó chorou quando viu o neto como personagem. Virou o presente de Natal mais especial que já demos. Vale cada centavo.", cidade: "Rio de Janeiro" },
+        { nome: "Amanda K.", texto: "Toda noite minha filha pede: 'mãe, lê o MEU livro'. Ela se sente tão especial. Melhor investimento que já fiz em conteúdo pra ela.", cidade: "Florianópolis" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto1Modulos: (nome: string) => [
+        { emoji: "📖", titulo: "2 Livros PDF Personalizados", descricao: `Histórias únicas com ${nome} como protagonista`, valorIndividual: "R$67" },
+        { emoji: "🎨", titulo: "Ilustrações com IA", descricao: "Rosto do seu filho em cada página da história", valorIndividual: "R$40" },
+        { emoji: "🖨️", titulo: "Alta Resolução para Impressão", descricao: "PDF pronto pra imprimir em casa ou gráfica", valorIndividual: "R$20" },
+        { emoji: "🎁", titulo: "Bônus: Capa Personalizada", descricao: `Nome do ${nome} na capa como autor e herói`, valorIndividual: "R$15" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto1ValorTotal: "R$142",
+      oto1PrecoOriginal: "R$97",
+      oto1PrecoFinal: "R$67",
+      oto1Temas: ["Dinossauros", "Princesas", "Aventura", "Unicórnios", "Espaço", "Piratas", "Animais", "Super-Heróis"] as string[],
+      oto1TemasLabel: "Temas disponíveis",
+      oto1Faqs: [
+        { pergunta: "Como personalizo o livro?", resposta: "Após confirmar o pagamento, você envia uma foto do seu filho e escolhe o tema. Nossa IA cria as ilustrações com o rosto dele em cada página. Simples assim." },
+        { pergunta: "Quanto tempo leva para receber?", resposta: "Em até 24 horas após o pagamento, você recebe o PDF personalizado no seu e-mail, pronto para imprimir." },
+        { pergunta: "Posso imprimir quantas vezes quiser?", resposta: "Sim! O arquivo PDF é seu para sempre. Imprima em casa, na gráfica, ou leia no tablet — sem limite de cópias." },
+      ] as { pergunta: string; resposta: string }[],
+
+      // OTO1 Downsell content
+      oto1DownPassoLabel: "Última chance — oferta reduzida",
+      oto1DownAlertaTexto: "Espera! Temos algo especial pra você...",
+      oto1DownValidacaoTexto: "Entendemos que o valor pode pesar.",
+      oto1DownFomoTexto: (nome: string) => `E se você pudesse dar ao ${nome} pelo menos 1 livro personalizado — com ele como protagonista — por menos da metade?`,
+      oto1DownCuriosidadeTexto: (nome: string) => `Imagine o ${nome} abrindo um livro e vendo ELE MESMO como herói da história.`,
+      oto1DownReframeTitulo: "1 livro. 1 história. 100% dele.",
+      oto1DownReframeTexto: "Um livro PDF personalizado com seu filho como protagonista. Pronto pra imprimir ou ler no tablet.",
+      oto1DownBeneficios: [
+        "História única gerada por IA com o nome e rosto do seu filho",
+        "Ilustrações personalizadas em cada página",
+        "PDF em alta resolução — imprima quantas vezes quiser",
+        "Seu filho como herói da própria história",
+      ] as string[],
+      oto1DownDepoimentos: [
+        { nome: "Juliana M.", texto: "Meu filho não para de pedir pra ler 'o livro dele'. Toda noite é o mesmo: 'mãe, lê o MEU livro!'", cidade: "Belo Horizonte" },
+        { nome: "Fernanda L.", texto: "Dei de presente de aniversário. Ele chorou de emoção quando viu o nome dele na capa.", cidade: "Curitiba" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto1DownModulos: (nome: string) => [
+        { emoji: "📖", titulo: "1 Livro PDF Personalizado", descricao: `História com ${nome} como protagonista`, valorIndividual: "R$67" },
+        { emoji: "🎨", titulo: "Ilustrações Personalizadas", descricao: "Rosto do seu filho em cada página", valorIndividual: "R$30" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto1DownValorTotal: "R$97",
+      oto1DownPrecoOriginal: "R$67",
+      oto1DownPrecoFinal: "R$47",
+
+      // OTO3 content
+      oto3PassoLabel: "Última oferta — Não aparecerá novamente",
+      oto3AlertaTexto: "Depois desta página, o preço volta ao normal.",
+      oto3ValidacaoTexto: "Quase lá! Só mais uma coisa...",
+      oto3FomoTexto: (nome: string) => `Você já tem as páginas de colorir. Talvez já tenha o livro e a música. Mas e se o ${nome} pudesse receber atividades novas TODA SEMANA? Sem você precisar pensar, buscar ou criar nada?`,
+      oto3CuriosidadeTexto: (nome: string) => `Um clube inteiro de atividades personalizadas. Colorir, recortar, ligar os pontos, caça-palavras — tudo com o ${nome} como tema.`,
+      oto3ReframeTitulo: "1 ano inteiro de atividades. Sem tela. Sem repetir.",
+      oto3ReframeTexto: (nome: string) => `São 52 semanas de conteúdo novo pra manter o ${nome} entretido, aprendendo e longe das telas. Você recebe toda semana no email, imprime e pronto. Zero esforço pra você, máxima diversão pra ele.`,
+      oto3Beneficios: (nome: string) => [
+        "Atividades novas toda semana — nunca repete",
+        `Personalizadas com o nome do ${nome}`,
+        "Colorir, recortar, ligar pontos, caça-palavras e mais",
+        "Receba por email — é só imprimir",
+        "Longe das telas: atividade real, com papel e lápis",
+        "Ideal pra viagens, restaurantes e fins de semana",
+      ] as string[],
+      oto3Depoimentos: [
+        { nome: "Mariana C.", texto: "Toda sexta meu filho já pergunta: 'mãe, chegou minha atividade?'. Virou a tradição do fim de semana. Ele adora e eu tenho 1 hora de paz.", cidade: "Campinas" },
+        { nome: "Carolina B.", texto: "Cancelei 2 apps de tablet depois que assinei o clube. Meu filho prefere as atividades impressas. E eu prefiro ele longe da tela.", cidade: "Salvador" },
+        { nome: "Thais R.", texto: "Levo nas viagens de carro. É a única coisa que mantém ele quieto por 1 hora sem iPad. Já valeu o investimento do ano inteiro.", cidade: "Goiânia" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto3Modulos: [
+        { emoji: "📋", titulo: "52 Pacotes de Atividades Semanais", descricao: "1 ano completo de conteúdo", valorIndividual: "R$156" },
+        { emoji: "🎨", titulo: "Páginas de Colorir Temáticas", descricao: "Datas comemorativas, estações, temas infantis", valorIndividual: "R$40" },
+        { emoji: "✂️", titulo: "Recorte, Cole e Monte", descricao: "Atividades de coordenação motora", valorIndividual: "R$30" },
+        { emoji: "🔤", titulo: "Caça-Palavras e Ligar Pontos", descricao: "Aprendizado disfarçado de diversão", valorIndividual: "R$25" },
+        { emoji: "📧", titulo: "Entrega Semanal por Email", descricao: "Receba, imprima e pronto", valorIndividual: "R$0" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto3ValorTotal: "R$251",
+      oto3PrecoOriginal: "R$197",
+      oto3PrecoFinal: "R$97",
+      oto3PeriodoPagamento: "pagamento único — acesso por 1 ano",
+
+      // OTO3 Downsell content
+      oto3DownPassoLabel: "Última chance — oferta reduzida",
+      oto3DownAlertaTexto: "Espera! E se fosse pela metade do tempo e do preço?",
+      oto3DownValidacaoTexto: "Entendemos. O anual pode parecer muito.",
+      oto3DownFomoTexto: (nome: string) => `E se você pudesse testar o Clube por 6 meses — com tudo incluso — por menos da metade? Se o ${nome} adorar (e ele vai), você renova depois.`,
+      oto3DownCuriosidadeTexto: (nome: string) => `26 semanas de atividades personalizadas. Toda semana algo novo pra imprimir e brincar com o ${nome}.`,
+      oto3DownReframeTitulo: "6 meses de atividades. Sem compromisso de 1 ano.",
+      oto3DownReframeTexto: (nome: string) => `Teste o Clube por meio período. São 26 semanas de conteúdo novo — colorir, recortar, ligar os pontos — tudo personalizado com o nome do ${nome}. Se ele amar, você decide se renova.`,
+      oto3DownBeneficios: (nome: string) => [
+        "26 semanas de atividades novas — nunca repete",
+        `Personalizadas com o nome do ${nome}`,
+        "Colorir, recortar, ligar pontos, caça-palavras e mais",
+        "Receba por email — é só imprimir",
+        "Sem compromisso longo — teste por 6 meses",
+        "Metade do preço do plano anual",
+      ] as string[],
+      oto3DownDepoimentos: [
+        { nome: "Mariana C.", texto: "Toda sexta meu filho já pergunta: 'mãe, chegou minha atividade?'. Virou a tradição do fim de semana.", cidade: "Campinas" },
+        { nome: "Thais R.", texto: "Levo nas viagens de carro. É a única coisa que mantém ele quieto por 1 hora sem iPad.", cidade: "Goiânia" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto3DownModulos: [
+        { emoji: "📋", titulo: "26 Pacotes de Atividades Semanais", descricao: "6 meses de conteúdo personalizado", valorIndividual: "R$78" },
+        { emoji: "🎨", titulo: "Páginas de Colorir Temáticas", descricao: "Datas comemorativas e temas infantis", valorIndividual: "R$20" },
+        { emoji: "✂️", titulo: "Recorte, Cole e Monte", descricao: "Atividades de coordenação motora", valorIndividual: "R$15" },
+        { emoji: "📧", titulo: "Entrega Semanal por Email", descricao: "Receba, imprima e pronto", valorIndividual: "R$0" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto3DownValorTotal: "R$113",
+      oto3DownPrecoOriginal: "R$97",
+      oto3DownPrecoFinal: "R$47",
+      oto3DownPeriodoPagamento: "pagamento único — acesso por 6 meses",
+
+      // Alert fallback
+      alertaPagamento: "Link de pagamento será configurado em breve.",
     },
 
     // App — Criar
@@ -340,6 +470,48 @@ const translations = {
         clube: "🎨 Clube de Atividades",
       } as Record<string, string>,
       acessoApp: "Acesse o app completo pelo link que enviamos no seu e-mail.",
+      imprimir: "Imprimir",
+      emailTitulo: "O que vai chegar no seu email",
+      emailItems: [
+        "Sua página de colorir personalizada",
+        "Link de acesso ao app completo",
+        "Instruções para imprimir em alta qualidade",
+      ] as string[],
+      proximosPassosTitulo: "Próximos passos",
+      proximosPasso1: "Abra o email que enviamos",
+      proximosPasso2: "Clique no link de acesso",
+      proximosPasso3: "Comece a criar páginas de colorir",
+      instalarAppTitulo: "Instale o app no celular",
+      instalarIphone: "iPhone: Toque em Compartilhar → Adicionar à Tela de Início",
+      instalarAndroid: "Android: Toque em ⋮ → Instalar aplicativo",
+    },
+
+    // Componentes
+    componentes: {
+      // GarantiaBadge
+      garantia30Titulo: "Garantia de 30 dias",
+      garantia30Texto: "Se não gostar, devolvemos 100% do seu dinheiro. Sem perguntas.",
+
+      // ComoFunciona
+      comoFuncionaTitulo: "Como funciona?",
+      comoFuncionaPasso1: "Envie a foto",
+      comoFuncionaPasso2: "Personalize sua história",
+      comoFuncionaPasso3: "Receba o livro personalizado",
+
+      // BookPreview
+      bookPreviewTitulo: (nome: string) => `Veja como pode ficar o livro do ${nome}:`,
+      bookPreviewExemplo: (i: number) => `Exemplo ${i}`,
+      bookPreviewCapa: "Capa",
+      bookPreviewPagina: (n: number) => `Página ${n}`,
+      bookPreviewDescricao: (nome: string) => `O livro do ${nome} vai ser assim — com o nome dele na história, ilustrações personalizadas e pronto pra imprimir.`,
+
+      // TransformacaoVisual
+      transformacaoFoto: "Foto do seu filho",
+      transformacaoLivro: "Livro personalizado",
+      transformacaoDescricao: "A IA usa a foto para criar ilustrações com o rosto dele em cada página",
+
+      // FaqAccordion
+      faqTitulo: "Perguntas frequentes",
     },
   },
 
@@ -611,6 +783,136 @@ const translations = {
       hojeApenas: "Today only:",
       scarcityTitle: "This offer only exists on this page",
       scarcityText: "Once you leave, you won't have access to this price again.",
+
+      // OTO1 content
+      oto1PassoLabel: "Step 1 of 2 — Don't close this page",
+      oto1AlertaTexto: "Your purchase is NOT finalized yet...",
+      oto1ValidacaoTexto: "Your Colory subscription has been confirmed!",
+      oto1FomoTexto: (nome: string) => `You just took an incredible step for ${nome}. But let's be honest: leaving this page now could mean missing the chance to turn their experience into something much bigger.`,
+      oto1CuriosidadeTexto: (nome: string) => `What if ${nome} could be the HERO of their own story? Imagine them opening a book and seeing their own face on every page.`,
+      oto1ReframeTitulo: "More than a book. A memory they'll treasure forever.",
+      oto1ReframeTexto: "Personalized books aren't just entertainment. They're tools that nurture a love for reading, strengthen identity, and create priceless bonding moments between parent and child.",
+      oto1Beneficios: (nome: string) => [
+        `${nome} as the main character — name and face on every page`,
+        "Nurtures a love for reading from an early age",
+        "Bonding moment: read together every night",
+        "Print as many times as you want — it's yours forever",
+        "Perfect gift for grandparents, aunts, uncles, and godparents",
+      ] as string[],
+      oto1Depoimentos: [
+        { nome: "Sarah R.", texto: "I bought it thinking it was just a novelty. My 4-year-old memorized the entire story. He tells everyone he 'has his own book'. I've already made 3 copies as gifts.", cidade: "New York" },
+        { nome: "Patricia T.", texto: "Grandma cried when she saw her grandson as the character. It became the most special Christmas gift we've ever given. Worth every penny.", cidade: "Los Angeles" },
+        { nome: "Amanda K.", texto: "Every night my daughter asks: 'Mom, read MY book'. She feels so special. Best investment I've ever made in content for her.", cidade: "Chicago" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto1Modulos: (nome: string) => [
+        { emoji: "📖", titulo: "2 Personalized PDF Books", descricao: `Unique stories with ${nome} as the main character`, valorIndividual: "$13.90" },
+        { emoji: "🎨", titulo: "AI-Generated Illustrations", descricao: "Your child's face on every page of the story", valorIndividual: "$8.00" },
+        { emoji: "🖨️", titulo: "High Resolution for Printing", descricao: "PDF ready to print at home or at a print shop", valorIndividual: "$4.00" },
+        { emoji: "🎁", titulo: "Bonus: Personalized Cover", descricao: `${nome}'s name on the cover as author and hero`, valorIndividual: "$3.00" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto1ValorTotal: "$28.90",
+      oto1PrecoOriginal: "$19.90",
+      oto1PrecoFinal: "$13.90",
+      oto1Temas: ["Dinosaurs", "Princesses", "Adventure", "Unicorns", "Space", "Pirates", "Animals", "Superheroes"] as string[],
+      oto1TemasLabel: "Available themes",
+      oto1Faqs: [
+        { pergunta: "How do I personalize the book?", resposta: "After confirming payment, you upload a photo of your child and choose a theme. Our AI creates illustrations with their face on every page. Simple as that." },
+        { pergunta: "How long until I receive it?", resposta: "Within 24 hours of payment, you'll receive the personalized PDF in your email, ready to print." },
+        { pergunta: "Can I print it as many times as I want?", resposta: "Yes! The PDF file is yours forever. Print at home, at a print shop, or read on a tablet — no copy limit." },
+      ] as { pergunta: string; resposta: string }[],
+
+      // OTO1 Downsell content
+      oto1DownPassoLabel: "Last chance — reduced offer",
+      oto1DownAlertaTexto: "Wait! We have something special for you...",
+      oto1DownValidacaoTexto: "We understand the price may feel like a lot.",
+      oto1DownFomoTexto: (nome: string) => `What if you could give ${nome} at least 1 personalized book — with them as the main character — for less than half the price?`,
+      oto1DownCuriosidadeTexto: (nome: string) => `Imagine ${nome} opening a book and seeing THEMSELVES as the hero of the story.`,
+      oto1DownReframeTitulo: "1 book. 1 story. 100% theirs.",
+      oto1DownReframeTexto: "A personalized PDF book with your child as the main character. Ready to print or read on a tablet.",
+      oto1DownBeneficios: [
+        "A unique AI-generated story with your child's name and face",
+        "Personalized illustrations on every page",
+        "High-resolution PDF — print as many times as you want",
+        "Your child as the hero of their own story",
+      ] as string[],
+      oto1DownDepoimentos: [
+        { nome: "Julie M.", texto: "My son won't stop asking to read 'his book'. Every night it's the same: 'Mom, read MY book!'", cidade: "Boston" },
+        { nome: "Fiona L.", texto: "I gave it as a birthday gift. He cried with joy when he saw his name on the cover.", cidade: "San Francisco" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto1DownModulos: (nome: string) => [
+        { emoji: "📖", titulo: "1 Personalized PDF Book", descricao: `Story with ${nome} as the main character`, valorIndividual: "$13.90" },
+        { emoji: "🎨", titulo: "Personalized Illustrations", descricao: "Your child's face on every page", valorIndividual: "$6.00" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto1DownValorTotal: "$19.90",
+      oto1DownPrecoOriginal: "$13.90",
+      oto1DownPrecoFinal: "$9.90",
+
+      // OTO3 content
+      oto3PassoLabel: "Final offer — Won't appear again",
+      oto3AlertaTexto: "After this page, the price goes back to normal.",
+      oto3ValidacaoTexto: "Almost there! Just one more thing...",
+      oto3FomoTexto: (nome: string) => `You already have the coloring pages. Maybe you already have the book and the song. But what if ${nome} could receive brand new activities EVERY WEEK? Without you having to think, search, or create anything?`,
+      oto3CuriosidadeTexto: (nome: string) => `A whole club of personalized activities. Coloring, cutting, connect-the-dots, word searches — all featuring ${nome}.`,
+      oto3ReframeTitulo: "A full year of activities. No screens. No repeats.",
+      oto3ReframeTexto: (nome: string) => `That's 52 weeks of fresh content to keep ${nome} entertained, learning, and away from screens. You receive it weekly by email, print it, and you're done. Zero effort for you, maximum fun for them.`,
+      oto3Beneficios: (nome: string) => [
+        "Brand new activities every week — never repeats",
+        `Personalized with ${nome}'s name`,
+        "Coloring, cutting, connect-the-dots, word searches and more",
+        "Delivered by email — just print and go",
+        "Away from screens: real activities with paper and crayons",
+        "Perfect for trips, restaurants, and weekends",
+      ] as string[],
+      oto3Depoimentos: [
+        { nome: "Marina C.", texto: "Every Friday my son asks: 'Mom, did my activity arrive?' It's become our weekend tradition. He loves it and I get 1 hour of peace.", cidade: "Denver" },
+        { nome: "Caroline B.", texto: "I cancelled 2 tablet apps after joining the club. My son prefers the printed activities. And I prefer him off the screen.", cidade: "Atlanta" },
+        { nome: "Tanya R.", texto: "I bring them on car trips. It's the only thing that keeps him quiet for 1 hour without an iPad. Already worth the whole year's investment.", cidade: "Seattle" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto3Modulos: [
+        { emoji: "📋", titulo: "52 Weekly Activity Packs", descricao: "A full year of content", valorIndividual: "$31.00" },
+        { emoji: "🎨", titulo: "Themed Coloring Pages", descricao: "Holidays, seasons, kids' themes", valorIndividual: "$8.00" },
+        { emoji: "✂️", titulo: "Cut, Paste & Build", descricao: "Fine motor skill activities", valorIndividual: "$6.00" },
+        { emoji: "🔤", titulo: "Word Searches & Connect-the-Dots", descricao: "Learning disguised as fun", valorIndividual: "$5.00" },
+        { emoji: "📧", titulo: "Weekly Email Delivery", descricao: "Receive, print, and go", valorIndividual: "$0" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto3ValorTotal: "$50.00",
+      oto3PrecoOriginal: "$39.90",
+      oto3PrecoFinal: "$19.90",
+      oto3PeriodoPagamento: "one-time payment — 1 year access",
+
+      // OTO3 Downsell content
+      oto3DownPassoLabel: "Last chance — reduced offer",
+      oto3DownAlertaTexto: "Wait! What if it were half the time and half the price?",
+      oto3DownValidacaoTexto: "We understand. The annual plan can feel like a lot.",
+      oto3DownFomoTexto: (nome: string) => `What if you could try the Club for 6 months — with everything included — for less than half? If ${nome} loves it (and they will), you can renew later.`,
+      oto3DownCuriosidadeTexto: (nome: string) => `26 weeks of personalized activities. Every week something new to print and play with ${nome}.`,
+      oto3DownReframeTitulo: "6 months of activities. No 1-year commitment.",
+      oto3DownReframeTexto: (nome: string) => `Try the Club for half the period. That's 26 weeks of fresh content — coloring, cutting, connect-the-dots — all personalized with ${nome}'s name. If they love it, you decide whether to renew.`,
+      oto3DownBeneficios: (nome: string) => [
+        "26 weeks of brand new activities — never repeats",
+        `Personalized with ${nome}'s name`,
+        "Coloring, cutting, connect-the-dots, word searches and more",
+        "Delivered by email — just print and go",
+        "No long commitment — try for 6 months",
+        "Half the price of the annual plan",
+      ] as string[],
+      oto3DownDepoimentos: [
+        { nome: "Marina C.", texto: "Every Friday my son asks: 'Mom, did my activity arrive?' It's become our weekend tradition.", cidade: "Denver" },
+        { nome: "Tanya R.", texto: "I bring them on car trips. It's the only thing that keeps him quiet for 1 hour without an iPad.", cidade: "Seattle" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto3DownModulos: [
+        { emoji: "📋", titulo: "26 Weekly Activity Packs", descricao: "6 months of personalized content", valorIndividual: "$15.50" },
+        { emoji: "🎨", titulo: "Themed Coloring Pages", descricao: "Holidays and kids' themes", valorIndividual: "$4.00" },
+        { emoji: "✂️", titulo: "Cut, Paste & Build", descricao: "Fine motor skill activities", valorIndividual: "$3.00" },
+        { emoji: "📧", titulo: "Weekly Email Delivery", descricao: "Receive, print, and go", valorIndividual: "$0" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto3DownValorTotal: "$22.50",
+      oto3DownPrecoOriginal: "$19.90",
+      oto3DownPrecoFinal: "$9.90",
+      oto3DownPeriodoPagamento: "one-time payment — 6 months access",
+
+      // Alert fallback
+      alertaPagamento: "Payment link will be configured soon.",
     },
 
     // App — Create
@@ -684,6 +986,48 @@ const translations = {
         clube: "🎨 Activity Club",
       } as Record<string, string>,
       acessoApp: "Access the full app via the link we sent to your email.",
+      imprimir: "Print",
+      emailTitulo: "What you'll receive in your email",
+      emailItems: [
+        "Your personalized coloring page",
+        "Access link to the full app",
+        "Instructions for high-quality printing",
+      ] as string[],
+      proximosPassosTitulo: "Next steps",
+      proximosPasso1: "Open the email we sent you",
+      proximosPasso2: "Click the access link",
+      proximosPasso3: "Start creating coloring pages",
+      instalarAppTitulo: "Install the app on your phone",
+      instalarIphone: "iPhone: Tap Share → Add to Home Screen",
+      instalarAndroid: "Android: Tap ⋮ → Install app",
+    },
+
+    // Components
+    componentes: {
+      // GarantiaBadge
+      garantia30Titulo: "30-day guarantee",
+      garantia30Texto: "If you don't love it, we'll refund 100% of your money. No questions asked.",
+
+      // ComoFunciona
+      comoFuncionaTitulo: "How does it work?",
+      comoFuncionaPasso1: "Upload the photo",
+      comoFuncionaPasso2: "Personalize your story",
+      comoFuncionaPasso3: "Receive the personalized book",
+
+      // BookPreview
+      bookPreviewTitulo: (nome: string) => `See how ${nome}'s book could look:`,
+      bookPreviewExemplo: (i: number) => `Example ${i}`,
+      bookPreviewCapa: "Cover",
+      bookPreviewPagina: (n: number) => `Page ${n}`,
+      bookPreviewDescricao: (nome: string) => `${nome}'s book will look just like this — with their name in the story, personalized illustrations, and ready to print.`,
+
+      // TransformacaoVisual
+      transformacaoFoto: "Your child's photo",
+      transformacaoLivro: "Personalized book",
+      transformacaoDescricao: "The AI uses the photo to create illustrations with their face on every page",
+
+      // FaqAccordion
+      faqTitulo: "Frequently asked questions",
     },
   },
 
@@ -955,6 +1299,136 @@ const translations = {
       hojeApenas: "Hoy, solo:",
       scarcityTitle: "Esta oferta solo existe en esta página",
       scarcityText: "Al salir, no tendrás acceso a este precio de nuevo.",
+
+      // OTO1 content
+      oto1PassoLabel: "Paso 1 de 2 — No cierres esta página",
+      oto1AlertaTexto: "Tu compra NO está finalizada aún...",
+      oto1ValidacaoTexto: "¡Tu suscripción a Colory ha sido confirmada!",
+      oto1FomoTexto: (nome: string) => `Acabas de dar un paso increíble por ${nome}. Pero seamos honestos: salir de esta página ahora podría hacerte perder la oportunidad de transformar su experiencia en algo mucho más grande.`,
+      oto1CuriosidadeTexto: (nome: string) => `¿Y si ${nome} pudiera ser el HÉROE de su propia historia? Imagina que abre un libro y ve su propio rostro en cada página.`,
+      oto1ReframeTitulo: "Más que un libro. Un recuerdo que guardará para siempre.",
+      oto1ReframeTexto: "Los libros personalizados no son solo entretenimiento. Son herramientas que fomentan el amor por la lectura, fortalecen la identidad y crean momentos de conexión entre madre e hijo que no tienen precio.",
+      oto1Beneficios: (nome: string) => [
+        `${nome} como protagonista — nombre y rostro en cada página`,
+        "Estimula el amor por la lectura desde pequeño",
+        "Momento de conexión: lean juntos cada noche",
+        "Imprímelo cuantas veces quieras — es tuyo para siempre",
+        "Regalo perfecto para abuelos, tíos y padrinos",
+      ] as string[],
+      oto1Depoimentos: [
+        { nome: "Camila R.", texto: "Lo compré pensando que era una tontería. Mi hijo de 4 años se aprendió la historia entera. Les cuenta a todos que 'tiene un libro suyo'. Ya hice 3 copias para regalar.", cidade: "Madrid" },
+        { nome: "Patricia S.", texto: "La abuela lloró cuando vio a su nieto como personaje. Se convirtió en el regalo de Navidad más especial que hemos dado. Vale cada centavo.", cidade: "Buenos Aires" },
+        { nome: "Amanda K.", texto: "Cada noche mi hija pide: 'mami, lee MI libro'. Se siente tan especial. La mejor inversión que he hecho en contenido para ella.", cidade: "México" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto1Modulos: (nome: string) => [
+        { emoji: "📖", titulo: "2 Libros PDF Personalizados", descricao: `Historias únicas con ${nome} como protagonista`, valorIndividual: "$13.90" },
+        { emoji: "🎨", titulo: "Ilustraciones con IA", descricao: "El rostro de tu hijo en cada página de la historia", valorIndividual: "$8.00" },
+        { emoji: "🖨️", titulo: "Alta Resolución para Imprimir", descricao: "PDF listo para imprimir en casa o imprenta", valorIndividual: "$4.00" },
+        { emoji: "🎁", titulo: "Bono: Portada Personalizada", descricao: `Nombre de ${nome} en la portada como autor y héroe`, valorIndividual: "$3.00" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto1ValorTotal: "$28.90",
+      oto1PrecoOriginal: "$19.90",
+      oto1PrecoFinal: "$13.90",
+      oto1Temas: ["Dinosaurios", "Princesas", "Aventura", "Unicornios", "Espacio", "Piratas", "Animales", "Superhéroes"] as string[],
+      oto1TemasLabel: "Temas disponibles",
+      oto1Faqs: [
+        { pergunta: "¿Cómo personalizo el libro?", resposta: "Después de confirmar el pago, envías una foto de tu hijo y eliges el tema. Nuestra IA crea las ilustraciones con su rostro en cada página. Así de simple." },
+        { pergunta: "¿Cuánto tarda en llegar?", resposta: "En un máximo de 24 horas después del pago, recibes el PDF personalizado en tu correo, listo para imprimir." },
+        { pergunta: "¿Puedo imprimirlo cuantas veces quiera?", resposta: "¡Sí! El archivo PDF es tuyo para siempre. Imprímelo en casa, en la imprenta o léelo en la tablet — sin límite de copias." },
+      ] as { pergunta: string; resposta: string }[],
+
+      // OTO1 Downsell content
+      oto1DownPassoLabel: "Última oportunidad — oferta reducida",
+      oto1DownAlertaTexto: "¡Espera! Tenemos algo especial para ti...",
+      oto1DownValidacaoTexto: "Entendemos que el precio puede ser mucho.",
+      oto1DownFomoTexto: (nome: string) => `¿Y si pudieras darle a ${nome} al menos 1 libro personalizado — con él como protagonista — por menos de la mitad?`,
+      oto1DownCuriosidadeTexto: (nome: string) => `Imagina a ${nome} abriendo un libro y viéndose A SÍ MISMO como el héroe de la historia.`,
+      oto1DownReframeTitulo: "1 libro. 1 historia. 100% suyo.",
+      oto1DownReframeTexto: "Un libro PDF personalizado con tu hijo como protagonista. Listo para imprimir o leer en la tablet.",
+      oto1DownBeneficios: [
+        "Historia única generada por IA con el nombre y rostro de tu hijo",
+        "Ilustraciones personalizadas en cada página",
+        "PDF en alta resolución — imprímelo cuantas veces quieras",
+        "Tu hijo como héroe de su propia historia",
+      ] as string[],
+      oto1DownDepoimentos: [
+        { nome: "Juliana M.", texto: "Mi hijo no para de pedir que le lea 'su libro'. Cada noche es lo mismo: '¡mami, lee MI libro!'", cidade: "Barcelona" },
+        { nome: "Fernanda L.", texto: "Se lo di de regalo de cumpleaños. Lloró de emoción cuando vio su nombre en la portada.", cidade: "Lima" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto1DownModulos: (nome: string) => [
+        { emoji: "📖", titulo: "1 Libro PDF Personalizado", descricao: `Historia con ${nome} como protagonista`, valorIndividual: "$13.90" },
+        { emoji: "🎨", titulo: "Ilustraciones Personalizadas", descricao: "El rostro de tu hijo en cada página", valorIndividual: "$6.00" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto1DownValorTotal: "$19.90",
+      oto1DownPrecoOriginal: "$13.90",
+      oto1DownPrecoFinal: "$9.90",
+
+      // OTO3 content
+      oto3PassoLabel: "Última oferta — No aparecerá de nuevo",
+      oto3AlertaTexto: "Después de esta página, el precio vuelve a la normalidad.",
+      oto3ValidacaoTexto: "¡Casi listo! Solo una cosa más...",
+      oto3FomoTexto: (nome: string) => `Ya tienes las páginas para colorear. Quizá ya tienes el libro y la canción. Pero ¿y si ${nome} pudiera recibir actividades nuevas CADA SEMANA? Sin que tú tengas que pensar, buscar ni crear nada.`,
+      oto3CuriosidadeTexto: (nome: string) => `Un club entero de actividades personalizadas. Colorear, recortar, unir los puntos, sopa de letras — todo con ${nome} como tema.`,
+      oto3ReframeTitulo: "1 año entero de actividades. Sin pantallas. Sin repetir.",
+      oto3ReframeTexto: (nome: string) => `Son 52 semanas de contenido nuevo para mantener a ${nome} entretenido, aprendiendo y lejos de las pantallas. Lo recibes cada semana por correo, lo imprimes y listo. Cero esfuerzo para ti, máxima diversión para él.`,
+      oto3Beneficios: (nome: string) => [
+        "Actividades nuevas cada semana — nunca se repiten",
+        `Personalizadas con el nombre de ${nome}`,
+        "Colorear, recortar, unir puntos, sopa de letras y más",
+        "Recíbelo por correo — solo imprime",
+        "Lejos de las pantallas: actividad real, con papel y lápices",
+        "Ideal para viajes, restaurantes y fines de semana",
+      ] as string[],
+      oto3Depoimentos: [
+        { nome: "Marina C.", texto: "Cada viernes mi hijo pregunta: '¿mami, llegó mi actividad?'. Se volvió la tradición del fin de semana. Le encanta y yo tengo 1 hora de paz.", cidade: "Valencia" },
+        { nome: "Carolina B.", texto: "Cancelé 2 apps de tablet después de unirme al club. Mi hijo prefiere las actividades impresas. Y yo lo prefiero lejos de la pantalla.", cidade: "Bogotá" },
+        { nome: "Teresa R.", texto: "Las llevo en los viajes en coche. Es lo único que lo mantiene tranquilo 1 hora sin iPad. Ya valió la inversión del año entero.", cidade: "Santiago" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto3Modulos: [
+        { emoji: "📋", titulo: "52 Paquetes de Actividades Semanales", descricao: "1 año completo de contenido", valorIndividual: "$31.00" },
+        { emoji: "🎨", titulo: "Páginas para Colorear Temáticas", descricao: "Fechas especiales, estaciones, temas infantiles", valorIndividual: "$8.00" },
+        { emoji: "✂️", titulo: "Recorta, Pega y Arma", descricao: "Actividades de motricidad fina", valorIndividual: "$6.00" },
+        { emoji: "🔤", titulo: "Sopa de Letras y Unir Puntos", descricao: "Aprendizaje disfrazado de diversión", valorIndividual: "$5.00" },
+        { emoji: "📧", titulo: "Entrega Semanal por Correo", descricao: "Recibe, imprime y listo", valorIndividual: "$0" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto3ValorTotal: "$50.00",
+      oto3PrecoOriginal: "$39.90",
+      oto3PrecoFinal: "$19.90",
+      oto3PeriodoPagamento: "pago único — acceso por 1 año",
+
+      // OTO3 Downsell content
+      oto3DownPassoLabel: "Última oportunidad — oferta reducida",
+      oto3DownAlertaTexto: "¡Espera! ¿Y si fuera por la mitad del tiempo y del precio?",
+      oto3DownValidacaoTexto: "Entendemos. El plan anual puede parecer mucho.",
+      oto3DownFomoTexto: (nome: string) => `¿Y si pudieras probar el Club por 6 meses — con todo incluido — por menos de la mitad? Si a ${nome} le encanta (y le encantará), renuevas después.`,
+      oto3DownCuriosidadeTexto: (nome: string) => `26 semanas de actividades personalizadas. Cada semana algo nuevo para imprimir y jugar con ${nome}.`,
+      oto3DownReframeTitulo: "6 meses de actividades. Sin compromiso de 1 año.",
+      oto3DownReframeTexto: (nome: string) => `Prueba el Club por medio periodo. Son 26 semanas de contenido nuevo — colorear, recortar, unir los puntos — todo personalizado con el nombre de ${nome}. Si le encanta, tú decides si renuevas.`,
+      oto3DownBeneficios: (nome: string) => [
+        "26 semanas de actividades nuevas — nunca se repiten",
+        `Personalizadas con el nombre de ${nome}`,
+        "Colorear, recortar, unir puntos, sopa de letras y más",
+        "Recíbelo por correo — solo imprime",
+        "Sin compromiso largo — prueba por 6 meses",
+        "Mitad de precio del plan anual",
+      ] as string[],
+      oto3DownDepoimentos: [
+        { nome: "Marina C.", texto: "Cada viernes mi hijo pregunta: '¿mami, llegó mi actividad?'. Se volvió la tradición del fin de semana.", cidade: "Valencia" },
+        { nome: "Teresa R.", texto: "Las llevo en los viajes en coche. Es lo único que lo mantiene tranquilo 1 hora sin iPad.", cidade: "Santiago" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto3DownModulos: [
+        { emoji: "📋", titulo: "26 Paquetes de Actividades Semanales", descricao: "6 meses de contenido personalizado", valorIndividual: "$15.50" },
+        { emoji: "🎨", titulo: "Páginas para Colorear Temáticas", descricao: "Fechas especiales y temas infantiles", valorIndividual: "$4.00" },
+        { emoji: "✂️", titulo: "Recorta, Pega y Arma", descricao: "Actividades de motricidad fina", valorIndividual: "$3.00" },
+        { emoji: "📧", titulo: "Entrega Semanal por Correo", descricao: "Recibe, imprime y listo", valorIndividual: "$0" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto3DownValorTotal: "$22.50",
+      oto3DownPrecoOriginal: "$19.90",
+      oto3DownPrecoFinal: "$9.90",
+      oto3DownPeriodoPagamento: "pago único — acceso por 6 meses",
+
+      // Alert fallback
+      alertaPagamento: "El enlace de pago se configurará pronto.",
     },
 
     // App — Crear
@@ -1028,6 +1502,48 @@ const translations = {
         clube: "🎨 Club de Actividades",
       } as Record<string, string>,
       acessoApp: "Accede a la app completa desde el enlace que enviamos a tu correo.",
+      imprimir: "Imprimir",
+      emailTitulo: "Lo que recibirás en tu correo",
+      emailItems: [
+        "Tu página para colorear personalizada",
+        "Enlace de acceso a la app completa",
+        "Instrucciones para imprimir en alta calidad",
+      ] as string[],
+      proximosPassosTitulo: "Próximos pasos",
+      proximosPasso1: "Abre el correo que te enviamos",
+      proximosPasso2: "Haz clic en el enlace de acceso",
+      proximosPasso3: "Empieza a crear páginas para colorear",
+      instalarAppTitulo: "Instala la app en tu celular",
+      instalarIphone: "iPhone: Toca Compartir → Añadir a pantalla de inicio",
+      instalarAndroid: "Android: Toca ⋮ → Instalar aplicación",
+    },
+
+    // Componentes
+    componentes: {
+      // GarantiaBadge
+      garantia30Titulo: "Garantía de 30 días",
+      garantia30Texto: "Si no te gusta, te devolvemos el 100% de tu dinero. Sin preguntas.",
+
+      // ComoFunciona
+      comoFuncionaTitulo: "¿Cómo funciona?",
+      comoFuncionaPasso1: "Envía la foto",
+      comoFuncionaPasso2: "Personaliza tu historia",
+      comoFuncionaPasso3: "Recibe el libro personalizado",
+
+      // BookPreview
+      bookPreviewTitulo: (nome: string) => `Mira cómo podría quedar el libro de ${nome}:`,
+      bookPreviewExemplo: (i: number) => `Ejemplo ${i}`,
+      bookPreviewCapa: "Portada",
+      bookPreviewPagina: (n: number) => `Página ${n}`,
+      bookPreviewDescricao: (nome: string) => `El libro de ${nome} será así — con su nombre en la historia, ilustraciones personalizadas y listo para imprimir.`,
+
+      // TransformacaoVisual
+      transformacaoFoto: "Foto de tu hijo",
+      transformacaoLivro: "Libro personalizado",
+      transformacaoDescricao: "La IA usa la foto para crear ilustraciones con su rostro en cada página",
+
+      // FaqAccordion
+      faqTitulo: "Preguntas frecuentes",
     },
   },
 
@@ -1299,6 +1815,136 @@ const translations = {
       hojeApenas: "Aujourd'hui seulement :",
       scarcityTitle: "Cette offre n'existe que sur cette page",
       scarcityText: "En quittant, vous n'aurez plus accès à ce prix.",
+
+      // OTO1 content
+      oto1PassoLabel: "Étape 1 sur 2 — Ne fermez pas cette page",
+      oto1AlertaTexto: "Votre achat N'EST PAS encore finalisé...",
+      oto1ValidacaoTexto: "Votre abonnement Colory a été confirmé !",
+      oto1FomoTexto: (nome: string) => `Vous venez de faire un pas incroyable pour ${nome}. Mais soyons honnêtes : quitter cette page maintenant pourrait vous faire manquer l'opportunité de transformer son expérience en quelque chose de bien plus grand.`,
+      oto1CuriosidadeTexto: (nome: string) => `Et si ${nome} pouvait être le HÉROS de sa propre histoire ? Imaginez-le ouvrant un livre et voyant son propre visage sur chaque page.`,
+      oto1ReframeTitulo: "Plus qu'un livre. Un souvenir qu'il gardera pour toujours.",
+      oto1ReframeTexto: "Les livres personnalisés ne sont pas qu'un divertissement. Ce sont des outils qui développent l'amour de la lecture, renforcent l'identité et créent des moments de complicité entre parent et enfant qui n'ont pas de prix.",
+      oto1Beneficios: (nome: string) => [
+        `${nome} comme protagoniste — prénom et visage sur chaque page`,
+        "Développe l'amour de la lecture dès le plus jeune âge",
+        "Moment de complicité : lisez ensemble chaque soir",
+        "Imprimez autant de fois que vous voulez — c'est à vous pour toujours",
+        "Cadeau parfait pour les grands-parents, oncles, tantes et parrains",
+      ] as string[],
+      oto1Depoimentos: [
+        { nome: "Camille R.", texto: "Je l'ai acheté en pensant que c'était gadget. Mon fils de 4 ans a mémorisé toute l'histoire. Il raconte à tout le monde qu'il 'a son propre livre'. J'ai déjà fait 3 copies pour offrir.", cidade: "Paris" },
+        { nome: "Patricia S.", texto: "Mamie a pleuré quand elle a vu son petit-fils comme personnage. C'est devenu le cadeau de Noël le plus spécial qu'on ait jamais offert. Ça vaut chaque centime.", cidade: "Lyon" },
+        { nome: "Amélie K.", texto: "Chaque soir ma fille demande : 'maman, lis MON livre'. Elle se sent tellement spéciale. Le meilleur investissement que j'ai fait pour elle.", cidade: "Marseille" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto1Modulos: (nome: string) => [
+        { emoji: "📖", titulo: "2 Livres PDF Personnalisés", descricao: `Histoires uniques avec ${nome} comme protagoniste`, valorIndividual: "$13.90" },
+        { emoji: "🎨", titulo: "Illustrations par IA", descricao: "Le visage de votre enfant sur chaque page de l'histoire", valorIndividual: "$8.00" },
+        { emoji: "🖨️", titulo: "Haute Résolution pour Impression", descricao: "PDF prêt à imprimer à la maison ou chez l'imprimeur", valorIndividual: "$4.00" },
+        { emoji: "🎁", titulo: "Bonus : Couverture Personnalisée", descricao: `Le prénom de ${nome} en couverture comme auteur et héros`, valorIndividual: "$3.00" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto1ValorTotal: "$28.90",
+      oto1PrecoOriginal: "$19.90",
+      oto1PrecoFinal: "$13.90",
+      oto1Temas: ["Dinosaures", "Princesses", "Aventure", "Licornes", "Espace", "Pirates", "Animaux", "Super-héros"] as string[],
+      oto1TemasLabel: "Thèmes disponibles",
+      oto1Faqs: [
+        { pergunta: "Comment je personnalise le livre ?", resposta: "Après avoir confirmé le paiement, vous envoyez une photo de votre enfant et choisissez le thème. Notre IA crée les illustrations avec son visage sur chaque page. C'est aussi simple que ça." },
+        { pergunta: "Combien de temps pour le recevoir ?", resposta: "Dans les 24 heures suivant le paiement, vous recevez le PDF personnalisé par e-mail, prêt à imprimer." },
+        { pergunta: "Puis-je l'imprimer autant de fois que je veux ?", resposta: "Oui ! Le fichier PDF est à vous pour toujours. Imprimez à la maison, chez l'imprimeur ou lisez sur tablette — sans limite de copies." },
+      ] as { pergunta: string; resposta: string }[],
+
+      // OTO1 Downsell content
+      oto1DownPassoLabel: "Dernière chance — offre réduite",
+      oto1DownAlertaTexto: "Attendez ! Nous avons quelque chose de spécial pour vous...",
+      oto1DownValidacaoTexto: "Nous comprenons que le prix peut peser.",
+      oto1DownFomoTexto: (nome: string) => `Et si vous pouviez offrir à ${nome} au moins 1 livre personnalisé — avec lui comme protagoniste — pour moins de la moitié ?`,
+      oto1DownCuriosidadeTexto: (nome: string) => `Imaginez ${nome} ouvrant un livre et se voyant LUI-MÊME comme le héros de l'histoire.`,
+      oto1DownReframeTitulo: "1 livre. 1 histoire. 100% à lui.",
+      oto1DownReframeTexto: "Un livre PDF personnalisé avec votre enfant comme protagoniste. Prêt à imprimer ou à lire sur tablette.",
+      oto1DownBeneficios: [
+        "Histoire unique générée par IA avec le prénom et le visage de votre enfant",
+        "Illustrations personnalisées sur chaque page",
+        "PDF en haute résolution — imprimez autant de fois que vous voulez",
+        "Votre enfant comme héros de sa propre histoire",
+      ] as string[],
+      oto1DownDepoimentos: [
+        { nome: "Julie M.", texto: "Mon fils n'arrête pas de demander 'son livre'. Chaque soir c'est pareil : 'maman, lis MON livre !'", cidade: "Bordeaux" },
+        { nome: "Florence L.", texto: "Je l'ai offert pour son anniversaire. Il a pleuré de joie en voyant son prénom sur la couverture.", cidade: "Toulouse" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto1DownModulos: (nome: string) => [
+        { emoji: "📖", titulo: "1 Livre PDF Personnalisé", descricao: `Histoire avec ${nome} comme protagoniste`, valorIndividual: "$13.90" },
+        { emoji: "🎨", titulo: "Illustrations Personnalisées", descricao: "Le visage de votre enfant sur chaque page", valorIndividual: "$6.00" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto1DownValorTotal: "$19.90",
+      oto1DownPrecoOriginal: "$13.90",
+      oto1DownPrecoFinal: "$9.90",
+
+      // OTO3 content
+      oto3PassoLabel: "Dernière offre — Ne réapparaîtra pas",
+      oto3AlertaTexto: "Après cette page, le prix revient à la normale.",
+      oto3ValidacaoTexto: "Presque fini ! Juste une dernière chose...",
+      oto3FomoTexto: (nome: string) => `Vous avez déjà les pages de coloriage. Peut-être le livre et la chanson aussi. Mais et si ${nome} pouvait recevoir de nouvelles activités CHAQUE SEMAINE ? Sans que vous ayez à chercher, penser ou créer quoi que ce soit ?`,
+      oto3CuriosidadeTexto: (nome: string) => `Un club entier d'activités personnalisées. Coloriage, découpage, points à relier, mots mêlés — tout avec ${nome} comme thème.`,
+      oto3ReframeTitulo: "Une année entière d'activités. Sans écran. Sans répétition.",
+      oto3ReframeTexto: (nome: string) => `Ce sont 52 semaines de contenu frais pour garder ${nome} occupé, apprenant et loin des écrans. Vous recevez chaque semaine par e-mail, vous imprimez et c'est prêt. Zéro effort pour vous, un maximum de plaisir pour lui.`,
+      oto3Beneficios: (nome: string) => [
+        "Nouvelles activités chaque semaine — jamais de répétition",
+        `Personnalisées avec le prénom de ${nome}`,
+        "Coloriage, découpage, points à relier, mots mêlés et plus",
+        "Livré par e-mail — il suffit d'imprimer",
+        "Loin des écrans : activité réelle, avec papier et crayons",
+        "Idéal pour les voyages, restaurants et week-ends",
+      ] as string[],
+      oto3Depoimentos: [
+        { nome: "Marine C.", texto: "Chaque vendredi mon fils demande : 'maman, mon activité est arrivée ?' C'est devenu notre tradition du week-end. Il adore et j'ai 1 heure de tranquillité.", cidade: "Nantes" },
+        { nome: "Caroline B.", texto: "J'ai annulé 2 applis de tablette après avoir rejoint le club. Mon fils préfère les activités imprimées. Et moi je le préfère loin de l'écran.", cidade: "Nice" },
+        { nome: "Thérèse R.", texto: "Je les emmène en voyage en voiture. C'est la seule chose qui le garde calme pendant 1 heure sans iPad. Ça vaut déjà l'investissement de toute l'année.", cidade: "Strasbourg" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto3Modulos: [
+        { emoji: "📋", titulo: "52 Packs d'Activités Hebdomadaires", descricao: "1 année complète de contenu", valorIndividual: "$31.00" },
+        { emoji: "🎨", titulo: "Pages de Coloriage Thématiques", descricao: "Fêtes, saisons, thèmes enfantins", valorIndividual: "$8.00" },
+        { emoji: "✂️", titulo: "Découpe, Colle et Construis", descricao: "Activités de motricité fine", valorIndividual: "$6.00" },
+        { emoji: "🔤", titulo: "Mots Mêlés et Points à Relier", descricao: "Apprentissage déguisé en amusement", valorIndividual: "$5.00" },
+        { emoji: "📧", titulo: "Livraison Hebdomadaire par E-mail", descricao: "Recevez, imprimez et c'est prêt", valorIndividual: "$0" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto3ValorTotal: "$50.00",
+      oto3PrecoOriginal: "$39.90",
+      oto3PrecoFinal: "$19.90",
+      oto3PeriodoPagamento: "paiement unique — accès 1 an",
+
+      // OTO3 Downsell content
+      oto3DownPassoLabel: "Dernière chance — offre réduite",
+      oto3DownAlertaTexto: "Attendez ! Et si c'était la moitié du temps et du prix ?",
+      oto3DownValidacaoTexto: "Nous comprenons. L'annuel peut sembler beaucoup.",
+      oto3DownFomoTexto: (nome: string) => `Et si vous pouviez tester le Club pendant 6 mois — tout inclus — pour moins de la moitié ? Si ${nome} adore (et il va adorer), vous renouvelez après.`,
+      oto3DownCuriosidadeTexto: (nome: string) => `26 semaines d'activités personnalisées. Chaque semaine quelque chose de nouveau à imprimer et jouer avec ${nome}.`,
+      oto3DownReframeTitulo: "6 mois d'activités. Sans engagement d'1 an.",
+      oto3DownReframeTexto: (nome: string) => `Testez le Club pour une demi-période. Ce sont 26 semaines de contenu frais — coloriage, découpage, points à relier — tout personnalisé avec le prénom de ${nome}. S'il adore, vous décidez de renouveler.`,
+      oto3DownBeneficios: (nome: string) => [
+        "26 semaines d'activités nouvelles — jamais de répétition",
+        `Personnalisées avec le prénom de ${nome}`,
+        "Coloriage, découpage, points à relier, mots mêlés et plus",
+        "Livré par e-mail — il suffit d'imprimer",
+        "Sans engagement long — testez pendant 6 mois",
+        "Moitié prix du plan annuel",
+      ] as string[],
+      oto3DownDepoimentos: [
+        { nome: "Marine C.", texto: "Chaque vendredi mon fils demande : 'maman, mon activité est arrivée ?' C'est devenu notre tradition du week-end.", cidade: "Nantes" },
+        { nome: "Thérèse R.", texto: "Je les emmène en voyage en voiture. C'est la seule chose qui le garde calme pendant 1 heure sans iPad.", cidade: "Strasbourg" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto3DownModulos: [
+        { emoji: "📋", titulo: "26 Packs d'Activités Hebdomadaires", descricao: "6 mois de contenu personnalisé", valorIndividual: "$15.50" },
+        { emoji: "🎨", titulo: "Pages de Coloriage Thématiques", descricao: "Fêtes et thèmes enfantins", valorIndividual: "$4.00" },
+        { emoji: "✂️", titulo: "Découpe, Colle et Construis", descricao: "Activités de motricité fine", valorIndividual: "$3.00" },
+        { emoji: "📧", titulo: "Livraison Hebdomadaire par E-mail", descricao: "Recevez, imprimez et c'est prêt", valorIndividual: "$0" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto3DownValorTotal: "$22.50",
+      oto3DownPrecoOriginal: "$19.90",
+      oto3DownPrecoFinal: "$9.90",
+      oto3DownPeriodoPagamento: "paiement unique — accès 6 mois",
+
+      // Alert fallback
+      alertaPagamento: "Le lien de paiement sera configuré prochainement.",
     },
 
     // App — Créer
@@ -1372,6 +2018,48 @@ const translations = {
         clube: "🎨 Club d'Activités",
       } as Record<string, string>,
       acessoApp: "Accédez à l'application complète via le lien envoyé à votre e-mail.",
+      imprimir: "Imprimer",
+      emailTitulo: "Ce que vous recevrez par e-mail",
+      emailItems: [
+        "Votre page de coloriage personnalisée",
+        "Lien d'accès à l'application complète",
+        "Instructions pour une impression haute qualité",
+      ] as string[],
+      proximosPassosTitulo: "Prochaines étapes",
+      proximosPasso1: "Ouvrez l'e-mail que nous vous avons envoyé",
+      proximosPasso2: "Cliquez sur le lien d'accès",
+      proximosPasso3: "Commencez à créer des pages de coloriage",
+      instalarAppTitulo: "Installez l'appli sur votre téléphone",
+      instalarIphone: "iPhone : Appuyez sur Partager → Ajouter à l'écran d'accueil",
+      instalarAndroid: "Android : Appuyez sur ⋮ → Installer l'application",
+    },
+
+    // Composants
+    componentes: {
+      // GarantiaBadge
+      garantia30Titulo: "Garantie 30 jours",
+      garantia30Texto: "Si vous n'aimez pas, nous vous remboursons 100%. Sans questions.",
+
+      // ComoFunciona
+      comoFuncionaTitulo: "Comment ça marche ?",
+      comoFuncionaPasso1: "Envoyez la photo",
+      comoFuncionaPasso2: "Personnalisez votre histoire",
+      comoFuncionaPasso3: "Recevez le livre personnalisé",
+
+      // BookPreview
+      bookPreviewTitulo: (nome: string) => `Découvrez à quoi pourrait ressembler le livre de ${nome} :`,
+      bookPreviewExemplo: (i: number) => `Exemple ${i}`,
+      bookPreviewCapa: "Couverture",
+      bookPreviewPagina: (n: number) => `Page ${n}`,
+      bookPreviewDescricao: (nome: string) => `Le livre de ${nome} ressemblera à ça — avec son prénom dans l'histoire, des illustrations personnalisées et prêt à imprimer.`,
+
+      // TransformacaoVisual
+      transformacaoFoto: "Photo de votre enfant",
+      transformacaoLivro: "Livre personnalisé",
+      transformacaoDescricao: "L'IA utilise la photo pour créer des illustrations avec son visage sur chaque page",
+
+      // FaqAccordion
+      faqTitulo: "Questions fréquentes",
     },
   },
 
@@ -1643,6 +2331,136 @@ const translations = {
       hojeApenas: "Solo oggi:",
       scarcityTitle: "Questa offerta esiste solo su questa pagina",
       scarcityText: "Uscendo, non avrai più accesso a questo prezzo.",
+
+      // OTO1 content
+      oto1PassoLabel: "Passo 1 di 2 — Non chiudere questa pagina",
+      oto1AlertaTexto: "Il tuo acquisto NON è ancora finalizzato...",
+      oto1ValidacaoTexto: "Il tuo abbonamento Colory è stato confermato!",
+      oto1FomoTexto: (nome: string) => `Hai appena fatto un passo incredibile per ${nome}. Ma siamo onesti: lasciare questa pagina ora potrebbe farti perdere l'opportunità di trasformare la sua esperienza in qualcosa di molto più grande.`,
+      oto1CuriosidadeTexto: (nome: string) => `E se ${nome} potesse essere l'EROE della propria storia? Immagina che apra un libro e veda il suo volto su ogni pagina.`,
+      oto1ReframeTitulo: "Più di un libro. Un ricordo che custodirà per sempre.",
+      oto1ReframeTexto: "I libri personalizzati non sono solo intrattenimento. Sono strumenti che sviluppano l'amore per la lettura, rafforzano l'identità e creano momenti di connessione tra genitore e figlio che non hanno prezzo.",
+      oto1Beneficios: (nome: string) => [
+        `${nome} come protagonista — nome e volto su ogni pagina`,
+        "Stimola l'amore per la lettura fin da piccolo",
+        "Momento di connessione: leggete insieme ogni sera",
+        "Stampa quante volte vuoi — è tuo per sempre",
+        "Regalo perfetto per nonni, zii e padrini",
+      ] as string[],
+      oto1Depoimentos: [
+        { nome: "Camilla R.", texto: "L'ho comprato pensando fosse una sciocchezza. Mio figlio di 4 anni ha imparato a memoria tutta la storia. Racconta a tutti che 'ha un libro suo'. Ho già fatto 3 copie da regalare.", cidade: "Roma" },
+        { nome: "Patrizia S.", texto: "La nonna ha pianto quando ha visto il nipotino come personaggio. È diventato il regalo di Natale più speciale che abbiamo mai fatto. Vale ogni centesimo.", cidade: "Milano" },
+        { nome: "Amanda K.", texto: "Ogni sera mia figlia chiede: 'mamma, leggi il MIO libro'. Si sente così speciale. Il miglior investimento che abbia mai fatto per lei.", cidade: "Firenze" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto1Modulos: (nome: string) => [
+        { emoji: "📖", titulo: "2 Libri PDF Personalizzati", descricao: `Storie uniche con ${nome} come protagonista`, valorIndividual: "$13.90" },
+        { emoji: "🎨", titulo: "Illustrazioni con IA", descricao: "Il volto del tuo bambino su ogni pagina della storia", valorIndividual: "$8.00" },
+        { emoji: "🖨️", titulo: "Alta Risoluzione per la Stampa", descricao: "PDF pronto da stampare a casa o in tipografia", valorIndividual: "$4.00" },
+        { emoji: "🎁", titulo: "Bonus: Copertina Personalizzata", descricao: `Il nome di ${nome} in copertina come autore ed eroe`, valorIndividual: "$3.00" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto1ValorTotal: "$28.90",
+      oto1PrecoOriginal: "$19.90",
+      oto1PrecoFinal: "$13.90",
+      oto1Temas: ["Dinosauri", "Principesse", "Avventura", "Unicorni", "Spazio", "Pirati", "Animali", "Supereroi"] as string[],
+      oto1TemasLabel: "Temi disponibili",
+      oto1Faqs: [
+        { pergunta: "Come personalizzo il libro?", resposta: "Dopo aver confermato il pagamento, invii una foto del tuo bambino e scegli il tema. La nostra IA crea le illustrazioni con il suo volto su ogni pagina. Semplice così." },
+        { pergunta: "Quanto tempo ci vuole per riceverlo?", resposta: "Entro 24 ore dal pagamento, ricevi il PDF personalizzato via e-mail, pronto per la stampa." },
+        { pergunta: "Posso stamparlo quante volte voglio?", resposta: "Sì! Il file PDF è tuo per sempre. Stampa a casa, in tipografia o leggi sul tablet — senza limiti di copie." },
+      ] as { pergunta: string; resposta: string }[],
+
+      // OTO1 Downsell content
+      oto1DownPassoLabel: "Ultima occasione — offerta ridotta",
+      oto1DownAlertaTexto: "Aspetta! Abbiamo qualcosa di speciale per te...",
+      oto1DownValidacaoTexto: "Capiamo che il prezzo possa sembrare alto.",
+      oto1DownFomoTexto: (nome: string) => `E se potessi regalare a ${nome} almeno 1 libro personalizzato — con lui come protagonista — a meno della metà?`,
+      oto1DownCuriosidadeTexto: (nome: string) => `Immagina ${nome} che apre un libro e si vede LUI STESSO come l'eroe della storia.`,
+      oto1DownReframeTitulo: "1 libro. 1 storia. 100% suo.",
+      oto1DownReframeTexto: "Un libro PDF personalizzato con il tuo bambino come protagonista. Pronto da stampare o leggere sul tablet.",
+      oto1DownBeneficios: [
+        "Storia unica generata dall'IA con il nome e il volto del tuo bambino",
+        "Illustrazioni personalizzate su ogni pagina",
+        "PDF in alta risoluzione — stampa quante volte vuoi",
+        "Il tuo bambino come eroe della propria storia",
+      ] as string[],
+      oto1DownDepoimentos: [
+        { nome: "Giuliana M.", texto: "Mio figlio non smette di chiedere di leggere 'il suo libro'. Ogni sera è uguale: 'mamma, leggi il MIO libro!'", cidade: "Napoli" },
+        { nome: "Fernanda L.", texto: "L'ho regalato per il compleanno. Ha pianto di gioia quando ha visto il suo nome sulla copertina.", cidade: "Torino" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto1DownModulos: (nome: string) => [
+        { emoji: "📖", titulo: "1 Libro PDF Personalizzato", descricao: `Storia con ${nome} come protagonista`, valorIndividual: "$13.90" },
+        { emoji: "🎨", titulo: "Illustrazioni Personalizzate", descricao: "Il volto del tuo bambino su ogni pagina", valorIndividual: "$6.00" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto1DownValorTotal: "$19.90",
+      oto1DownPrecoOriginal: "$13.90",
+      oto1DownPrecoFinal: "$9.90",
+
+      // OTO3 content
+      oto3PassoLabel: "Ultima offerta — Non riapparirà",
+      oto3AlertaTexto: "Dopo questa pagina, il prezzo torna alla normalità.",
+      oto3ValidacaoTexto: "Ci siamo quasi! Solo un'ultima cosa...",
+      oto3FomoTexto: (nome: string) => `Hai già le pagine da colorare. Forse hai già il libro e la canzone. Ma e se ${nome} potesse ricevere attività nuove OGNI SETTIMANA? Senza che tu debba pensare, cercare o creare nulla?`,
+      oto3CuriosidadeTexto: (nome: string) => `Un club intero di attività personalizzate. Colorare, ritagliare, unire i puntini, parole crociate — tutto con ${nome} come tema.`,
+      oto3ReframeTitulo: "Un anno intero di attività. Senza schermi. Senza ripetizioni.",
+      oto3ReframeTexto: (nome: string) => `Sono 52 settimane di contenuti freschi per tenere ${nome} impegnato, imparando e lontano dagli schermi. Ricevi ogni settimana via e-mail, stampi e sei pronto. Zero sforzo per te, massimo divertimento per lui.`,
+      oto3Beneficios: (nome: string) => [
+        "Attività nuove ogni settimana — mai ripetitive",
+        `Personalizzate con il nome di ${nome}`,
+        "Colorare, ritagliare, unire i puntini, parole crociate e altro",
+        "Consegnate via e-mail — basta stampare",
+        "Lontano dagli schermi: attività reali, con carta e matite",
+        "Ideale per viaggi, ristoranti e fine settimana",
+      ] as string[],
+      oto3Depoimentos: [
+        { nome: "Marina C.", texto: "Ogni venerdì mio figlio chiede: 'mamma, è arrivata la mia attività?'. È diventata la nostra tradizione del fine settimana. Lui adora e io ho 1 ora di pace.", cidade: "Bologna" },
+        { nome: "Carolina B.", texto: "Ho cancellato 2 app del tablet dopo aver aderito al club. Mio figlio preferisce le attività stampate. E io lo preferisco lontano dallo schermo.", cidade: "Palermo" },
+        { nome: "Teresa R.", texto: "Le porto nei viaggi in macchina. È l'unica cosa che lo tiene tranquillo per 1 ora senza iPad. Ha già ripagato l'investimento di tutto l'anno.", cidade: "Genova" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto3Modulos: [
+        { emoji: "📋", titulo: "52 Pacchetti di Attività Settimanali", descricao: "1 anno completo di contenuti", valorIndividual: "$31.00" },
+        { emoji: "🎨", titulo: "Pagine da Colorare Tematiche", descricao: "Festività, stagioni, temi per bambini", valorIndividual: "$8.00" },
+        { emoji: "✂️", titulo: "Ritaglia, Incolla e Costruisci", descricao: "Attività di motricità fine", valorIndividual: "$6.00" },
+        { emoji: "🔤", titulo: "Parole Crociate e Unisci i Puntini", descricao: "Apprendimento travestito da divertimento", valorIndividual: "$5.00" },
+        { emoji: "📧", titulo: "Consegna Settimanale via E-mail", descricao: "Ricevi, stampa e via", valorIndividual: "$0" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto3ValorTotal: "$50.00",
+      oto3PrecoOriginal: "$39.90",
+      oto3PrecoFinal: "$19.90",
+      oto3PeriodoPagamento: "pagamento unico — accesso per 1 anno",
+
+      // OTO3 Downsell content
+      oto3DownPassoLabel: "Ultima occasione — offerta ridotta",
+      oto3DownAlertaTexto: "Aspetta! E se fosse la metà del tempo e del prezzo?",
+      oto3DownValidacaoTexto: "Capiamo. L'annuale può sembrare tanto.",
+      oto3DownFomoTexto: (nome: string) => `E se potessi provare il Club per 6 mesi — tutto incluso — a meno della metà? Se ${nome} lo adora (e lo adorerà), rinnovi dopo.`,
+      oto3DownCuriosidadeTexto: (nome: string) => `26 settimane di attività personalizzate. Ogni settimana qualcosa di nuovo da stampare e giocare con ${nome}.`,
+      oto3DownReframeTitulo: "6 mesi di attività. Senza impegno di 1 anno.",
+      oto3DownReframeTexto: (nome: string) => `Prova il Club per metà periodo. Sono 26 settimane di contenuti freschi — colorare, ritagliare, unire i puntini — tutto personalizzato con il nome di ${nome}. Se lo ama, decidi tu se rinnovare.`,
+      oto3DownBeneficios: (nome: string) => [
+        "26 settimane di attività nuove — mai ripetitive",
+        `Personalizzate con il nome di ${nome}`,
+        "Colorare, ritagliare, unire i puntini, parole crociate e altro",
+        "Consegnate via e-mail — basta stampare",
+        "Senza impegno lungo — prova per 6 mesi",
+        "Metà del prezzo del piano annuale",
+      ] as string[],
+      oto3DownDepoimentos: [
+        { nome: "Marina C.", texto: "Ogni venerdì mio figlio chiede: 'mamma, è arrivata la mia attività?'. È diventata la nostra tradizione del fine settimana.", cidade: "Bologna" },
+        { nome: "Teresa R.", texto: "Le porto nei viaggi in macchina. È l'unica cosa che lo tiene tranquillo per 1 ora senza iPad.", cidade: "Genova" },
+      ] as { nome: string; texto: string; cidade: string }[],
+      oto3DownModulos: [
+        { emoji: "📋", titulo: "26 Pacchetti di Attività Settimanali", descricao: "6 mesi di contenuti personalizzati", valorIndividual: "$15.50" },
+        { emoji: "🎨", titulo: "Pagine da Colorare Tematiche", descricao: "Festività e temi per bambini", valorIndividual: "$4.00" },
+        { emoji: "✂️", titulo: "Ritaglia, Incolla e Costruisci", descricao: "Attività di motricità fine", valorIndividual: "$3.00" },
+        { emoji: "📧", titulo: "Consegna Settimanale via E-mail", descricao: "Ricevi, stampa e via", valorIndividual: "$0" },
+      ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
+      oto3DownValorTotal: "$22.50",
+      oto3DownPrecoOriginal: "$19.90",
+      oto3DownPrecoFinal: "$9.90",
+      oto3DownPeriodoPagamento: "pagamento unico — accesso per 6 mesi",
+
+      // Alert fallback
+      alertaPagamento: "Il link di pagamento sarà configurato a breve.",
     },
 
     // App — Crea
@@ -1716,6 +2534,48 @@ const translations = {
         clube: "🎨 Club delle Attività",
       } as Record<string, string>,
       acessoApp: "Accedi all'app completa tramite il link inviato alla tua e-mail.",
+      imprimir: "Stampa",
+      emailTitulo: "Cosa riceverai via e-mail",
+      emailItems: [
+        "La tua pagina da colorare personalizzata",
+        "Link di accesso all'app completa",
+        "Istruzioni per stampare in alta qualità",
+      ] as string[],
+      proximosPassosTitulo: "Prossimi passi",
+      proximosPasso1: "Apri l'e-mail che ti abbiamo inviato",
+      proximosPasso2: "Clicca sul link di accesso",
+      proximosPasso3: "Inizia a creare pagine da colorare",
+      instalarAppTitulo: "Installa l'app sul cellulare",
+      instalarIphone: "iPhone: Tocca Condividi → Aggiungi a schermata Home",
+      instalarAndroid: "Android: Tocca ⋮ → Installa app",
+    },
+
+    // Componenti
+    componentes: {
+      // GarantiaBadge
+      garantia30Titulo: "Garanzia 30 giorni",
+      garantia30Texto: "Se non ti piace, ti rimborsiamo il 100%. Senza domande.",
+
+      // ComoFunciona
+      comoFuncionaTitulo: "Come funziona?",
+      comoFuncionaPasso1: "Invia la foto",
+      comoFuncionaPasso2: "Personalizza la tua storia",
+      comoFuncionaPasso3: "Ricevi il libro personalizzato",
+
+      // BookPreview
+      bookPreviewTitulo: (nome: string) => `Guarda come potrebbe essere il libro di ${nome}:`,
+      bookPreviewExemplo: (i: number) => `Esempio ${i}`,
+      bookPreviewCapa: "Copertina",
+      bookPreviewPagina: (n: number) => `Pagina ${n}`,
+      bookPreviewDescricao: (nome: string) => `Il libro di ${nome} sarà così — con il suo nome nella storia, illustrazioni personalizzate e pronto da stampare.`,
+
+      // TransformacaoVisual
+      transformacaoFoto: "Foto del tuo bambino",
+      transformacaoLivro: "Libro personalizzato",
+      transformacaoDescricao: "L'IA usa la foto per creare illustrazioni con il suo volto su ogni pagina",
+
+      // FaqAccordion
+      faqTitulo: "Domande frequenti",
     },
   },
 } as const;

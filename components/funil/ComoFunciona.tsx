@@ -1,14 +1,18 @@
+import { t } from "@/lib/i18n";
+
 export function ComoFunciona() {
+  const txt = t().componentes;
+
   const steps = [
-    { num: 1, emoji: "\uD83D\uDCF7", label: "Envie a foto" },
-    { num: 2, emoji: "\u2728", label: "Personalize sua história" },
-    { num: 3, emoji: "\uD83D\uDCD6", label: "Receba o livro personalizado" },
+    { num: 1, emoji: "\uD83D\uDCF7", label: txt.comoFuncionaPasso1 },
+    { num: 2, emoji: "\u2728", label: txt.comoFuncionaPasso2 },
+    { num: 3, emoji: "\uD83D\uDCD6", label: txt.comoFuncionaPasso3 },
   ];
 
   return (
     <div className="space-y-3">
       <p className="text-xs text-gray-400 uppercase tracking-wide text-center font-semibold">
-        Como funciona?
+        {txt.comoFuncionaTitulo}
       </p>
       <div className="flex items-start justify-center gap-2">
         {steps.map((step, i) => (

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { t } from "@/lib/i18n";
 
 interface BookPreviewProps {
   nomeFilho: string;
@@ -33,6 +34,7 @@ const books = [
 export function BookPreview({ nomeFilho }: BookPreviewProps) {
   const [activeBook, setActiveBook] = useState(0);
   const [activeSlide, setActiveSlide] = useState(0);
+  const txt = t().componentes;
 
   const book = books[activeBook];
   const allImages = [book.cover, ...book.pages];
@@ -58,7 +60,7 @@ export function BookPreview({ nomeFilho }: BookPreviewProps) {
   return (
     <div className="space-y-4">
       <h3 className="text-center text-lg font-bold text-gray-900">
-        Veja como pode ficar o livro do {nomeFilho}:
+        {txt.bookPreviewTitulo(nomeFilho)}
       </h3>
 
       {/* Book selector tabs */}
@@ -73,7 +75,7 @@ export function BookPreview({ nomeFilho }: BookPreviewProps) {
                 : "bg-gray-100 text-gray-500 hover:bg-gray-200"
             }`}
           >
-            Exemplo {i + 1}
+            {txt.bookPreviewExemplo(i + 1)}
           </button>
         ))}
       </div>
@@ -84,7 +86,7 @@ export function BookPreview({ nomeFilho }: BookPreviewProps) {
           <div className={isCover ? "aspect-[3/4.2]" : "aspect-[10/7]"}>
             <Image
               src={allImages[activeSlide]}
-              alt={`${book.title} - ${isCover ? "Capa" : `Pagina ${activeSlide}`}`}
+              alt={`${book.title} - ${isCover ? txt.bookPreviewCapa : txt.bookPreviewPagina(activeSlide)}`}
               width={800}
               height={isCover ? 1121 : 560}
               className="w-full h-full object-cover"
@@ -96,7 +98,7 @@ export function BookPreview({ nomeFilho }: BookPreviewProps) {
         {/* Slide label */}
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
           <p className="text-white text-xs font-medium">
-            {isCover ? "Capa" : `Pagina ${activeSlide}`} de {allImages.length - 1}
+            {isCover ? txt.bookPreviewCapa : txt.bookPreviewPagina(activeSlide)} / {allImages.length - 1}
           </p>
         </div>
 
@@ -135,12 +137,9 @@ export function BookPreview({ nomeFilho }: BookPreviewProps) {
       </div>
 
       {/* Personalization callout */}
-      <div className="bg-purple-50 rounded-xl p-4 text-center space-y-2">
+      <div className="bg-purple-50 rounded-xl p-4 text-center">
         <p className="text-sm text-gray-700">
-          O livro do <span className="font-bold text-purple-700">{nomeFilho}</span> vai
-          ser assim — com o <span className="font-semibold">nome dele na história</span>,{" "}
-          <span className="font-semibold">ilustrações personalizadas</span> e{" "}
-          <span className="font-semibold">pronto pra imprimir</span>.
+          {txt.bookPreviewDescricao(nomeFilho)}
         </p>
       </div>
     </div>

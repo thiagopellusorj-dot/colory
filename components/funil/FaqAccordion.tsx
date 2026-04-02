@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { t } from "@/lib/i18n";
 
 interface FaqItem {
   pergunta: string;
@@ -13,6 +14,7 @@ interface FaqAccordionProps {
 
 export function FaqAccordion({ items }: FaqAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const txt = t().componentes;
 
   const toggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -21,7 +23,7 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
   return (
     <div className="space-y-3">
       <p className="text-sm font-bold text-gray-900 text-center">
-        Perguntas frequentes
+        {txt.faqTitulo}
       </p>
       <div className="divide-y divide-gray-100 border border-gray-100 rounded-xl overflow-hidden">
         {items.map((item, i) => {
