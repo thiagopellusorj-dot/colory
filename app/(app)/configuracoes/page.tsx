@@ -16,6 +16,8 @@ interface UserData {
   email: string;
   plano: string | null;
   status: string | null;
+  creditos_restantes: number | null;
+  creditos_renovam_em: string | null;
 }
 
 export default function ConfiguracoesPage() {
@@ -29,6 +31,8 @@ export default function ConfiguracoesPage() {
   const [novoGenero, setNovoGenero] = useState("menino");
   const [novaIdade, setNovaIdade] = useState("");
   const [saving, setSaving] = useState(false);
+  const [creditos, setCreditos] = useState<number | null>(null);
+  const [creditosRenovaEm, setCreditosRenovaEm] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadData() {
@@ -48,6 +52,8 @@ export default function ConfiguracoesPage() {
 
       if (usuario) {
         setUserData(usuario);
+        setCreditos(usuario.creditos_restantes ?? 15);
+        setCreditosRenovaEm(usuario.creditos_renovam_em);
         const { data } = await supabase
           .from("filhos")
           .select("*")
@@ -145,6 +151,44 @@ export default function ConfiguracoesPage() {
             </div>
           </div>
         </div>
+
+        {/* Meus Créditos */}
+        {creditos !== null && (
+          <div className="bg-white rounded-2xl shadow-md p-5 space-y-4">
+            <h3 className="text-sm font-semibold text-gray-600">Meus Créditos</h3>
+
+            {/* Progress bar */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-2xl font-bold text-gray-900">{creditos}</span>
+                <span className="text-xs text-gray-400">de 15</span>
+              </div>
+              <div className="w-full bg-gray-100 rounded-full h-2.5">
+                <div
+                  className={`h-full rounded-full transition-all ${
+                    creditos <= 3 ? "bg-red-500" : creditos <= 8 ? "bg-amber-500" : "bg-purple-600"
+                  }`}
+                  style={{ width: `${Math.min((creditos / 15) * 100, 100)}%` }}
+                />
+              </div>
+              {creditosRenovaEm && (
+                <p className="text-xs text-gray-400">
+                  Renova em {Math.max(0, Math.ceil((new Date(creditosRenovaEm).getTime() - Date.now()) / (1000 * 60 * 60 * 24)))} dias
+                </p>
+              )}
+            </div>
+
+            {/* Comprar mais */}
+            <a
+              href={process.env.NEXT_PUBLIC_PERFECTPAY_LINK_CREDITOS || "https://perfectpay.com"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl font-semibold text-sm text-center transition-colors shadow-md"
+            >
+              Comprar 20 créditos extras — R$19,90
+            </a>
+          </div>
+        )}
 
         {/* Meus Filhos */}
         <div className="space-y-3">
