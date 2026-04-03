@@ -56,9 +56,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Token inválido" }, { status: 401 });
     }
 
-    // 2. Só processar vendas aprovadas (sale_status_enum = 1)
+    // 2. Processar por status (docs Perfect Pay)
+    // 0=none, 1=pending, 2=approved, 3=in_process, 4=in_mediation
+    // 5=rejected, 6=cancelled, 7=refunded, 8=authorized, 9=chargeback
+    // 10=completed, 11=checkout_error, 12=precheckout, 13=expired, 16=in_review
     const status = Number(body.sale_status_enum);
-    if (status !== 1) {
+    const STATUS_APROVADO = [1, 2]; // 1=pending(boleto), 2=approved
+    const STATUS_CANCELADO = [6, 7, 9]; // 6=cancelled, 7=refunded, 9=chargeback
+
+    if (!STATUS_APROVADO.includes(status) && !STATUS_CANCELADO.includes(status)) {
       console.log(`[Webhook] Status ${status} ignorado`);
       return NextResponse.json({ ok: true, message: "Status ignorado" });
     }
@@ -75,10 +81,28 @@ export async function POST(request: NextRequest) {
     console.log(`[Webhook] Payload: sale=${saleCode} email=${email} product=${JSON.stringify(body.product)} plan=${JSON.stringify(body.plan)}`);
 
     const { tipo } = identificarProduto(body);
-    console.log(`[Webhook] Produto identificado: ${tipo}`);
+    console.log(`[Webhook] Produto identificado: ${tipo} | Status: ${status}`);
 
     const supabase = createAdminSupabase();
 
+    // === CANCELAMENTO / REEMBOLSO ===
+    if (STATUS_CANCELADO.includes(status)) {
+      if (tipo === "anual" || tipo === "mensal") {
+        const { error: err } = await supabase
+          .from("usuarios")
+          .update({
+            status: "inativo",
+            creditos_restantes: 0,
+          })
+          .eq("email", email);
+
+        if (err) console.error("[Webhook] Cancelamento error:", err);
+        else console.log(`[Webhook] Usuario desativado: ${email} (status ${status})`);
+      }
+      return NextResponse.json({ ok: true, message: "Cancelamento processado" });
+    }
+
+    // === APROVAÇÃO ===
     if (tipo === "anual" || tipo === "mensal") {
       // === PLANO ===
       const plano = tipo;
@@ -101,7 +125,7 @@ export async function POST(request: NextRequest) {
             creditos_renovam_em: renovaEm.toISOString(),
             acesso_expira_em: plano === "anual"
               ? new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString()
-              : null,
+              : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
           })
           .eq("id", existente.id);
 

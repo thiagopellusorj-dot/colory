@@ -31,6 +31,7 @@ export default function CriarPage() {
   const [isCompressing, setIsCompressing] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [creditos, setCreditos] = useState<number | null>(null);
+  const [planoExpirado, setPlanoExpirado] = useState(false);
 
   const filhoNome = filhos.length > 0 ? filhos[0].nome : "seu filho";
 
@@ -67,6 +68,7 @@ export default function CriarPage() {
         if (res.ok) {
           const data = await res.json();
           setCreditos(data.creditos_restantes);
+          if (data.expirado) setPlanoExpirado(true);
         }
       } catch {
         // Not authenticated or error — skip
@@ -243,8 +245,23 @@ export default function CriarPage() {
           </div>
         </div>
 
+        {/* Plano expirado */}
+        {planoExpirado ? (
+          <div className="bg-red-50 rounded-2xl p-5 text-center space-y-3">
+            <span className="text-3xl block">⏰</span>
+            <p className="text-sm font-bold text-gray-800">Seu plano expirou</p>
+            <p className="text-xs text-gray-500">Renove para continuar criando páginas de colorir</p>
+            <a
+              href="/"
+              className="inline-block bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-xl font-medium text-sm transition-colors shadow-lg"
+            >
+              Renovar plano
+            </a>
+          </div>
+        ) : null}
+
         {/* Generate Button or Out of Credits */}
-        {semCreditos ? (
+        {!planoExpirado && semCreditos ? (
           <div className="bg-red-50 rounded-2xl p-5 text-center space-y-3">
             <p className="text-sm font-bold text-gray-800">Suas gerações deste mês acabaram</p>
             <p className="text-xs text-gray-500">Compre créditos extras para continuar criando</p>
@@ -257,7 +274,7 @@ export default function CriarPage() {
               Comprar 20 créditos — R$19,90
             </a>
           </div>
-        ) : (
+        ) : !planoExpirado ? (
           <button
             onClick={handleGenerate}
             disabled={!preview || isSubmitting}
@@ -272,7 +289,7 @@ export default function CriarPage() {
               "Gerar Página"
             )}
           </button>
-        )}
+        ) : null}
       </main>
     </div>
   );

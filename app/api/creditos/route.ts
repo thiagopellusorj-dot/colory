@@ -19,7 +19,7 @@ export async function GET() {
     const supabase = createAdminSupabase();
     const { data: usuario, error } = await supabase
       .from("usuarios")
-      .select("id, creditos_restantes, creditos_renovam_em, plano, status")
+      .select("id, creditos_restantes, creditos_renovam_em, plano, status, acesso_expira_em")
       .eq("email", user.email)
       .single();
 
@@ -28,6 +28,31 @@ export async function GET() {
         { error: "Usuário não encontrado" },
         { status: 404 }
       );
+    }
+
+    // Checar se plano expirou ou foi cancelado
+    if (usuario.status === "inativo") {
+      return NextResponse.json({
+        creditos_restantes: 0,
+        plano: usuario.plano,
+        status: "inativo",
+        expirado: true,
+      });
+    }
+
+    if (usuario.acesso_expira_em && new Date(usuario.acesso_expira_em) < new Date()) {
+      // Plano expirou — desativar
+      await supabase
+        .from("usuarios")
+        .update({ status: "inativo", creditos_restantes: 0 })
+        .eq("id", usuario.id);
+
+      return NextResponse.json({
+        creditos_restantes: 0,
+        plano: usuario.plano,
+        status: "expirado",
+        expirado: true,
+      });
     }
 
     // Auto-renovação: se o ciclo expirou, resetar créditos
@@ -49,6 +74,8 @@ export async function GET() {
           creditos_restantes: CREDITOS_CICLO,
           creditos_renovam_em: novaRenovacao.toISOString(),
           plano: usuario.plano,
+          status: "ativo",
+          expirado: false,
           renovado: true,
         });
       }
@@ -58,6 +85,8 @@ export async function GET() {
       creditos_restantes: usuario.creditos_restantes ?? CREDITOS_CICLO,
       creditos_renovam_em: usuario.creditos_renovam_em,
       plano: usuario.plano,
+      status: "ativo",
+      expirado: false,
       renovado: false,
     });
   } catch (error) {
