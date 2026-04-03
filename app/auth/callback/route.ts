@@ -28,19 +28,42 @@ export async function GET(request: NextRequest) {
 
   // Handle magic link (token_hash)
   if (token_hash && type) {
-    const { error } = await supabase.auth.verifyOtp({
+    const { data, error } = await supabase.auth.verifyOtp({
       token_hash,
       type: type as "magiclink" | "email",
     });
 
-    if (!error) return response;
+    if (error) {
+      console.error("[Auth Callback] verifyOtp failed:", error.message);
+      return NextResponse.redirect(new URL("/login?error=link_invalido", request.url));
+    }
+
+    if (data?.session) {
+      console.log("[Auth Callback] Magic link OK:", data.user?.email);
+      return response;
+    }
+
+    console.error("[Auth Callback] verifyOtp succeeded but no session");
+    return NextResponse.redirect(new URL("/login?error=sessao_falhou", request.url));
   }
 
   // Handle OAuth (code)
   if (code) {
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
-    if (!error) return response;
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+
+    if (error) {
+      console.error("[Auth Callback] exchangeCode failed:", error.message);
+      return NextResponse.redirect(new URL("/login?error=oauth_falhou", request.url));
+    }
+
+    if (data?.session) {
+      console.log("[Auth Callback] OAuth OK:", data.user?.email);
+      return response;
+    }
+
+    console.error("[Auth Callback] exchangeCode succeeded but no session");
+    return NextResponse.redirect(new URL("/login?error=sessao_falhou", request.url));
   }
 
-  return NextResponse.redirect(new URL("/login", request.url));
+  return NextResponse.redirect(new URL("/login?error=sem_credenciais", request.url));
 }

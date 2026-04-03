@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
             .from("usuarios")
             .select("id, creditos_restantes")
             .eq("email", user.email)
-            .single();
+            .maybeSingle();
 
           if (userData) {
             usuarioId = userData.id;
@@ -113,19 +113,27 @@ export async function POST(request: NextRequest) {
           estilo: estilo || null,
         });
 
-        // Decrementar créditos
+        // Decrementar créditos (via RPC atômico pra evitar race condition)
         if (usuarioId) {
-          const { data: usr } = await supabase
-            .from("usuarios")
-            .select("creditos_restantes")
-            .eq("id", usuarioId)
-            .single();
+          const { error: rpcErr } = await supabase.rpc("decrementar_credito", {
+            p_usuario_id: usuarioId,
+          });
 
-          if (usr && (usr.creditos_restantes ?? 0) > 0) {
-            await supabase
+          if (rpcErr) {
+            // Fallback: decrement direto (menos seguro mas funciona)
+            console.error("[Gerar] RPC error, usando fallback:", rpcErr.message);
+            const { data: usr } = await supabase
               .from("usuarios")
-              .update({ creditos_restantes: usr.creditos_restantes - 1 })
-              .eq("id", usuarioId);
+              .select("creditos_restantes")
+              .eq("id", usuarioId)
+              .maybeSingle();
+
+            if (usr && (usr.creditos_restantes ?? 0) > 0) {
+              await supabase
+                .from("usuarios")
+                .update({ creditos_restantes: usr.creditos_restantes - 1 })
+                .eq("id", usuarioId);
+            }
           }
         }
       } catch (dbErr) {

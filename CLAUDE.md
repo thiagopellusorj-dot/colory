@@ -323,6 +323,13 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 ---
 
+## ⚠️ ERROS E APRENDIZADOS
+
+**IMPORTANTE:** Antes de implementar qualquer mudança, leia `ERROS_E_APRENDIZADOS.md`.
+Esse arquivo documenta todos os erros já cometidos e suas soluções. Atualize-o sempre que encontrar um novo problema.
+
+---
+
 ## 📏 REGRAS DE CÓDIGO
 
 1. TypeScript strict em todos os arquivos
