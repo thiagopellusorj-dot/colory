@@ -215,7 +215,7 @@ const translations = {
       faqTitulo: "Dúvidas frequentes",
       faqs: [
         { p: "Como funciona?", r: "Você envia a foto do seu filho, escolhe o estilo e a IA gera uma página de colorir personalizada em segundos. Receba por e-mail ou direto no celular!" },
-        { p: "Quantas páginas posso criar?", r: "Até 15 páginas de colorir por mês. Suficiente pra ele ter uma nova quase todo dia!" },
+        { p: "Quantas páginas posso criar?", r: "Até 15 páginas únicas de colorir por mês. Suficiente pra ele ter uma nova quase todo dia! Mas você pode imprimir cada página gerada quantas vezes quiser." },
         { p: "Posso cancelar quando quiser?", r: "Sim! Cancele a qualquer momento sem burocracia. E nos primeiros 7 dias, devolvemos 100% do valor." },
         { p: "Como recebo as páginas?", r: "Você recebe o PDF por e-mail ou acessa direto pelo celular. Imprima em casa ou na gráfica — sem limite de cópias." },
       ] as { p: string; r: string }[],

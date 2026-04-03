@@ -162,16 +162,6 @@ export default function AssinarPage() {
             {headline}
           </h1>
 
-          {/* Hook emocional personalizado */}
-          {hookTela && (
-            <div className="bg-purple-50 rounded-2xl p-4 space-y-2">
-              <p className="text-sm text-gray-700 leading-relaxed">{hookTela}</p>
-              {hookConexao && (
-                <p className="text-sm text-purple-700 font-medium leading-relaxed">{hookConexao}</p>
-              )}
-            </div>
-          )}
-
           {/* Social proof */}
           <div className="flex items-center justify-center gap-2">
             <div className="flex -space-x-2">
@@ -185,21 +175,6 @@ export default function AssinarPage() {
               <span className="font-bold text-purple-600">+47.000 páginas</span> criadas por mães brasileiras
             </p>
           </div>
-
-          {/* Timer de urgência */}
-          {timerSeconds > 0 && (
-            <div className="bg-red-50 border border-red-200 rounded-2xl p-3 text-center space-y-1">
-              <p className="text-xs font-bold text-red-700 uppercase tracking-wide">
-                Oferta de lançamento expira em
-              </p>
-              <p className="text-3xl font-bold text-red-600 font-mono">
-                {formatTimer(timerSeconds)}
-              </p>
-              <p className="text-[10px] text-red-500">
-                Esse preço é exclusivo pra quem acabou de criar a primeira página
-              </p>
-            </div>
-          )}
 
           {/* Âncora */}
           <p className="text-center text-sm text-gray-400 line-through">
