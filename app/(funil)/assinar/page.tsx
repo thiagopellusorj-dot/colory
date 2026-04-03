@@ -17,7 +17,8 @@ export default function AssinarPage() {
   const nome = store.nome_filho || "seu filho";
 
   useEffect(() => {
-    if (!store.nome_filho) {
+    const isDev = new URLSearchParams(window.location.search).get("dev") === "1";
+    if (!store.nome_filho && !isDev) {
       router.replace("/");
     }
   }, [store.nome_filho, router]);
