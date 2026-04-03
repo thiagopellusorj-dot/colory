@@ -6,6 +6,7 @@ import Image from "next/image";
 import { posthog } from "@/lib/posthog";
 import { createClient } from "@/lib/supabase";
 import { compressImage } from "@/lib/compress";
+import { t, getLocale } from "@/lib/i18n";
 
 interface Filho {
   id: string;
@@ -14,15 +15,9 @@ interface Filho {
   idade: string | null;
 }
 
-const STYLES = [
-  { id: "simple", name: "Simples", desc: "Linhas limpas, poucos detalhes", image: "/images/styles/simple.jpg" },
-  { id: "detailed", name: "Detalhado", desc: "Com cenário e mais detalhes", image: "/images/styles/detailed.jpg" },
-  { id: "minimalist", name: "Minimalista", desc: "Traços mínimos, artístico", image: "/images/styles/minimalist.jpg" },
-  { id: "ink", name: "Arte com tinta", desc: "Traços fortes estilo nanquim", image: "/images/styles/ink.png" },
-];
-
 export default function CriarPage() {
   const router = useRouter();
+  const txt = t().app;
   const fileRef = useRef<HTMLInputElement>(null);
   const [filhos, setFilhos] = useState<Filho[]>([]);
   const [preview, setPreview] = useState<string | null>(null);
@@ -60,7 +55,6 @@ export default function CriarPage() {
     loadFilhos();
   }, []);
 
-  // Load credits
   useEffect(() => {
     async function loadCreditos() {
       try {
@@ -71,7 +65,7 @@ export default function CriarPage() {
           if (data.expirado) setPlanoExpirado(true);
         }
       } catch {
-        // Not authenticated or error — skip
+        // Not authenticated or error
       }
     }
     loadCreditos();
@@ -119,6 +113,8 @@ export default function CriarPage() {
     }
   };
 
+  const isIntl = getLocale() !== "pt-BR";
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
       {/* Header */}
@@ -132,7 +128,7 @@ export default function CriarPage() {
             <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${
               creditos <= 3 ? "bg-red-100 text-red-600" : "bg-purple-100 text-purple-600"
             }`}>
-              {creditos} restantes
+              {creditos} {txt.criarRestantes}
             </span>
           )}
         <button
@@ -153,7 +149,6 @@ export default function CriarPage() {
         <div className="bg-white rounded-2xl shadow-lg p-6 space-y-4">
           {!preview ? (
             <>
-              {/* Illustration / Drop Area */}
               <div
                 onClick={() => fileRef.current?.click()}
                 className="border-2 border-dashed border-purple-300 rounded-xl p-8 flex items-center justify-center bg-purple-50/30 cursor-pointer hover:border-purple-400 transition-colors"
@@ -165,14 +160,13 @@ export default function CriarPage() {
 
               <div className="space-y-3">
                 <p className="text-center text-gray-700">
-                  Transforme a foto do <span className="font-semibold text-purple-600">{filhoNome}</span> em
-                  uma página de colorir
+                  {txt.criarTransformar(filhoNome)}
                 </p>
                 <button
                   onClick={() => fileRef.current?.click()}
                   className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3.5 rounded-xl font-medium transition-colors shadow-md"
                 >
-                  {isCompressing ? "Otimizando..." : "Adicionar Foto +"}
+                  {isCompressing ? txt.criarOtimizando : txt.criarAdicionarFoto}
                 </button>
               </div>
             </>
@@ -195,7 +189,7 @@ export default function CriarPage() {
                 }}
                 className="w-full text-purple-600 font-medium py-2 text-sm hover:underline"
               >
-                Trocar foto
+                {txt.criarTrocarFoto}
               </button>
             </div>
           )}
@@ -210,10 +204,10 @@ export default function CriarPage() {
 
         {/* Style Selection */}
         <div className="space-y-3">
-          <h2 className="font-semibold text-gray-800">Selecionar Estilo</h2>
+          <h2 className="font-semibold text-gray-800">{txt.criarSelecionarEstilo}</h2>
 
           <div className="flex gap-3 overflow-x-auto pb-2 -mx-6 px-6 scrollbar-hide">
-            {STYLES.map((style) => {
+            {txt.criarEstilos.map((style) => {
               const isSelected = selectedStyle === style.id;
               return (
                 <button
@@ -226,7 +220,7 @@ export default function CriarPage() {
                   <div className="bg-white rounded-xl shadow-md overflow-hidden">
                     <div className="aspect-square bg-gray-100 relative">
                       <Image
-                        src={style.image}
+                        src={`/images/styles/${style.id}.${style.id === "ink" ? "png" : "jpg"}`}
                         alt={style.name}
                         fill
                         className="object-cover"
@@ -246,32 +240,32 @@ export default function CriarPage() {
         </div>
 
         {/* Plano expirado */}
-        {planoExpirado ? (
+        {planoExpirado && (
           <div className="bg-red-50 rounded-2xl p-5 text-center space-y-3">
             <span className="text-3xl block">⏰</span>
-            <p className="text-sm font-bold text-gray-800">Seu plano expirou</p>
-            <p className="text-xs text-gray-500">Renove para continuar criando páginas de colorir</p>
+            <p className="text-sm font-bold text-gray-800">{txt.criarPlanoExpirou}</p>
+            <p className="text-xs text-gray-500">{txt.criarRenovarDesc}</p>
             <a
               href="/"
               className="inline-block bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-xl font-medium text-sm transition-colors shadow-lg"
             >
-              Renovar plano
+              {txt.criarRenovar}
             </a>
           </div>
-        ) : null}
+        )}
 
-        {/* Generate Button or Out of Credits */}
+        {/* Sem créditos */}
         {!planoExpirado && semCreditos ? (
           <div className="bg-red-50 rounded-2xl p-5 text-center space-y-3">
-            <p className="text-sm font-bold text-gray-800">Suas gerações deste mês acabaram</p>
-            <p className="text-xs text-gray-500">Compre créditos extras para continuar criando</p>
+            <p className="text-sm font-bold text-gray-800">{txt.criarSemCreditos}</p>
+            <p className="text-xs text-gray-500">{txt.criarSemCreditosDesc}</p>
             <a
-              href={process.env.NEXT_PUBLIC_PERFECTPAY_LINK_CREDITOS || "https://perfectpay.com"}
+              href={isIntl ? (process.env.NEXT_PUBLIC_CHECKOUT_LINK_CREDITOS_INTL || "#") : (process.env.NEXT_PUBLIC_PERFECTPAY_LINK_CREDITOS || "https://perfectpay.com")}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-xl font-medium text-sm transition-colors shadow-lg"
             >
-              Comprar 20 créditos — R$19,90
+              {txt.criarComprarCreditos}
             </a>
           </div>
         ) : !planoExpirado ? (
@@ -283,10 +277,10 @@ export default function CriarPage() {
             {isSubmitting ? (
               <span className="flex items-center justify-center gap-2">
                 <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                Preparando...
+                {txt.criarPreparando}
               </span>
             ) : (
-              "Gerar Página"
+              txt.criarGerarPagina
             )}
           </button>
         ) : null}

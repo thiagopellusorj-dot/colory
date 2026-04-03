@@ -65,19 +65,21 @@ export default function AssinarPage() {
   const getEmotionalHook = () => {
     const tempoTela = store.tempo_tela;
     const conexao = store.conexao;
+    const pronome = genero === "menina" ? "ela" : "ele";
+    const pronome2 = genero === "menina" ? "duas" : "dois";
 
     let hookTela = "";
     if (tempoTela === "mais_4h" || tempoTela === "2_4h") {
-      hookTela = `Você disse que ${artigo} ${nome} passa várias horas por dia em telas. Imagina ${genero === "menina" ? "ela" : "ele"} largando o tablet por conta própria pra colorir o próprio rosto? Isso acontece toda semana com o Colory.`;
+      hookTela = txt.hookTelaAlto(artigo, nome, pronome);
     } else if (tempoTela === "1_2h") {
-      hookTela = `Você quer reduzir o tempo de tela ${artigoDe} ${nome}. Com o Colory, mães contam que os filhos pedem pra imprimir em vez de assistir vídeo.`;
+      hookTela = txt.hookTelaMedio(artigoDe, nome);
     } else if (tempoTela === "menos_1h") {
-      hookTela = `Você já cuida bem do tempo de tela ${artigoDe} ${nome}. O Colory é a atividade perfeita pra preencher esses momentos com criatividade.`;
+      hookTela = txt.hookTelaBaixo(artigoDe, nome);
     }
 
     let hookConexao = "";
     if (conexao === "corrido" || conexao === "falta" || conexao === "mais_momentos") {
-      hookConexao = `E o melhor: é um momento de vocês ${genero === "menina" ? "duas" : "dois"} juntos. Sem tela, sem pressa. Só você e ${artigo} ${nome} colorindo.`;
+      hookConexao = txt.hookConexao(artigo, nome, pronome2);
     }
 
     return { hookTela, hookConexao };
@@ -99,7 +101,7 @@ export default function AssinarPage() {
     if (link && link !== "https://perfectpay.com.br/pay/xxx") {
       window.location.href = link;
     } else {
-      alert("Link de pagamento será configurado em breve.");
+      alert(t().oto.alertaPagamento);
     }
   };
 
@@ -115,10 +117,10 @@ export default function AssinarPage() {
           : txt.ctaMensal}
       </button>
       <p className="text-center text-xs text-gray-500">
-        Teste por 7 dias. Se {artigo} {nome} não amar, devolvemos cada centavo.
+        {txt.ctaTestar(artigo, nome)}
       </p>
       <p className="text-center text-[10px] text-gray-400">
-        Cancele quando quiser. Sem multa, sem burocracia.
+        {txt.ctaCancelar}
       </p>
     </div>
   );
@@ -141,10 +143,10 @@ export default function AssinarPage() {
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="bg-white/95 backdrop-blur-sm rounded-2xl px-6 py-4 text-center shadow-lg">
                 <p className="text-lg font-bold text-gray-900">
-                  A página {artigoDe} {nome} está pronta!
+                  {txt.heroTitulo(artigoDe, nome)}
                 </p>
                 <p className="text-xs text-purple-600 font-medium mt-1">
-                  Desbloqueie para baixar e imprimir
+                  {txt.heroDesbloquear}
                 </p>
               </div>
             </div>
@@ -172,7 +174,7 @@ export default function AssinarPage() {
               ))}
             </div>
             <p className="text-xs text-gray-500">
-              <span className="font-bold text-purple-600">+47.000 páginas</span> criadas por mães brasileiras
+              <span className="font-bold text-purple-600">{txt.socialProofV2Count}</span> {txt.socialProofV2Text}
             </p>
           </div>
 
@@ -249,20 +251,17 @@ export default function AssinarPage() {
 
           {/* Trust badges */}
           <div className="flex items-center justify-center gap-3 text-xs text-gray-400">
-            <span>🔒 Pagamento seguro</span>
+            <span>🔒 {txt.trustPagamento}</span>
             <span>•</span>
-            <span>↩️ Garantia 7 dias</span>
+            <span>↩️ {txt.trustGarantia}</span>
             <span>•</span>
-            <span>⚡ Acesso imediato</span>
+            <span>⚡ {txt.trustAcesso}</span>
           </div>
 
           {/* Future pacing — visualização do momento */}
           <div className="bg-gradient-to-b from-purple-50 to-white rounded-2xl p-5 space-y-3">
             <p className="text-sm text-gray-700 leading-relaxed italic">
-              &ldquo;Imagina a cena: você imprime a página, coloca na mesa com os lápis de cor.
-              {" "}{artigo.charAt(0).toUpperCase() + artigo.slice(1)} {nome} vê o próprio rosto no desenho e abre aquele sorriso.
-              Vocês {genero === "menina" ? "duas" : "dois"} sentam juntos e por 30 minutos não existe celular, não existe pressa.
-              Só você e {artigo} {nome}, colorindo.&rdquo;
+              &ldquo;{txt.futurePacing(artigo, nome, genero === "menina" ? "duas" : "dois")}&rdquo;
             </p>
           </div>
 
@@ -278,7 +277,7 @@ export default function AssinarPage() {
               />
             </div>
             <p className="text-center text-xs text-gray-500 py-2 bg-white">
-              Momentos assim não têm preço ✨
+              {txt.momentosSemPreco}
             </p>
           </div>
 
@@ -310,42 +309,17 @@ export default function AssinarPage() {
           {/* Depoimentos melhorados */}
           <div className="space-y-3">
             <h3 className="font-bold text-gray-900 text-sm text-center">
-              O que as mães estão dizendo
+              {txt.depoimentosV2Titulo}
             </h3>
-            {[
-              {
-                nome: "Camila R.",
-                cidade: "São Paulo",
-                texto: "Meu filho de 4 anos coloriu por 40 minutos sem parar. QUARENTA MINUTOS. Sem tela nenhuma. Nunca vi ele tão concentrado.",
-                estrelas: 5,
-              },
-              {
-                nome: "Fernanda L.",
-                cidade: "Rio de Janeiro",
-                texto: "Fiz direto pelo celular em 2 minutos. O PDF veio por email e imprimi na impressora de casa. Mais fácil que pedir comida no iFood.",
-                estrelas: 5,
-              },
-              {
-                nome: "Amanda C.",
-                cidade: "Recife",
-                texto: "Comprava livro de colorir todo mês. R$30 cada e ele enjoava rápido porque não era personalizado. Com o Colory ele não enjoa porque é o rosto DELE.",
-                estrelas: 5,
-              },
-              {
-                nome: "Patrícia S.",
-                cidade: "Belo Horizonte",
-                texto: "A vovó chorou quando viu o neto como personagem da página. Virou presente de aniversário. Vale cada centavo.",
-                estrelas: 5,
-              },
-            ].map((dep, i) => (
+            {txt.depoimentosV2.map((dep, i) => (
               <div key={i} className="bg-gray-50 rounded-xl p-4 space-y-2">
                 <div className="flex items-center gap-2">
                   <div className="flex gap-0.5">
-                    {Array.from({ length: dep.estrelas }).map((_, j) => (
+                    {Array.from({ length: 5 }).map((_, j) => (
                       <span key={j} className="text-yellow-400 text-xs">★</span>
                     ))}
                   </div>
-                  <span className="text-[10px] text-green-600 font-medium bg-green-50 px-1.5 py-0.5 rounded">✓ Verificado</span>
+                  <span className="text-[10px] text-green-600 font-medium bg-green-50 px-1.5 py-0.5 rounded">✓ {txt.verificado}</span>
                 </div>
                 <p className="text-sm text-gray-700 italic">&ldquo;{dep.texto}&rdquo;</p>
                 <p className="text-xs text-gray-500 font-medium">— {dep.nome}, {dep.cidade}</p>
@@ -369,7 +343,7 @@ export default function AssinarPage() {
           {/* FAQ */}
           <div className="space-y-3">
             <h3 className="font-bold text-gray-900 text-sm text-center">
-              Perguntas frequentes
+              {txt.faqTituloV2}
             </h3>
             {(txt.faqs || []).map((faq: { p: string; r: string }, i: number) => (
               <div key={i} className="border border-gray-100 rounded-xl p-4">

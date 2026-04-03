@@ -132,6 +132,11 @@ const translations = {
       emailPlaceholder: "seu@email.com",
       lgpd: "Concordo em receber comunicações sobre o Colory",
       continuar: "Ver resultado",
+      lgpdTermos: "Concordo com os",
+      lgpdTermosLink: "Termos de Uso",
+      lgpdE: "e",
+      lgpdPrivacidadeLink: "Política de Privacidade",
+      lgpdAviso: "Aceite os termos para continuar",
     },
 
     // Paywall
@@ -219,6 +224,41 @@ const translations = {
         { p: "Posso cancelar quando quiser?", r: "Sim! Cancele a qualquer momento sem burocracia. E nos primeiros 7 dias, devolvemos 100% do valor." },
         { p: "Como recebo as páginas?", r: "Você recebe o PDF por e-mail ou acessa direto pelo celular. Imprima em casa ou na gráfica — sem limite de cópias." },
       ] as { p: string; r: string }[],
+
+      // Social proof v2
+      socialProofV2Count: "+47.000 páginas",
+      socialProofV2Text: "criadas por mães brasileiras",
+
+      // Hero unlock
+      heroTitulo: (artigoDe: string, nome: string) => `A página ${artigoDe} ${nome} está pronta!`,
+      heroDesbloquear: "Desbloqueie para baixar e imprimir",
+
+      // CTA micro-commitment
+      ctaTestar: (artigo: string, nome: string) => `Teste por 7 dias. Se ${artigo} ${nome} não amar, devolvemos cada centavo.`,
+      ctaCancelar: "Cancele quando quiser. Sem multa, sem burocracia.",
+
+      // Emotional hooks
+      hookTelaAlto: (artigo: string, nome: string, pronome: string) => `Você disse que ${artigo} ${nome} passa várias horas por dia em telas. Imagina ${pronome} largando o tablet por conta própria pra colorir o próprio rosto? Isso acontece toda semana com o Colory.`,
+      hookTelaMedio: (artigoDe: string, nome: string) => `Você quer reduzir o tempo de tela ${artigoDe} ${nome}. Com o Colory, mães contam que os filhos pedem pra imprimir em vez de assistir vídeo.`,
+      hookTelaBaixo: (artigoDe: string, nome: string) => `Você já cuida bem do tempo de tela ${artigoDe} ${nome}. O Colory é a atividade perfeita pra preencher esses momentos com criatividade.`,
+      hookConexao: (artigo: string, nome: string, pronome2: string) => `E o melhor: é um momento de vocês ${pronome2} juntos. Sem tela, sem pressa. Só você e ${artigo} ${nome} colorindo.`,
+
+      // Future pacing
+      futurePacing: (artigo: string, nome: string, pronome2: string) => `Imagina a cena: você imprime a página, coloca na mesa com os lápis de cor. ${artigo.charAt(0).toUpperCase() + artigo.slice(1)} ${nome} vê o próprio rosto no desenho e abre aquele sorriso. Vocês ${pronome2} sentam juntos e por 30 minutos não existe celular, não existe pressa. Só você e ${artigo} ${nome}, colorindo.`,
+      momentosSemPreco: "Momentos assim não têm preço ✨",
+
+      // Testimonials v2 title
+      depoimentosV2Titulo: "O que as mães estão dizendo",
+      verificado: "Verificado",
+      depoimentosV2: [
+        { nome: "Camila R.", cidade: "São Paulo", texto: "Meu filho de 4 anos coloriu por 40 minutos sem parar. QUARENTA MINUTOS. Sem tela nenhuma. Nunca vi ele tão concentrado." },
+        { nome: "Fernanda L.", cidade: "Rio de Janeiro", texto: "Fiz direto pelo celular em 2 minutos. O PDF veio por email e imprimi na impressora de casa. Mais fácil que pedir comida no iFood." },
+        { nome: "Amanda C.", cidade: "Recife", texto: "Comprava livro de colorir todo mês. R$30 cada e ele enjoava rápido porque não era personalizado. Com o Colory ele não enjoa porque é o rosto DELE." },
+        { nome: "Patrícia S.", cidade: "Belo Horizonte", texto: "A vovó chorou quando viu o neto como personagem da página. Virou presente de aniversário. Vale cada centavo." },
+      ] as { nome: string; cidade: string; texto: string }[],
+
+      // FAQ title (replacing hardcoded)
+      faqTituloV2: "Perguntas frequentes",
     },
 
     // OTOs
@@ -452,6 +492,64 @@ const translations = {
       configSalvar: "Salvar",
       configSair: "Sair da conta",
       configSuporte: "Precisa de ajuda? Fale conosco no WhatsApp",
+
+      // Configurações extras
+      configHeader: "Configurações",
+      configCreditos: "Meus Créditos",
+      configCreditosDe: "de 15",
+      configCreditosRenova: (dias: number) => `Renova em ${dias} dias`,
+      configComprarCreditos: "Comprar 20 créditos extras — R$19,90",
+      configMeusFilhos: "Meus Filhos",
+      configNovoFilho: "Novo filho",
+      configNomePlaceholder: "Nome do filho",
+      configCancelar: "Cancelar",
+      configSalvando: "Salvando...",
+      configSemPlano: "Sem plano",
+      configAtivo: "Ativo",
+      configPlanoLabel: "Plano",
+      configIdiomaLabel: "Idioma / Language",
+      configSuporteItems: ["Fale Conosco", "Avaliar o app", "Termos e Privacidade"] as string[],
+      configLogout: "Sair da conta",
+      configFooter: "Para cancelar entre em contato com o suporte",
+      configSelectIdade: "Selecionar...",
+      configIdadeOptions: ["0-2 anos", "3-5 anos", "6-8 anos", "9-12 anos"] as string[],
+
+      // Criar page extras
+      criarTransformar: (nome: string) => `Transforme a foto do ${nome} em uma página de colorir`,
+      criarAdicionarFoto: "Adicionar Foto +",
+      criarOtimizando: "Otimizando...",
+      criarTrocarFoto: "Trocar foto",
+      criarSelecionarEstilo: "Selecionar Estilo",
+      criarRestantes: "restantes",
+      criarPreparando: "Preparando...",
+      criarGerarPagina: "Gerar Página",
+      criarPlanoExpirou: "Seu plano expirou",
+      criarRenovarDesc: "Renove para continuar criando páginas de colorir",
+      criarRenovar: "Renovar plano",
+      criarSemCreditos: "Suas gerações deste mês acabaram",
+      criarSemCreditosDesc: "Compre créditos extras para continuar criando",
+      criarComprarCreditos: "Comprar 20 créditos — R$19,90",
+      criarEstilos: [
+        { id: "simple", name: "Simples", desc: "Linhas limpas, poucos detalhes" },
+        { id: "detailed", name: "Detalhado", desc: "Com cenário e mais detalhes" },
+        { id: "minimalist", name: "Minimalista", desc: "Traços mínimos, artístico" },
+        { id: "ink", name: "Arte com tinta", desc: "Traços fortes estilo nanquim" },
+      ] as { id: string; name: string; desc: string }[],
+
+      // Páginas page extras
+      paginasHeader: "Minhas Páginas",
+      paginasTodas: "Todas",
+      paginasAdicionar: "+ Adicionar",
+      paginasVazia: "Você ainda não criou nenhuma página",
+      paginasVaziaCta: "Criar minha primeira página",
+      paginasLivroHistoria: "Livro de História",
+      paginasLivroDesc: "Seu filho como herói da história",
+      paginasLivroAcessar: "Personalize seu livro agora!",
+      paginasClubeAtividades: "Clube de Atividades",
+      paginasClubeDesc: "52 semanas de atividades para imprimir",
+      paginasClubeAcessar: "Acesso liberado! Verifique seu email",
+      paginasDesbloquear: "Desbloquear",
+      paginasAcessar: "Acessar",
     },
 
     // Obrigado
@@ -648,6 +746,11 @@ const translations = {
       emailPlaceholder: "your@email.com",
       lgpd: "I agree to receive communications from Colory",
       continuar: "See result",
+      lgpdTermos: "I agree to the",
+      lgpdTermosLink: "Terms of Use",
+      lgpdE: "and",
+      lgpdPrivacidadeLink: "Privacy Policy",
+      lgpdAviso: "Please accept the terms to continue",
     },
 
     // Paywall
@@ -735,6 +838,41 @@ const translations = {
         { p: "Can I cancel anytime?", r: "Yes! Cancel at any time, no hassle. And within the first 7 days, we'll refund 100% of your payment." },
         { p: "How do I receive the pages?", r: "You receive the PDF by email or access it directly on your phone. Print at home or at a print shop — unlimited copies." },
       ] as { p: string; r: string }[],
+
+      // Social proof v2
+      socialProofV2Count: "+47,000 pages",
+      socialProofV2Text: "created by moms worldwide",
+
+      // Hero unlock
+      heroTitulo: (artigoDe: string, nome: string) => `${nome}'s coloring page is ready!`,
+      heroDesbloquear: "Unlock to download and print",
+
+      // CTA micro-commitment
+      ctaTestar: (artigo: string, nome: string) => `Try for 7 days. If ${nome} doesn't love it, we'll refund every penny.`,
+      ctaCancelar: "Cancel anytime. No fees, no hassle.",
+
+      // Emotional hooks
+      hookTelaAlto: (artigo: string, nome: string, pronome: string) => `You said ${nome} spends several hours a day on screens. Imagine them putting down the tablet on their own to color their own face? That happens every week with Colory.`,
+      hookTelaMedio: (artigoDe: string, nome: string) => `You want to reduce ${nome}'s screen time. With Colory, moms say their kids ask to print instead of watching videos.`,
+      hookTelaBaixo: (artigoDe: string, nome: string) => `You already manage ${nome}'s screen time well. Colory is the perfect activity to fill those moments with creativity.`,
+      hookConexao: (artigo: string, nome: string, pronome2: string) => `And the best part: it's a moment for you two together. No screens, no rush. Just you and ${nome} coloring.`,
+
+      // Future pacing
+      futurePacing: (artigo: string, nome: string, pronome2: string) => `Picture this: you print the page, place it on the table with colored pencils. ${nome} sees their own face in the drawing and breaks into that big smile. You sit together and for 30 minutes there's no phone, no rush. Just you and ${nome}, coloring.`,
+      momentosSemPreco: "Moments like these are priceless ✨",
+
+      // Testimonials v2 title
+      depoimentosV2Titulo: "What moms are saying",
+      verificado: "Verified",
+      depoimentosV2: [
+        { nome: "Sarah T.", cidade: "New York", texto: "My 4-year-old colored for 40 minutes straight. FORTY MINUTES. No screen at all. I've never seen him so focused." },
+        { nome: "Emily R.", cidade: "London", texto: "I did it right from my phone in 2 minutes. The PDF came by email and I printed it at home. Easier than ordering food delivery." },
+        { nome: "Jessica M.", cidade: "Chicago", texto: "I used to buy a coloring book every month. $6 each and he'd get bored fast because it wasn't personalized. With Colory he never gets bored because it's HIS face." },
+        { nome: "Rachel K.", cidade: "Toronto", texto: "Grandma cried when she saw her grandson as a coloring page character. It became a birthday gift. Worth every penny." },
+      ] as { nome: string; cidade: string; texto: string }[],
+
+      // FAQ title (replacing hardcoded)
+      faqTituloV2: "Frequently asked questions",
     },
 
     // OTOs
@@ -968,6 +1106,64 @@ const translations = {
       configSalvar: "Save",
       configSair: "Sign out",
       configSuporte: "Need help? Contact us on WhatsApp",
+
+      // Settings extras
+      configHeader: "Settings",
+      configCreditos: "My Credits",
+      configCreditosDe: "of 15",
+      configCreditosRenova: (dias: number) => `Renews in ${dias} days`,
+      configComprarCreditos: "Buy 20 extra credits — $3.90",
+      configMeusFilhos: "My Children",
+      configNovoFilho: "New child",
+      configNomePlaceholder: "Child's name",
+      configCancelar: "Cancel",
+      configSalvando: "Saving...",
+      configSemPlano: "No plan",
+      configAtivo: "Active",
+      configPlanoLabel: "Plan",
+      configIdiomaLabel: "Idioma / Language",
+      configSuporteItems: ["Contact Us", "Rate the app", "Terms & Privacy"] as string[],
+      configLogout: "Sign out",
+      configFooter: "To cancel, please contact support",
+      configSelectIdade: "Select...",
+      configIdadeOptions: ["0-2 years", "3-5 years", "6-8 years", "9-12 years"] as string[],
+
+      // Create page extras
+      criarTransformar: (nome: string) => `Turn ${nome}'s photo into a coloring page`,
+      criarAdicionarFoto: "Add Photo +",
+      criarOtimizando: "Optimizing...",
+      criarTrocarFoto: "Change photo",
+      criarSelecionarEstilo: "Select Style",
+      criarRestantes: "remaining",
+      criarPreparando: "Preparing...",
+      criarGerarPagina: "Generate Page",
+      criarPlanoExpirou: "Your plan has expired",
+      criarRenovarDesc: "Renew to keep creating coloring pages",
+      criarRenovar: "Renew plan",
+      criarSemCreditos: "Your monthly generations are used up",
+      criarSemCreditosDesc: "Buy extra credits to keep creating",
+      criarComprarCreditos: "Buy 20 credits — $3.90",
+      criarEstilos: [
+        { id: "simple", name: "Simple", desc: "Clean lines, few details" },
+        { id: "detailed", name: "Detailed", desc: "With scenery and more details" },
+        { id: "minimalist", name: "Minimalist", desc: "Minimal strokes, artistic" },
+        { id: "ink", name: "Ink Art", desc: "Bold strokes, ink style" },
+      ] as { id: string; name: string; desc: string }[],
+
+      // Pages extras
+      paginasHeader: "My Pages",
+      paginasTodas: "All",
+      paginasAdicionar: "+ Add",
+      paginasVazia: "You haven't created any pages yet",
+      paginasVaziaCta: "Create my first page",
+      paginasLivroHistoria: "Storybook",
+      paginasLivroDesc: "Your child as the hero of the story",
+      paginasLivroAcessar: "Personalize your book now!",
+      paginasClubeAtividades: "Activity Club",
+      paginasClubeDesc: "52 weeks of printable activities",
+      paginasClubeAcessar: "Access granted! Check your email",
+      paginasDesbloquear: "Unlock",
+      paginasAcessar: "Access",
     },
 
     // Thank you
@@ -1164,6 +1360,11 @@ const translations = {
       emailPlaceholder: "tu@correo.com",
       lgpd: "Acepto recibir comunicaciones de Colory",
       continuar: "Ver resultado",
+      lgpdTermos: "Acepto los",
+      lgpdTermosLink: "Términos de Uso",
+      lgpdE: "y",
+      lgpdPrivacidadeLink: "Política de Privacidad",
+      lgpdAviso: "Acepta los términos para continuar",
     },
 
     // Paywall
@@ -1251,6 +1452,41 @@ const translations = {
         { p: "¿Puedo cancelar cuando quiera?", r: "¡Sí! Cancela en cualquier momento sin complicaciones. Y en los primeros 7 días, te devolvemos el 100% del valor." },
         { p: "¿Cómo recibo las páginas?", r: "Recibes el PDF por correo o lo accedes directo desde el celular. Imprímelo en casa o en una imprenta — sin límite de copias." },
       ] as { p: string; r: string }[],
+
+      // Social proof v2
+      socialProofV2Count: "+47.000 páginas",
+      socialProofV2Text: "creadas por mamás de todo el mundo",
+
+      // Hero unlock
+      heroTitulo: (artigoDe: string, nome: string) => `¡La página para colorear de ${nome} está lista!`,
+      heroDesbloquear: "Desbloquea para descargar e imprimir",
+
+      // CTA micro-commitment
+      ctaTestar: (artigo: string, nome: string) => `Prueba 7 días. Si ${nome} no lo ama, te devolvemos cada centavo.`,
+      ctaCancelar: "Cancela cuando quieras. Sin multa, sin complicaciones.",
+
+      // Emotional hooks
+      hookTelaAlto: (artigo: string, nome: string, pronome: string) => `Dijiste que ${nome} pasa varias horas al día frente a las pantallas. ¿Imaginas que deje la tablet por su cuenta para colorear su propio rostro? Eso pasa cada semana con Colory.`,
+      hookTelaMedio: (artigoDe: string, nome: string) => `Quieres reducir el tiempo de pantalla de ${nome}. Con Colory, las mamás cuentan que sus hijos piden imprimir en vez de ver videos.`,
+      hookTelaBaixo: (artigoDe: string, nome: string) => `Ya cuidas bien el tiempo de pantalla de ${nome}. Colory es la actividad perfecta para llenar esos momentos con creatividad.`,
+      hookConexao: (artigo: string, nome: string, pronome2: string) => `Y lo mejor: es un momento de ustedes juntos. Sin pantalla, sin prisa. Solo tú y ${nome} coloreando.`,
+
+      // Future pacing
+      futurePacing: (artigo: string, nome: string, pronome2: string) => `Imagina la escena: imprimes la página, la pones en la mesa con los lápices de colores. ${nome} ve su propio rostro en el dibujo y esboza esa gran sonrisa. Se sientan juntos y por 30 minutos no existe celular, no existe prisa. Solo tú y ${nome}, coloreando.`,
+      momentosSemPreco: "Momentos así no tienen precio ✨",
+
+      // Testimonials v2 title
+      depoimentosV2Titulo: "Lo que dicen las mamás",
+      verificado: "Verificado",
+      depoimentosV2: [
+        { nome: "María C.", cidade: "Madrid", texto: "Mi hijo de 4 años coloreó durante 40 minutos sin parar. CUARENTA MINUTOS. Sin pantalla. Nunca lo vi tan concentrado." },
+        { nome: "Laura G.", cidade: "Buenos Aires", texto: "Lo hice directo desde el celular en 2 minutos. El PDF llegó por correo y lo imprimí en casa. Más fácil que pedir comida a domicilio." },
+        { nome: "Ana P.", cidade: "México", texto: "Compraba un libro de colorear cada mes. $6 cada uno y se aburría rápido porque no era personalizado. Con Colory no se aburre porque es SU rostro." },
+        { nome: "Carmen R.", cidade: "Barcelona", texto: "La abuela lloró cuando vio a su nieto como personaje de la página. Se convirtió en regalo de cumpleaños. Vale cada centavo." },
+      ] as { nome: string; cidade: string; texto: string }[],
+
+      // FAQ title (replacing hardcoded)
+      faqTituloV2: "Preguntas frecuentes",
     },
 
     // OTOs
@@ -1484,6 +1720,64 @@ const translations = {
       configSalvar: "Guardar",
       configSair: "Cerrar sesión",
       configSuporte: "¿Necesitas ayuda? Contáctanos por WhatsApp",
+
+      // Configuración extras
+      configHeader: "Configuración",
+      configCreditos: "Mis Créditos",
+      configCreditosDe: "de 15",
+      configCreditosRenova: (dias: number) => `Se renueva en ${dias} días`,
+      configComprarCreditos: "Comprar 20 créditos extras — $3.90",
+      configMeusFilhos: "Mis Hijos",
+      configNovoFilho: "Nuevo hijo",
+      configNomePlaceholder: "Nombre del hijo",
+      configCancelar: "Cancelar",
+      configSalvando: "Guardando...",
+      configSemPlano: "Sin plan",
+      configAtivo: "Activo",
+      configPlanoLabel: "Plan",
+      configIdiomaLabel: "Idioma / Language",
+      configSuporteItems: ["Contáctanos", "Calificar la app", "Términos y Privacidad"] as string[],
+      configLogout: "Cerrar sesión",
+      configFooter: "Para cancelar, contacta con soporte",
+      configSelectIdade: "Seleccionar...",
+      configIdadeOptions: ["0-2 años", "3-5 años", "6-8 años", "9-12 años"] as string[],
+
+      // Crear page extras
+      criarTransformar: (nome: string) => `Transforma la foto de ${nome} en una página para colorear`,
+      criarAdicionarFoto: "Agregar Foto +",
+      criarOtimizando: "Optimizando...",
+      criarTrocarFoto: "Cambiar foto",
+      criarSelecionarEstilo: "Seleccionar Estilo",
+      criarRestantes: "restantes",
+      criarPreparando: "Preparando...",
+      criarGerarPagina: "Generar Página",
+      criarPlanoExpirou: "Tu plan ha expirado",
+      criarRenovarDesc: "Renueva para seguir creando páginas para colorear",
+      criarRenovar: "Renovar plan",
+      criarSemCreditos: "Tus generaciones de este mes se agotaron",
+      criarSemCreditosDesc: "Compra créditos extras para seguir creando",
+      criarComprarCreditos: "Comprar 20 créditos — $3.90",
+      criarEstilos: [
+        { id: "simple", name: "Simple", desc: "Líneas limpias, pocos detalles" },
+        { id: "detailed", name: "Detallado", desc: "Con escenario y más detalles" },
+        { id: "minimalist", name: "Minimalista", desc: "Trazos mínimos, artístico" },
+        { id: "ink", name: "Arte con tinta", desc: "Trazos fuertes estilo tinta" },
+      ] as { id: string; name: string; desc: string }[],
+
+      // Páginas extras
+      paginasHeader: "Mis Páginas",
+      paginasTodas: "Todas",
+      paginasAdicionar: "+ Agregar",
+      paginasVazia: "Aún no has creado ninguna página",
+      paginasVaziaCta: "Crear mi primera página",
+      paginasLivroHistoria: "Libro de Historia",
+      paginasLivroDesc: "Tu hijo como héroe de la historia",
+      paginasLivroAcessar: "¡Personaliza tu libro ahora!",
+      paginasClubeAtividades: "Club de Actividades",
+      paginasClubeDesc: "52 semanas de actividades para imprimir",
+      paginasClubeAcessar: "¡Acceso liberado! Revisa tu correo",
+      paginasDesbloquear: "Desbloquear",
+      paginasAcessar: "Acceder",
     },
 
     // Gracias
@@ -1680,6 +1974,11 @@ const translations = {
       emailPlaceholder: "votre@email.com",
       lgpd: "J'accepte de recevoir des communications de Colory",
       continuar: "Voir le résultat",
+      lgpdTermos: "J'accepte les",
+      lgpdTermosLink: "Conditions d'utilisation",
+      lgpdE: "et",
+      lgpdPrivacidadeLink: "Politique de confidentialité",
+      lgpdAviso: "Veuillez accepter les conditions pour continuer",
     },
 
     // Paywall
@@ -1767,6 +2066,41 @@ const translations = {
         { p: "Puis-je annuler quand je veux ?", r: "Oui ! Annulez à tout moment sans tracas. Et dans les 7 premiers jours, nous remboursons 100% du montant." },
         { p: "Comment je reçois les pages ?", r: "Vous recevez le PDF par e-mail ou y accédez directement depuis votre téléphone. Imprimez à la maison ou chez l'imprimeur — copies illimitées." },
       ] as { p: string; r: string }[],
+
+      // Social proof v2
+      socialProofV2Count: "+47 000 pages",
+      socialProofV2Text: "créées par des mamans du monde entier",
+
+      // Hero unlock
+      heroTitulo: (artigoDe: string, nome: string) => `La page de coloriage de ${nome} est prête !`,
+      heroDesbloquear: "Débloquez pour télécharger et imprimer",
+
+      // CTA micro-commitment
+      ctaTestar: (artigo: string, nome: string) => `Essayez pendant 7 jours. Si ${nome} n'adore pas, nous remboursons chaque centime.`,
+      ctaCancelar: "Annulez quand vous voulez. Sans frais, sans tracas.",
+
+      // Emotional hooks
+      hookTelaAlto: (artigo: string, nome: string, pronome: string) => `Vous avez dit que ${nome} passe plusieurs heures par jour devant les écrans. Imaginez-le poser la tablette de lui-même pour colorier son propre visage ? Ça arrive chaque semaine avec Colory.`,
+      hookTelaMedio: (artigoDe: string, nome: string) => `Vous voulez réduire le temps d'écran de ${nome}. Avec Colory, les mamans racontent que leurs enfants demandent à imprimer au lieu de regarder des vidéos.`,
+      hookTelaBaixo: (artigoDe: string, nome: string) => `Vous gérez déjà bien le temps d'écran de ${nome}. Colory est l'activité parfaite pour remplir ces moments de créativité.`,
+      hookConexao: (artigo: string, nome: string, pronome2: string) => `Et le meilleur : c'est un moment rien que pour vous deux. Sans écran, sans pression. Juste vous et ${nome} en train de colorier.`,
+
+      // Future pacing
+      futurePacing: (artigo: string, nome: string, pronome2: string) => `Imaginez la scène : vous imprimez la page, vous la posez sur la table avec les crayons de couleur. ${nome} voit son propre visage sur le dessin et affiche ce grand sourire. Vous vous asseyez ensemble et pendant 30 minutes, pas de téléphone, pas de pression. Juste vous et ${nome}, en train de colorier.`,
+      momentosSemPreco: "Ces moments n'ont pas de prix ✨",
+
+      // Testimonials v2 title
+      depoimentosV2Titulo: "Ce que disent les mamans",
+      verificado: "Vérifié",
+      depoimentosV2: [
+        { nome: "Sophie M.", cidade: "Paris", texto: "Mon fils de 4 ans a colorié pendant 40 minutes sans s'arrêter. QUARANTE MINUTES. Aucun écran. Je ne l'avais jamais vu aussi concentré." },
+        { nome: "Claire B.", cidade: "Lyon", texto: "Je l'ai fait directement depuis mon téléphone en 2 minutes. Le PDF est arrivé par e-mail et j'ai imprimé à la maison. Plus facile que de commander à manger." },
+        { nome: "Marie L.", cidade: "Marseille", texto: "J'achetais un livre de coloriage chaque mois. 6€ chacun et il s'en lassait vite car ce n'était pas personnalisé. Avec Colory il ne s'ennuie jamais car c'est SON visage." },
+        { nome: "Isabelle D.", cidade: "Toulouse", texto: "Mamie a pleuré en voyant son petit-fils en personnage de coloriage. C'est devenu un cadeau d'anniversaire. Ça vaut chaque centime." },
+      ] as { nome: string; cidade: string; texto: string }[],
+
+      // FAQ title (replacing hardcoded)
+      faqTituloV2: "Questions fréquentes",
     },
 
     // OTOs
@@ -2000,6 +2334,64 @@ const translations = {
       configSalvar: "Enregistrer",
       configSair: "Se déconnecter",
       configSuporte: "Besoin d'aide ? Contactez-nous sur WhatsApp",
+
+      // Paramètres extras
+      configHeader: "Paramètres",
+      configCreditos: "Mes Crédits",
+      configCreditosDe: "sur 15",
+      configCreditosRenova: (dias: number) => `Se renouvelle dans ${dias} jours`,
+      configComprarCreditos: "Acheter 20 crédits supplémentaires — $3.90",
+      configMeusFilhos: "Mes Enfants",
+      configNovoFilho: "Nouvel enfant",
+      configNomePlaceholder: "Nom de l'enfant",
+      configCancelar: "Annuler",
+      configSalvando: "Enregistrement...",
+      configSemPlano: "Aucun plan",
+      configAtivo: "Actif",
+      configPlanoLabel: "Plan",
+      configIdiomaLabel: "Idioma / Language",
+      configSuporteItems: ["Nous contacter", "Évaluer l'app", "Conditions et Confidentialité"] as string[],
+      configLogout: "Se déconnecter",
+      configFooter: "Pour annuler, contactez le support",
+      configSelectIdade: "Sélectionner...",
+      configIdadeOptions: ["0-2 ans", "3-5 ans", "6-8 ans", "9-12 ans"] as string[],
+
+      // Créer page extras
+      criarTransformar: (nome: string) => `Transformez la photo de ${nome} en page de coloriage`,
+      criarAdicionarFoto: "Ajouter Photo +",
+      criarOtimizando: "Optimisation...",
+      criarTrocarFoto: "Changer la photo",
+      criarSelecionarEstilo: "Sélectionner un Style",
+      criarRestantes: "restants",
+      criarPreparando: "Préparation...",
+      criarGerarPagina: "Générer la Page",
+      criarPlanoExpirou: "Votre plan a expiré",
+      criarRenovarDesc: "Renouvelez pour continuer à créer des pages de coloriage",
+      criarRenovar: "Renouveler le plan",
+      criarSemCreditos: "Vos générations du mois sont épuisées",
+      criarSemCreditosDesc: "Achetez des crédits supplémentaires pour continuer",
+      criarComprarCreditos: "Acheter 20 crédits — $3.90",
+      criarEstilos: [
+        { id: "simple", name: "Simple", desc: "Lignes nettes, peu de détails" },
+        { id: "detailed", name: "Détaillé", desc: "Avec décor et plus de détails" },
+        { id: "minimalist", name: "Minimaliste", desc: "Traits minimaux, artistique" },
+        { id: "ink", name: "Art à l'encre", desc: "Traits forts style encre de Chine" },
+      ] as { id: string; name: string; desc: string }[],
+
+      // Pages extras
+      paginasHeader: "Mes Pages",
+      paginasTodas: "Toutes",
+      paginasAdicionar: "+ Ajouter",
+      paginasVazia: "Vous n'avez encore créé aucune page",
+      paginasVaziaCta: "Créer ma première page",
+      paginasLivroHistoria: "Livre d'Histoire",
+      paginasLivroDesc: "Votre enfant comme héros de l'histoire",
+      paginasLivroAcessar: "Personnalisez votre livre maintenant !",
+      paginasClubeAtividades: "Club d'Activités",
+      paginasClubeDesc: "52 semaines d'activités à imprimer",
+      paginasClubeAcessar: "Accès accordé ! Vérifiez votre e-mail",
+      paginasDesbloquear: "Débloquer",
+      paginasAcessar: "Accéder",
     },
 
     // Merci
@@ -2196,6 +2588,11 @@ const translations = {
       emailPlaceholder: "tua@email.com",
       lgpd: "Accetto di ricevere comunicazioni da Colory",
       continuar: "Vedi risultato",
+      lgpdTermos: "Accetto i",
+      lgpdTermosLink: "Termini di utilizzo",
+      lgpdE: "e",
+      lgpdPrivacidadeLink: "Informativa sulla privacy",
+      lgpdAviso: "Accetta i termini per continuare",
     },
 
     // Paywall
@@ -2283,6 +2680,41 @@ const translations = {
         { p: "Posso cancellare quando voglio?", r: "Sì! Cancella in qualsiasi momento senza complicazioni. E nei primi 7 giorni, rimborsiamo il 100% dell'importo." },
         { p: "Come ricevo le pagine?", r: "Ricevi il PDF via e-mail o lo accedi direttamente dal cellulare. Stampa a casa o in tipografia — copie illimitate." },
       ] as { p: string; r: string }[],
+
+      // Social proof v2
+      socialProofV2Count: "+47.000 pagine",
+      socialProofV2Text: "create da mamme di tutto il mondo",
+
+      // Hero unlock
+      heroTitulo: (artigoDe: string, nome: string) => `La pagina da colorare di ${nome} è pronta!`,
+      heroDesbloquear: "Sblocca per scaricare e stampare",
+
+      // CTA micro-commitment
+      ctaTestar: (artigo: string, nome: string) => `Prova per 7 giorni. Se ${nome} non lo adora, rimborsiamo ogni centesimo.`,
+      ctaCancelar: "Cancella quando vuoi. Senza penali, senza complicazioni.",
+
+      // Emotional hooks
+      hookTelaAlto: (artigo: string, nome: string, pronome: string) => `Hai detto che ${nome} passa diverse ore al giorno davanti agli schermi. Immagina che posi il tablet da solo per colorare il proprio volto? Succede ogni settimana con Colory.`,
+      hookTelaMedio: (artigoDe: string, nome: string) => `Vuoi ridurre il tempo sullo schermo di ${nome}. Con Colory, le mamme raccontano che i figli chiedono di stampare invece di guardare video.`,
+      hookTelaBaixo: (artigoDe: string, nome: string) => `Gestisci già bene il tempo sullo schermo di ${nome}. Colory è l'attività perfetta per riempire quei momenti con creatività.`,
+      hookConexao: (artigo: string, nome: string, pronome2: string) => `E la cosa migliore: è un momento tutto per voi due. Senza schermi, senza fretta. Solo tu e ${nome} a colorare.`,
+
+      // Future pacing
+      futurePacing: (artigo: string, nome: string, pronome2: string) => `Immagina la scena: stampi la pagina, la metti sul tavolo con le matite colorate. ${nome} vede il proprio volto nel disegno e fa quel gran sorriso. Vi sedete insieme e per 30 minuti non esiste telefono, non esiste fretta. Solo tu e ${nome}, a colorare.`,
+      momentosSemPreco: "Momenti così non hanno prezzo ✨",
+
+      // Testimonials v2 title
+      depoimentosV2Titulo: "Cosa dicono le mamme",
+      verificado: "Verificato",
+      depoimentosV2: [
+        { nome: "Giulia R.", cidade: "Roma", texto: "Mio figlio di 4 anni ha colorato per 40 minuti senza fermarsi. QUARANTA MINUTI. Senza nessuno schermo. Non l'avevo mai visto così concentrato." },
+        { nome: "Francesca M.", cidade: "Milano", texto: "L'ho fatto direttamente dal cellulare in 2 minuti. Il PDF è arrivato via email e l'ho stampato a casa. Più facile che ordinare cibo a domicilio." },
+        { nome: "Sara B.", cidade: "Napoli", texto: "Compravo un libro da colorare ogni mese. 6€ ciascuno e si annoiava in fretta perché non era personalizzato. Con Colory non si annoia mai perché è il SUO volto." },
+        { nome: "Valentina P.", cidade: "Torino", texto: "La nonna ha pianto quando ha visto il nipotino come personaggio della pagina. È diventato un regalo di compleanno. Vale ogni centesimo." },
+      ] as { nome: string; cidade: string; texto: string }[],
+
+      // FAQ title (replacing hardcoded)
+      faqTituloV2: "Domande frequenti",
     },
 
     // OTOs
@@ -2516,6 +2948,64 @@ const translations = {
       configSalvar: "Salva",
       configSair: "Esci",
       configSuporte: "Hai bisogno di aiuto? Contattaci su WhatsApp",
+
+      // Impostazioni extras
+      configHeader: "Impostazioni",
+      configCreditos: "I Miei Crediti",
+      configCreditosDe: "di 15",
+      configCreditosRenova: (dias: number) => `Si rinnova tra ${dias} giorni`,
+      configComprarCreditos: "Acquista 20 crediti extra — $3.90",
+      configMeusFilhos: "I Miei Figli",
+      configNovoFilho: "Nuovo figlio",
+      configNomePlaceholder: "Nome del figlio",
+      configCancelar: "Annulla",
+      configSalvando: "Salvataggio...",
+      configSemPlano: "Nessun piano",
+      configAtivo: "Attivo",
+      configPlanoLabel: "Piano",
+      configIdiomaLabel: "Idioma / Language",
+      configSuporteItems: ["Contattaci", "Valuta l'app", "Termini e Privacy"] as string[],
+      configLogout: "Esci",
+      configFooter: "Per annullare, contatta il supporto",
+      configSelectIdade: "Seleziona...",
+      configIdadeOptions: ["0-2 anni", "3-5 anni", "6-8 anni", "9-12 anni"] as string[],
+
+      // Crea page extras
+      criarTransformar: (nome: string) => `Trasforma la foto di ${nome} in una pagina da colorare`,
+      criarAdicionarFoto: "Aggiungi Foto +",
+      criarOtimizando: "Ottimizzazione...",
+      criarTrocarFoto: "Cambia foto",
+      criarSelecionarEstilo: "Seleziona Stile",
+      criarRestantes: "rimanenti",
+      criarPreparando: "Preparazione...",
+      criarGerarPagina: "Genera Pagina",
+      criarPlanoExpirou: "Il tuo piano è scaduto",
+      criarRenovarDesc: "Rinnova per continuare a creare pagine da colorare",
+      criarRenovar: "Rinnova piano",
+      criarSemCreditos: "Le tue generazioni di questo mese sono esaurite",
+      criarSemCreditosDesc: "Acquista crediti extra per continuare a creare",
+      criarComprarCreditos: "Acquista 20 crediti — $3.90",
+      criarEstilos: [
+        { id: "simple", name: "Semplice", desc: "Linee pulite, pochi dettagli" },
+        { id: "detailed", name: "Dettagliato", desc: "Con scenario e più dettagli" },
+        { id: "minimalist", name: "Minimalista", desc: "Tratti minimi, artistico" },
+        { id: "ink", name: "Arte a inchiostro", desc: "Tratti forti stile inchiostro" },
+      ] as { id: string; name: string; desc: string }[],
+
+      // Pagine extras
+      paginasHeader: "Le Mie Pagine",
+      paginasTodas: "Tutte",
+      paginasAdicionar: "+ Aggiungi",
+      paginasVazia: "Non hai ancora creato nessuna pagina",
+      paginasVaziaCta: "Crea la mia prima pagina",
+      paginasLivroHistoria: "Libro di Storie",
+      paginasLivroDesc: "Il tuo bambino come eroe della storia",
+      paginasLivroAcessar: "Personalizza il tuo libro ora!",
+      paginasClubeAtividades: "Club di Attività",
+      paginasClubeDesc: "52 settimane di attività da stampare",
+      paginasClubeAcessar: "Accesso concesso! Controlla la tua email",
+      paginasDesbloquear: "Sblocca",
+      paginasAcessar: "Accedi",
     },
 
     // Grazie

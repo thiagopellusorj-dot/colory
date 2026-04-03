@@ -6,6 +6,7 @@ import Image from "next/image";
 import { createClient } from "@/lib/supabase";
 import { useCompras } from "@/lib/useCompras";
 import { posthog } from "@/lib/posthog";
+import { t, getLocale } from "@/lib/i18n";
 
 interface Imagem {
   id: string;
@@ -24,15 +25,21 @@ interface Filho {
 
 export default function PaginasPage() {
   const router = useRouter();
+  const txt = t().app;
   const [imagens, setImagens] = useState<Imagem[]>([]);
   const [filhos, setFilhos] = useState<Filho[]>([]);
   const [filtroFilho, setFiltroFilho] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const { comprouLivro, comprouClube } = useCompras();
 
-  const LIVRO_LINK_VENDA = process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO1_UPSELL || "https://perfectpay.com";
+  const isIntl = getLocale() !== "pt-BR";
+  const LIVRO_LINK_VENDA = isIntl
+    ? (process.env.NEXT_PUBLIC_CHECKOUT_LINK_OTO1_INTL || "#")
+    : (process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO1_UPSELL || "https://perfectpay.com");
   const LIVRO_LINK_ACESSO = "https://meu-livro-magico-umber.vercel.app/personalizar";
-  const CLUBE_LINK_VENDA = process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO3_UPSELL || "https://perfectpay.com";
+  const CLUBE_LINK_VENDA = isIntl
+    ? (process.env.NEXT_PUBLIC_CHECKOUT_LINK_OTO3_INTL || "#")
+    : (process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO3_UPSELL || "https://perfectpay.com");
 
   useEffect(() => {
     async function loadData() {
@@ -40,7 +47,6 @@ export default function PaginasPage() {
       const { data: { user } } = await supabase.auth.getUser();
 
       if (user) {
-        // Logged in: load by usuario_id
         const { data: userData } = await supabase
           .from("usuarios")
           .select("id")
@@ -65,7 +71,6 @@ export default function PaginasPage() {
           if (filhosRes.data) setFilhos(filhosRes.data);
         }
       } else {
-        // Not logged in (test mode): load images without usuario_id
         const { data } = await supabase
           .from("imagens")
           .select("*")
@@ -86,8 +91,9 @@ export default function PaginasPage() {
     : imagens;
 
   const formatDate = (dateStr: string) => {
+    const locale = getLocale() === "pt-BR" ? "pt-BR" : getLocale() === "fr" ? "fr-FR" : getLocale() === "es" ? "es-ES" : getLocale() === "it" ? "it-IT" : "en-US";
     const d = new Date(dateStr);
-    return d.toLocaleDateString("pt-BR", { day: "numeric", month: "short" });
+    return d.toLocaleDateString(locale, { day: "numeric", month: "short" });
   };
 
   const getFilhoNome = (filhoId: string | null) => {
@@ -109,7 +115,7 @@ export default function PaginasPage() {
       <header className="px-6 py-4 bg-white border-b">
         <div className="flex items-center gap-2 mb-3">
           <Image src="/images/logo.png" alt="Colory" width={32} height={32} className="rounded-lg" />
-          <h1 className="text-xl font-bold text-purple-600">Minhas Páginas</h1>
+          <h1 className="text-xl font-bold text-purple-600">{txt.paginasHeader}</h1>
         </div>
 
         {/* Filter Pills */}
@@ -122,7 +128,7 @@ export default function PaginasPage() {
                 : "bg-white text-gray-600 border border-gray-200 hover:border-purple-300"
             }`}
           >
-            Todas
+            {txt.paginasTodas}
           </button>
           {filhos.map((filho) => (
             <button
@@ -141,7 +147,7 @@ export default function PaginasPage() {
             onClick={() => router.push("/configuracoes")}
             className="px-4 py-2 bg-white text-purple-600 rounded-full text-sm font-medium whitespace-nowrap border border-purple-300 hover:bg-purple-50 transition-colors"
           >
-            + Adicionar
+            {txt.paginasAdicionar}
           </button>
         </div>
       </header>
@@ -149,17 +155,16 @@ export default function PaginasPage() {
       {/* Content */}
       <main className="px-6 py-6">
         {imagens.length === 0 ? (
-          /* Empty State */
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <div className="w-20 h-20 rounded-full bg-purple-100 flex items-center justify-center mb-4">
               <span className="text-4xl">🎨</span>
             </div>
-            <h2 className="text-lg font-bold text-gray-900 mb-2">Você ainda não criou nenhuma página</h2>
+            <h2 className="text-lg font-bold text-gray-900 mb-2">{txt.paginasVazia}</h2>
             <button
               onClick={() => router.push("/criar")}
               className="mt-4 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-full font-semibold text-sm transition-all shadow-md"
             >
-              Criar minha primeira página
+              {txt.paginasVaziaCta}
             </button>
           </div>
         ) : (
@@ -179,12 +184,11 @@ export default function PaginasPage() {
                 <div className="aspect-[3/4] bg-gray-100 relative">
                   <Image
                     src={img.url_gerada}
-                    alt="Página de colorir"
+                    alt="Coloring page"
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 45vw, 200px"
                   />
-                  {/* Download button on hover */}
                   <div className="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 text-purple-600">
                       <path d="M10.75 2.75a.75.75 0 0 0-1.5 0v8.614L6.295 8.235a.75.75 0 1 0-1.09 1.03l4.25 4.5a.75.75 0 0 0 1.09 0l4.25-4.5a.75.75 0 0 0-1.09-1.03l-2.955 3.129V2.75Z" />
@@ -214,12 +218,12 @@ export default function PaginasPage() {
               <div className={`aspect-[3/4] relative flex items-center justify-center ${comprouLivro ? "bg-gradient-to-br from-green-50 to-emerald-50" : "bg-gradient-to-br from-amber-50 to-orange-50"}`}>
                 <div className="relative text-center space-y-2 p-5 z-10">
                   <span className="text-5xl block">📖</span>
-                  <h3 className="font-bold text-gray-800 text-sm">Livro de História</h3>
+                  <h3 className="font-bold text-gray-800 text-sm">{txt.paginasLivroHistoria}</h3>
                   <p className="text-[11px] text-gray-600 leading-snug">
-                    {comprouLivro ? "Personalize seu livro agora!" : "Seu filho como herói da história"}
+                    {comprouLivro ? txt.paginasLivroAcessar : txt.paginasLivroDesc}
                   </p>
                   <span className={`inline-block px-4 py-2 rounded-full text-xs font-medium shadow-md ${comprouLivro ? "bg-green-600 text-white" : "bg-purple-600 text-white"}`}>
-                    {comprouLivro ? "Acessar" : "Desbloquear"}
+                    {comprouLivro ? txt.paginasAcessar : txt.paginasDesbloquear}
                   </span>
                 </div>
               </div>
@@ -235,12 +239,12 @@ export default function PaginasPage() {
               <div className={`aspect-[3/4] relative flex items-center justify-center ${comprouClube ? "bg-gradient-to-br from-green-50 to-emerald-50" : "bg-gradient-to-br from-purple-100 to-purple-50"}`}>
                 <div className="relative text-center space-y-2 p-5 z-10">
                   <span className="text-5xl block">🎨</span>
-                  <h3 className="font-bold text-gray-800 text-sm">Clube de Atividades</h3>
+                  <h3 className="font-bold text-gray-800 text-sm">{txt.paginasClubeAtividades}</h3>
                   <p className="text-[11px] text-gray-600 leading-snug">
-                    {comprouClube ? "Acesso liberado! Verifique seu email" : "52 semanas de atividades para imprimir"}
+                    {comprouClube ? txt.paginasClubeAcessar : txt.paginasClubeDesc}
                   </p>
                   <span className={`inline-block px-4 py-2 rounded-full text-xs font-medium shadow-md ${comprouClube ? "bg-green-600 text-white" : "bg-purple-600 text-white"}`}>
-                    {comprouClube ? "Acessar" : "Desbloquear"}
+                    {comprouClube ? txt.paginasAcessar : txt.paginasDesbloquear}
                   </span>
                 </div>
               </div>
@@ -254,7 +258,6 @@ export default function PaginasPage() {
         <button
           onClick={() => router.push("/criar")}
           className="fixed bottom-28 right-6 bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-full shadow-xl transition-all hover:scale-110 z-40"
-          aria-label="Criar nova página"
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-6 h-6">
             <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />

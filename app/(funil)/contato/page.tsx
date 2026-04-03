@@ -122,11 +122,11 @@ export default function ContatoPage() {
                   className="mt-0.5 w-5 h-5 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                 />
                 <span className="text-sm text-gray-600">
-                  Concordo com os <a href="#" className="text-purple-600 underline">Termos de Uso</a> e <a href="#" className="text-purple-600 underline">Política de Privacidade</a>
+                  {txt.lgpdTermos} <a href="#" className="text-purple-600 underline">{txt.lgpdTermosLink}</a> {txt.lgpdE} <a href="#" className="text-purple-600 underline">{txt.lgpdPrivacidadeLink}</a>
                 </span>
               </label>
               {!lgpd && (whatsapp || email) && (
-                <p className="text-xs text-amber-600 ml-8">Aceite os termos para continuar</p>
+                <p className="text-xs text-amber-600 ml-8">{txt.lgpdAviso}</p>
               )}
             </div>
           </div>

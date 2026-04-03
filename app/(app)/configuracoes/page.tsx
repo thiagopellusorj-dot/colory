@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase";
 import { posthog } from "@/lib/posthog";
-import { getLocale, setLocale, locales, type Locale } from "@/lib/i18n";
+import { t, getLocale, setLocale, locales, type Locale } from "@/lib/i18n";
 
 interface Filho {
   id: string;
@@ -24,6 +24,7 @@ interface UserData {
 
 export default function ConfiguracoesPage() {
   const router = useRouter();
+  const txt = t().app;
   const [userData, setUserData] = useState<UserData | null>(null);
   const [userEmail, setUserEmail] = useState("");
   const [filhos, setFilhos] = useState<Filho[]>([]);
@@ -129,7 +130,7 @@ export default function ConfiguracoesPage() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
           </svg>
         </button>
-        <h1 className="font-semibold text-gray-800">Configurações</h1>
+        <h1 className="font-semibold text-gray-800">{txt.configHeader}</h1>
       </header>
 
       {/* Main Content */}
@@ -146,26 +147,24 @@ export default function ConfiguracoesPage() {
                 <span>✦</span>
                 <span>
                   {userData?.plano
-                    ? `Plano ${userData.plano.charAt(0).toUpperCase() + userData.plano.slice(1)}`
-                    : "Sem plano"
+                    ? `${txt.configPlanoLabel} ${userData.plano.charAt(0).toUpperCase() + userData.plano.slice(1)}`
+                    : txt.configSemPlano
                   }
-                  {userData?.status === "ativo" && " \u2022 Ativo"}
+                  {userData?.status === "ativo" && ` \u2022 ${txt.configAtivo}`}
                 </span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Meus Créditos */}
+        {/* Créditos */}
         {creditos !== null && (
           <div className="bg-white rounded-2xl shadow-md p-5 space-y-4">
-            <h3 className="text-sm font-semibold text-gray-600">Meus Créditos</h3>
-
-            {/* Progress bar */}
+            <h3 className="text-sm font-semibold text-gray-600">{txt.configCreditos}</h3>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-2xl font-bold text-gray-900">{creditos}</span>
-                <span className="text-xs text-gray-400">de 15</span>
+                <span className="text-xs text-gray-400">{txt.configCreditosDe}</span>
               </div>
               <div className="w-full bg-gray-100 rounded-full h-2.5">
                 <div
@@ -177,26 +176,24 @@ export default function ConfiguracoesPage() {
               </div>
               {creditosRenovaEm && (
                 <p className="text-xs text-gray-400">
-                  Renova em {Math.max(0, Math.ceil((new Date(creditosRenovaEm).getTime() - Date.now()) / (1000 * 60 * 60 * 24)))} dias
+                  {txt.configCreditosRenova(Math.max(0, Math.ceil((new Date(creditosRenovaEm).getTime() - Date.now()) / (1000 * 60 * 60 * 24))))}
                 </p>
               )}
             </div>
-
-            {/* Comprar mais */}
             <a
               href={process.env.NEXT_PUBLIC_PERFECTPAY_LINK_CREDITOS || "https://perfectpay.com"}
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl font-semibold text-sm text-center transition-colors shadow-md"
             >
-              Comprar 20 créditos extras — R$19,90
+              {txt.configComprarCreditos}
             </a>
           </div>
         )}
 
         {/* Idioma */}
         <div className="space-y-3">
-          <h3 className="text-sm font-semibold text-gray-600 px-1">Idioma / Language</h3>
+          <h3 className="text-sm font-semibold text-gray-600 px-1">{txt.configIdiomaLabel}</h3>
           <div className="bg-white rounded-xl shadow-md p-4">
             <div className="flex flex-wrap gap-2">
               {locales.map((loc) => (
@@ -224,13 +221,10 @@ export default function ConfiguracoesPage() {
 
         {/* Meus Filhos */}
         <div className="space-y-3">
-          <h3 className="text-sm font-semibold text-gray-600 px-1">Meus Filhos</h3>
+          <h3 className="text-sm font-semibold text-gray-600 px-1">{txt.configMeusFilhos}</h3>
           <div className="bg-white rounded-xl shadow-md overflow-hidden divide-y divide-gray-100">
             {filhos.map((filho) => (
-              <div
-                key={filho.id}
-                className="px-5 py-4 flex items-center gap-4"
-              >
+              <div key={filho.id} className="px-5 py-4 flex items-center gap-4">
                 <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
                   <span className="text-lg">{filho.genero === "menino" ? "👦" : "👧"}</span>
                 </div>
@@ -243,7 +237,6 @@ export default function ConfiguracoesPage() {
               </div>
             ))}
 
-            {/* Add Child Button */}
             <button
               onClick={() => setShowAddForm(true)}
               className="w-full px-5 py-4 flex items-center gap-4 hover:bg-purple-50 transition-colors"
@@ -254,32 +247,29 @@ export default function ConfiguracoesPage() {
                 </svg>
               </div>
               <div className="flex-1 text-left">
-                <span className="font-medium text-purple-600">Adicionar filho</span>
+                <span className="font-medium text-purple-600">{txt.configAdicionarFilho}</span>
               </div>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 text-purple-600">
-                <path fillRule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
-              </svg>
             </button>
           </div>
         </div>
 
-        {/* Add Child Form (overlay) */}
+        {/* Add Child Form */}
         {showAddForm && (
           <div className="bg-white rounded-xl shadow-md p-5 space-y-4">
-            <h3 className="font-semibold text-gray-800">Novo filho</h3>
+            <h3 className="font-semibold text-gray-800">{txt.configNovoFilho}</h3>
             <div>
-              <label className="text-xs font-semibold text-gray-500 mb-1 block">Nome</label>
+              <label className="text-xs font-semibold text-gray-500 mb-1 block">{txt.configNome}</label>
               <input
                 type="text"
                 value={novoNome}
                 onChange={(e) => setNovoNome(e.target.value)}
-                placeholder="Nome do filho"
+                placeholder={txt.configNomePlaceholder}
                 className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
                 autoFocus
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-gray-500 mb-1 block">Gênero</label>
+              <label className="text-xs font-semibold text-gray-500 mb-1 block">{txt.configGenero}</label>
               <div className="flex gap-2">
                 <button
                   onClick={() => setNovoGenero("menino")}
@@ -287,7 +277,7 @@ export default function ConfiguracoesPage() {
                     novoGenero === "menino" ? "bg-purple-600 text-white" : "bg-gray-100 text-gray-600"
                   }`}
                 >
-                  👦 Menino
+                  👦 {t().quiz.menino}
                 </button>
                 <button
                   onClick={() => setNovoGenero("menina")}
@@ -295,22 +285,21 @@ export default function ConfiguracoesPage() {
                     novoGenero === "menina" ? "bg-purple-600 text-white" : "bg-gray-100 text-gray-600"
                   }`}
                 >
-                  👧 Menina
+                  👧 {t().quiz.menina}
                 </button>
               </div>
             </div>
             <div>
-              <label className="text-xs font-semibold text-gray-500 mb-1 block">Idade</label>
+              <label className="text-xs font-semibold text-gray-500 mb-1 block">{txt.configIdade}</label>
               <select
                 value={novaIdade}
                 onChange={(e) => setNovaIdade(e.target.value)}
                 className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none bg-white"
               >
-                <option value="">Selecionar...</option>
-                <option value="0-2 anos">0-2 anos</option>
-                <option value="3-5 anos">3-5 anos</option>
-                <option value="6-8 anos">6-8 anos</option>
-                <option value="9-12 anos">9-12 anos</option>
+                <option value="">{txt.configSelectIdade}</option>
+                {txt.configIdadeOptions.map((opt) => (
+                  <option key={opt} value={opt}>{opt}</option>
+                ))}
               </select>
             </div>
             <div className="flex gap-2">
@@ -318,14 +307,14 @@ export default function ConfiguracoesPage() {
                 onClick={() => { setShowAddForm(false); setNovoNome(""); }}
                 className="flex-1 py-2.5 rounded-xl text-sm font-medium text-gray-600 bg-gray-100"
               >
-                Cancelar
+                {txt.configCancelar}
               </button>
               <button
                 onClick={handleAddFilho}
                 disabled={!novoNome.trim() || saving}
                 className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-white bg-purple-600 hover:bg-purple-700 disabled:bg-purple-400 transition-all"
               >
-                {saving ? "Salvando..." : "Salvar"}
+                {saving ? txt.configSalvando : txt.configSalvar}
               </button>
             </div>
           </div>
@@ -333,12 +322,12 @@ export default function ConfiguracoesPage() {
 
         {/* Suporte */}
         <div className="space-y-3">
-          <h3 className="text-sm font-semibold text-gray-600 px-1">Suporte</h3>
+          <h3 className="text-sm font-semibold text-gray-600 px-1">{txt.configSuporte}</h3>
           <div className="bg-white rounded-xl shadow-md overflow-hidden divide-y divide-gray-100">
             {[
-              { icon: "💬", label: "Fale Conosco" },
-              { icon: "⭐", label: "Avaliar o app" },
-              { icon: "📄", label: "Termos e Privacidade" },
+              { icon: "💬", label: txt.configSuporteItems[0] },
+              { icon: "⭐", label: txt.configSuporteItems[1] },
+              { icon: "📄", label: txt.configSuporteItems[2] },
             ].map((item, i) => (
               <button
                 key={i}
@@ -348,9 +337,6 @@ export default function ConfiguracoesPage() {
                 <div className="flex-1 text-left">
                   <span className="font-medium text-gray-800">{item.label}</span>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 text-gray-400">
-                  <path fillRule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
-                </svg>
               </button>
             ))}
           </div>
@@ -361,13 +347,13 @@ export default function ConfiguracoesPage() {
           onClick={handleLogout}
           className="w-full text-red-500 font-medium py-3 text-sm"
         >
-          Sair da conta
+          {txt.configLogout}
         </button>
 
         {/* Footer */}
         <div className="pt-4 pb-4">
           <p className="text-center text-xs text-gray-400 leading-relaxed">
-            Colory v1.0 &bull; Para cancelar entre em contato com o suporte
+            Colory v1.0 &bull; {txt.configFooter}
           </p>
         </div>
       </main>
