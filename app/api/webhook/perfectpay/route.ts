@@ -31,7 +31,11 @@ export async function POST(request: NextRequest) {
 
     const email = body.customer?.email;
     const productCode = body.product?.code;
+    const productName = body.product?.name;
     const saleCode = body.code;
+
+    // Debug: log full payload pra diagnóstico
+    console.log(`[Webhook] FULL PAYLOAD: ${JSON.stringify({ token: "***", sale_status_enum: body.sale_status_enum, code: saleCode, email, productCode, productName, product: body.product })}`);
 
     if (!email || !productCode) {
       console.error("Webhook sem email ou product code:", { email, productCode });
@@ -41,13 +45,19 @@ export async function POST(request: NextRequest) {
     const supabase = createAdminSupabase();
 
     console.log(`[Webhook] Venda aprovada: productCode="${productCode}" email="${email}" sale="${saleCode}"`);
-    console.log(`[Webhook] PRODUCT_CODES:`, JSON.stringify(PRODUCT_CODES));
-    console.log(`[Webhook] Match anual: ${productCode === PRODUCT_CODES.anual}, mensal: ${productCode === PRODUCT_CODES.mensal}`);
+    // 3. Identificar produto — por código OU por nome
+    const nameLower = (productName || "").toLowerCase();
+    const isPlanoAnual = productCode === PRODUCT_CODES.anual || nameLower.includes("anual");
+    const isPlanoMensal = productCode === PRODUCT_CODES.mensal || nameLower.includes("mensal") || nameLower.includes("colory");
+    const isCreditos = productCode === PRODUCT_CODES.creditos || nameLower.includes("crédit") || nameLower.includes("credit");
+    const isOto1 = productCode === PRODUCT_CODES.oto1 || nameLower.includes("livro") || nameLower.includes("book") || nameLower.includes("imagine");
+    const isOto3 = productCode === PRODUCT_CODES.oto3 || nameLower.includes("clube") || nameLower.includes("atividade");
 
-    // 3. Identificar produto e processar
-    if (productCode === PRODUCT_CODES.anual || productCode === PRODUCT_CODES.mensal) {
+    console.log(`[Webhook] Match: anual=${isPlanoAnual} mensal=${isPlanoMensal} creditos=${isCreditos} oto1=${isOto1} oto3=${isOto3}`);
+
+    if (isPlanoAnual || isPlanoMensal) {
       // === PLANO: criar usuario + créditos + magic link ===
-      const plano = productCode === PRODUCT_CODES.anual ? "anual" : "mensal";
+      const plano = isPlanoAnual ? "anual" : "mensal";
       const renovaEm = new Date();
       renovaEm.setDate(renovaEm.getDate() + CICLO_DIAS);
 
@@ -129,7 +139,7 @@ export async function POST(request: NextRequest) {
         console.error("[Webhook] Auth error:", authErr);
       }
 
-    } else if (productCode === PRODUCT_CODES.creditos) {
+    } else if (isCreditos) {
       // === CRÉDITOS EXTRA: somar +20 ===
       const { data: usuario } = await supabase
         .from("usuarios")
@@ -150,10 +160,10 @@ export async function POST(request: NextRequest) {
         console.error(`[Webhook] Usuario não encontrado para créditos: ${email}`);
       }
 
-    } else if (productCode === PRODUCT_CODES.oto1 || productCode === PRODUCT_CODES.oto3) {
+    } else if (isOto1 || isOto3) {
       // === OTO: registrar compra ===
-      const produto = productCode === PRODUCT_CODES.oto1 ? "livro" : "clube";
-      const valor = productCode === PRODUCT_CODES.oto1 ? 67 : 97;
+      const produto = isOto1 ? "livro" : "clube";
+      const valor = isOto1 ? 67 : 97;
 
       const { data: usuario } = await supabase
         .from("usuarios")
