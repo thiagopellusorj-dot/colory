@@ -22,6 +22,17 @@
 - **Fix:** Sempre checar `data.session` antes de redirecionar, não apenas `!error`
 - **Onde:** `/auth/callback`
 
+### PKCE flow não funciona cross-device nem server-side
+- **Erro:** Magic links gerados pelo servidor (webhook) ou abertos em outro device falham porque o `code_verifier` só existe no browser que iniciou o fluxo
+- **Fix:** Usar `flowType: "implicit"` no Supabase client. Isso usa `token_hash` no link em vez de `code`, que funciona em qualquer device
+- **Fix 2:** NÃO enviar magic link pelo webhook (server-side). Só criar o user no Auth. Login via tela /login
+- **Onde:** `lib/supabase.ts` + webhook + `/auth/callback`
+
+### inviteUserByEmail falha se user já existe
+- **Erro:** `inviteUserByEmail` retorna erro se o email já está registrado no Auth
+- **Fix:** Usar `createUser` com `email_confirm: true` que é idempotente
+- **Onde:** Webhook
+
 ### RLS bloqueia service_role em alguns cenários
 - **Erro:** Policies com `FOR ALL USING (true)` podem não cobrir todos os roles
 - **Fix:** Testar insert/select com service_role key após habilitar RLS
