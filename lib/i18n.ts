@@ -3291,11 +3291,17 @@ const LOCALE_KEY = "colory-locale";
 
 let currentLocale: Locale = "pt-BR";
 
-// Auto-init from localStorage on client
+// Auto-init from ?lang= param (any page) or localStorage
 if (typeof window !== "undefined") {
-  const saved = localStorage.getItem(LOCALE_KEY);
-  if (saved && saved in translations) {
-    currentLocale = saved as Locale;
+  const urlLang = new URLSearchParams(window.location.search).get("lang");
+  if (urlLang && urlLang in translations) {
+    currentLocale = urlLang as Locale;
+    localStorage.setItem(LOCALE_KEY, urlLang);
+  } else {
+    const saved = localStorage.getItem(LOCALE_KEY);
+    if (saved && saved in translations) {
+      currentLocale = saved as Locale;
+    }
   }
 }
 
