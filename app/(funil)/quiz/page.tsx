@@ -165,12 +165,12 @@ export default function QuizPage() {
               genero={store.genero}
             />
           )}
-          {step === "transicao" && <StepTransicao nome={store.nome_filho} />}
+          {step === "transicao" && <StepTransicao nome={store.nome_filho} genero={store.genero} />}
           {step === "tempo_tela" && (
-            <StepTempoTela onSelect={handleTempoTela} feedback={feedback} nome={store.nome_filho} />
+            <StepTempoTela onSelect={handleTempoTela} feedback={feedback} nome={store.nome_filho} genero={store.genero} />
           )}
           {step === "conexao" && (
-            <StepConexao onSelect={handleConexao} feedback={feedback} nome={store.nome_filho} />
+            <StepConexao onSelect={handleConexao} feedback={feedback} nome={store.nome_filho} genero={store.genero} />
           )}
           {step === "objetivo" && (
             <StepObjetivo onSelect={handleObjetivo} feedback={feedback} nome={store.nome_filho} />
@@ -305,7 +305,7 @@ function StepNome({
   );
 }
 
-function StepTransicao({ nome }: { nome: string }) {
+function StepTransicao({ nome, genero }: { nome: string; genero: string | null }) {
   const txt = t().quiz;
 
   return (
@@ -315,7 +315,7 @@ function StepTransicao({ nome }: { nome: string }) {
       </div>
 
       <h2 className="text-2xl font-bold text-gray-900">
-        {txt.transicaoTitle(nome)}
+        {txt.transicaoTitle(nome, genero || undefined)}
       </h2>
 
       <div className="w-full max-w-xs mx-auto h-2 bg-purple-100 rounded-full overflow-hidden">
@@ -329,10 +329,12 @@ function StepTempoTela({
   onSelect,
   feedback,
   nome,
+  genero,
 }: {
   onSelect: (t: string) => void;
   feedback: string | null;
   nome: string;
+  genero: string | null;
 }) {
   const txt = t().quiz;
 
@@ -346,7 +348,7 @@ function StepTempoTela({
   return (
     <div className="text-center space-y-8">
       <h2 className="text-2xl font-bold text-gray-900">
-        {txt.tempoTelaTitle(nome)}
+        {txt.tempoTelaTitle(nome, genero || undefined)}
       </h2>
 
       <div className="space-y-3">
@@ -373,10 +375,12 @@ function StepConexao({
   onSelect,
   feedback,
   nome,
+  genero,
 }: {
   onSelect: (c: string) => void;
   feedback: string | null;
   nome: string;
+  genero: string | null;
 }) {
   const txt = t().quiz;
 
@@ -389,7 +393,7 @@ function StepConexao({
   return (
     <div className="text-center space-y-8">
       <h2 className="text-2xl font-bold text-gray-900">
-        {txt.conexaoTitle(nome)}
+        {txt.conexaoTitle(nome, genero || undefined)}
       </h2>
 
       <div className="space-y-3">

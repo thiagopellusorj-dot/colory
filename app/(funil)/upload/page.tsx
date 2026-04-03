@@ -88,7 +88,7 @@ export default function UploadPage() {
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-10">
         <div className="w-full max-w-md space-y-6">
           <div className="text-center space-y-2">
-            <h1 className="text-2xl font-bold text-gray-900">{txt.title(nome)}</h1>
+            <h1 className="text-2xl font-bold text-gray-900">{txt.title(nome, store.genero || undefined)}</h1>
             <p className="text-gray-500">{txt.subtitle}</p>
           </div>
 

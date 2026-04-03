@@ -41,11 +41,11 @@ const translations = {
       nomeContinuar: "Continuar",
 
       // Transição
-      transicaoTitle: (nome: string) => `Preparando algo especial para o ${nome}...`,
+      transicaoTitle: (nome: string, genero?: string) => `Preparando algo especial para ${genero === "menina" ? "a" : "o"} ${nome}...`,
 
       // P4 — Tempo de tela
-      tempoTelaTitle: (nome: string) =>
-        `Quanto tempo por dia o ${nome} passa em frente às telas?`,
+      tempoTelaTitle: (nome: string, genero?: string) =>
+        `Quanto tempo por dia ${genero === "menina" ? "a" : "o"} ${nome} passa em frente às telas?`,
       tempoTela1h: "Menos de 1 hora",
       tempoTela2h: "1 a 2 horas",
       tempoTela4h: "2 a 4 horas",
@@ -56,8 +56,8 @@ const translations = {
       feedbackTela4hMais: "Você não está sozinha. Vamos mudar isso juntas!",
 
       // P5 — Conexão
-      conexaoTitle: (nome: string) =>
-        `Você sente que poderia ter mais momentos de conexão com o ${nome}?`,
+      conexaoTitle: (nome: string, genero?: string) =>
+        `Você sente que poderia ter mais momentos de conexão com ${genero === "menina" ? "a" : "o"} ${nome}?`,
       conexaoSim: "Sim, quero mais momentos juntos",
       conexaoCorrido: "Sim, o dia a dia corrido não ajuda",
       conexaoFalta: "Às vezes sinto falta disso",
@@ -80,7 +80,7 @@ const translations = {
 
     // Upload
     upload: {
-      title: (nome: string) => `Agora envie uma foto do ${nome}`,
+      title: (nome: string, genero?: string) => `Agora envie uma foto ${genero === "menina" ? "da" : "do"} ${nome}`,
       subtitle: "Escolha a melhor foto — de preferência com o rosto bem visível",
       dragDrop: "Arraste uma foto aqui",
       ou: "ou",
