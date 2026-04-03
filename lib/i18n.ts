@@ -550,6 +550,49 @@ const translations = {
       paginasClubeAcessar: "Acesso liberado! Verifique seu email",
       paginasDesbloquear: "Desbloquear",
       paginasAcessar: "Acessar",
+
+      // BottomNav
+      navCriar: "Criar",
+      navPaginas: "Minhas Páginas",
+
+      // Gerando page
+      gerandoTexto: (nome: string) => `Gerando a página do ${nome}...`,
+      gerandoFatos: [
+        "Sabia que colorir reduz o estresse em até 35%?",
+        "Colorir ajuda no desenvolvimento da coordenação motora fina.",
+        "Crianças que colorem regularmente têm melhor concentração.",
+        "A atividade de colorir estimula a criatividade desde cedo.",
+        "Páginas de colorir personalizadas aumentam o engajamento.",
+      ] as string[],
+      gerandoVaiAdorar: (nome: string) => `O ${nome} vai adorar!`,
+      gerandoEstilos: {
+        simple: "Livro para colorir",
+        detailed: "Arte linear",
+        family: "Linhas grossas",
+        kids: "Infantil",
+      } as Record<string, string>,
+
+      // Resultado page
+      resultadoHeader: (nome: string) => `Resultado do ${nome}`,
+      resultadoFotoOriginal: "Foto original",
+      resultadoPaginaColorir: "Página de colorir",
+      resultadoSegurarComparar: "Segurar para comparar",
+      resultadoBaixar: "Baixar",
+      resultadoImprimir: "Imprimir",
+      resultadoCompartilhar: "Compartilhar",
+      resultadoCriarMais: "Criar mais",
+      resultadoGerarNovo: "Gerar de novo",
+      resultadoGerarNovoDesc: "Tente um estilo diferente",
+      resultadoLivroHistoria: (nome: string) => `Livro de História do ${nome}`,
+      resultadoLivroDesc: (nome: string) => `O ${nome} como herói da história`,
+      resultadoLivroAcessar: "Personalize seu livro agora",
+      resultadoClubeAtividades: "Clube de Atividades",
+      resultadoClubeDesc: "52 semanas de atividades",
+      resultadoClubeAcessar: "Acesso liberado! Verifique seu email",
+      resultadoDesbloquear: "Desbloquear",
+      resultadoAcessar: "Acessar",
+      resultadoShareTitle: (nome: string) => `Página de colorir do ${nome}`,
+      resultadoShareText: "Olha que legal! Criei uma página de colorir personalizada no Colory!",
     },
 
     // Obrigado
@@ -1164,6 +1207,49 @@ const translations = {
       paginasClubeAcessar: "Access granted! Check your email",
       paginasDesbloquear: "Unlock",
       paginasAcessar: "Access",
+
+      // BottomNav
+      navCriar: "Create",
+      navPaginas: "My Pages",
+
+      // Gerando page
+      gerandoTexto: (nome: string) => `Creating ${nome}'s page...`,
+      gerandoFatos: [
+        "Did you know coloring reduces stress by up to 35%?",
+        "Coloring helps develop fine motor coordination.",
+        "Children who color regularly have better concentration.",
+        "Coloring stimulates creativity from an early age.",
+        "Personalized coloring pages boost engagement.",
+      ] as string[],
+      gerandoVaiAdorar: (nome: string) => `${nome} is going to love it!`,
+      gerandoEstilos: {
+        simple: "Coloring book",
+        detailed: "Line art",
+        family: "Thick lines",
+        kids: "Kids",
+      } as Record<string, string>,
+
+      // Resultado page
+      resultadoHeader: (nome: string) => `${nome}'s Result`,
+      resultadoFotoOriginal: "Original photo",
+      resultadoPaginaColorir: "Coloring page",
+      resultadoSegurarComparar: "Hold to compare",
+      resultadoBaixar: "Download",
+      resultadoImprimir: "Print",
+      resultadoCompartilhar: "Share",
+      resultadoCriarMais: "Create more",
+      resultadoGerarNovo: "Generate again",
+      resultadoGerarNovoDesc: "Try a different style",
+      resultadoLivroHistoria: (nome: string) => `${nome}'s Storybook`,
+      resultadoLivroDesc: (nome: string) => `${nome} as the hero of the story`,
+      resultadoLivroAcessar: "Personalize your book now",
+      resultadoClubeAtividades: "Activity Club",
+      resultadoClubeDesc: "52 weeks of activities",
+      resultadoClubeAcessar: "Access granted! Check your email",
+      resultadoDesbloquear: "Unlock",
+      resultadoAcessar: "Access",
+      resultadoShareTitle: (nome: string) => `${nome}'s coloring page`,
+      resultadoShareText: "Check this out! I created a personalized coloring page on Colory!",
     },
 
     // Thank you
@@ -1778,6 +1864,49 @@ const translations = {
       paginasClubeAcessar: "¡Acceso liberado! Revisa tu correo",
       paginasDesbloquear: "Desbloquear",
       paginasAcessar: "Acceder",
+
+      // BottomNav
+      navCriar: "Crear",
+      navPaginas: "Mis Páginas",
+
+      // Gerando page
+      gerandoTexto: (nome: string) => `Creando la página de ${nome}...`,
+      gerandoFatos: [
+        "¿Sabías que colorear reduce el estrés hasta un 35%?",
+        "Colorear ayuda a desarrollar la coordinación motora fina.",
+        "Los niños que colorean regularmente tienen mejor concentración.",
+        "La actividad de colorear estimula la creatividad desde temprano.",
+        "Las páginas de colorear personalizadas aumentan la participación.",
+      ] as string[],
+      gerandoVaiAdorar: (nome: string) => `¡A ${nome} le va a encantar!`,
+      gerandoEstilos: {
+        simple: "Libro para colorear",
+        detailed: "Arte lineal",
+        family: "Líneas gruesas",
+        kids: "Infantil",
+      } as Record<string, string>,
+
+      // Resultado page
+      resultadoHeader: (nome: string) => `Resultado de ${nome}`,
+      resultadoFotoOriginal: "Foto original",
+      resultadoPaginaColorir: "Página para colorear",
+      resultadoSegurarComparar: "Mantener para comparar",
+      resultadoBaixar: "Descargar",
+      resultadoImprimir: "Imprimir",
+      resultadoCompartilhar: "Compartir",
+      resultadoCriarMais: "Crear más",
+      resultadoGerarNovo: "Generar de nuevo",
+      resultadoGerarNovoDesc: "Prueba un estilo diferente",
+      resultadoLivroHistoria: (nome: string) => `Libro de Historia de ${nome}`,
+      resultadoLivroDesc: (nome: string) => `${nome} como héroe de la historia`,
+      resultadoLivroAcessar: "Personaliza tu libro ahora",
+      resultadoClubeAtividades: "Club de Actividades",
+      resultadoClubeDesc: "52 semanas de actividades",
+      resultadoClubeAcessar: "¡Acceso liberado! Revisa tu correo",
+      resultadoDesbloquear: "Desbloquear",
+      resultadoAcessar: "Acceder",
+      resultadoShareTitle: (nome: string) => `Página para colorear de ${nome}`,
+      resultadoShareText: "¡Mira qué genial! ¡Creé una página para colorear personalizada en Colory!",
     },
 
     // Gracias
@@ -2392,6 +2521,49 @@ const translations = {
       paginasClubeAcessar: "Accès accordé ! Vérifiez votre e-mail",
       paginasDesbloquear: "Débloquer",
       paginasAcessar: "Accéder",
+
+      // BottomNav
+      navCriar: "Créer",
+      navPaginas: "Mes Pages",
+
+      // Gerando page
+      gerandoTexto: (nome: string) => `Création de la page de ${nome}...`,
+      gerandoFatos: [
+        "Saviez-vous que le coloriage réduit le stress jusqu'à 35 % ?",
+        "Le coloriage aide au développement de la motricité fine.",
+        "Les enfants qui colorient régulièrement ont une meilleure concentration.",
+        "L'activité de coloriage stimule la créativité dès le plus jeune âge.",
+        "Les pages de coloriage personnalisées augmentent l'engagement.",
+      ] as string[],
+      gerandoVaiAdorar: (nome: string) => `${nome} va adorer !`,
+      gerandoEstilos: {
+        simple: "Livre de coloriage",
+        detailed: "Art linéaire",
+        family: "Lignes épaisses",
+        kids: "Enfants",
+      } as Record<string, string>,
+
+      // Resultado page
+      resultadoHeader: (nome: string) => `Résultat de ${nome}`,
+      resultadoFotoOriginal: "Photo originale",
+      resultadoPaginaColorir: "Page de coloriage",
+      resultadoSegurarComparar: "Maintenir pour comparer",
+      resultadoBaixar: "Télécharger",
+      resultadoImprimir: "Imprimer",
+      resultadoCompartilhar: "Partager",
+      resultadoCriarMais: "Créer plus",
+      resultadoGerarNovo: "Générer à nouveau",
+      resultadoGerarNovoDesc: "Essayez un style différent",
+      resultadoLivroHistoria: (nome: string) => `Livre d'Histoire de ${nome}`,
+      resultadoLivroDesc: (nome: string) => `${nome} comme héros de l'histoire`,
+      resultadoLivroAcessar: "Personnalisez votre livre maintenant",
+      resultadoClubeAtividades: "Club d'Activités",
+      resultadoClubeDesc: "52 semaines d'activités",
+      resultadoClubeAcessar: "Accès accordé ! Vérifiez votre e-mail",
+      resultadoDesbloquear: "Débloquer",
+      resultadoAcessar: "Accéder",
+      resultadoShareTitle: (nome: string) => `Page de coloriage de ${nome}`,
+      resultadoShareText: "Regardez ça ! J'ai créé une page de coloriage personnalisée sur Colory !",
     },
 
     // Merci
@@ -3006,6 +3178,49 @@ const translations = {
       paginasClubeAcessar: "Accesso concesso! Controlla la tua email",
       paginasDesbloquear: "Sblocca",
       paginasAcessar: "Accedi",
+
+      // BottomNav
+      navCriar: "Crea",
+      navPaginas: "Le Mie Pagine",
+
+      // Gerando page
+      gerandoTexto: (nome: string) => `Creazione della pagina di ${nome}...`,
+      gerandoFatos: [
+        "Sapevi che colorare riduce lo stress fino al 35%?",
+        "Colorare aiuta nello sviluppo della motricità fine.",
+        "I bambini che colorano regolarmente hanno una migliore concentrazione.",
+        "L'attività di colorare stimola la creatività fin dalla tenera età.",
+        "Le pagine da colorare personalizzate aumentano il coinvolgimento.",
+      ] as string[],
+      gerandoVaiAdorar: (nome: string) => `${nome} lo adorerà!`,
+      gerandoEstilos: {
+        simple: "Libro da colorare",
+        detailed: "Arte lineare",
+        family: "Linee spesse",
+        kids: "Bambini",
+      } as Record<string, string>,
+
+      // Resultado page
+      resultadoHeader: (nome: string) => `Risultato di ${nome}`,
+      resultadoFotoOriginal: "Foto originale",
+      resultadoPaginaColorir: "Pagina da colorare",
+      resultadoSegurarComparar: "Tieni premuto per confrontare",
+      resultadoBaixar: "Scarica",
+      resultadoImprimir: "Stampa",
+      resultadoCompartilhar: "Condividi",
+      resultadoCriarMais: "Crea di più",
+      resultadoGerarNovo: "Genera di nuovo",
+      resultadoGerarNovoDesc: "Prova uno stile diverso",
+      resultadoLivroHistoria: (nome: string) => `Libro di Storie di ${nome}`,
+      resultadoLivroDesc: (nome: string) => `${nome} come eroe della storia`,
+      resultadoLivroAcessar: "Personalizza il tuo libro ora",
+      resultadoClubeAtividades: "Club di Attività",
+      resultadoClubeDesc: "52 settimane di attività",
+      resultadoClubeAcessar: "Accesso concesso! Controlla la tua email",
+      resultadoDesbloquear: "Sblocca",
+      resultadoAcessar: "Accedi",
+      resultadoShareTitle: (nome: string) => `Pagina da colorare di ${nome}`,
+      resultadoShareText: "Guarda che bello! Ho creato una pagina da colorare personalizzata su Colory!",
     },
 
     // Grazie
