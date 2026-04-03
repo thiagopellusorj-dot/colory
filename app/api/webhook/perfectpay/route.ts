@@ -187,33 +187,19 @@ export async function POST(request: NextRequest) {
         else console.log(`[Webhook] Usuario criado: ${email} → ${plano}`);
       }
 
-      // Criar no Supabase Auth + enviar magic link
+      // Criar user no Supabase Auth (se não existe)
+      // O login é feito via tela /login (magic link ou Google)
+      // NÃO enviar magic link pelo servidor — PKCE flow não funciona server-side
       try {
-        // Criar user (ignora se existe)
-        await supabase.auth.admin.createUser({
+        const { error: createErr } = await supabase.auth.admin.createUser({
           email,
           email_confirm: true,
-        }).catch(() => {});
-
-        // Enviar magic link via inviteUserByEmail (envia email de verdade)
-        const { error: inviteErr } = await supabase.auth.admin.inviteUserByEmail(email, {
-          redirectTo: `${process.env.NEXT_PUBLIC_APP_URL || "https://colory-eight.vercel.app"}/auth/callback`,
         });
 
-        if (inviteErr) {
-          // Fallback: generateLink (pode não enviar email mas gera o token)
-          console.log("[Webhook] inviteUserByEmail falhou, tentando generateLink:", inviteErr.message);
-          const { error: linkErr } = await supabase.auth.admin.generateLink({
-            type: "magiclink",
-            email,
-            options: {
-              redirectTo: `${process.env.NEXT_PUBLIC_APP_URL || "https://colory-eight.vercel.app"}/auth/callback`,
-            },
-          });
-          if (linkErr) console.error("[Webhook] generateLink also failed:", linkErr.message);
-          else console.log(`[Webhook] Magic link gerado (não garante envio) para ${email}`);
+        if (createErr && !createErr.message.includes("already been registered")) {
+          console.error("[Webhook] Auth createUser error:", createErr.message);
         } else {
-          console.log(`[Webhook] Invite email enviado para ${email}`);
+          console.log(`[Webhook] Auth user criado/existe: ${email}`);
         }
       } catch (authErr) {
         console.error("[Webhook] Auth error:", authErr);
