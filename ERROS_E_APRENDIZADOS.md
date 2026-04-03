@@ -28,6 +28,12 @@
 - **Fix 2:** NÃO enviar magic link pelo webhook (server-side). Só criar o user no Auth. Login via tela /login
 - **Onde:** `lib/supabase.ts` + webhook + `/auth/callback`
 
+### Login direto é melhor que magic link pra produtos simples
+- **Erro:** Magic link causa loop (PKCE), confusão (sair do app pra abrir email), e problemas cross-device
+- **Fix:** Login direto por email — verifica se email existe na tabela `usuarios` + assinatura ativa → gera sessão via senha temporária (admin set password + signInWithPassword) → retorna tokens → browser seta sessão
+- **Lição:** Pra produtos B2C mobile-first, quanto menos fricção melhor. Magic link é over-engineering quando a "segurança" é só verificar se comprou
+- **Onde:** `/api/login-direto` + `/login`
+
 ### inviteUserByEmail falha se user já existe
 - **Erro:** `inviteUserByEmail` retorna erro se o email já está registrado no Auth
 - **Fix:** Usar `createUser` com `email_confirm: true` que é idempotente
