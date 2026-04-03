@@ -266,11 +266,20 @@ export default function AssinarPage() {
             </p>
           </div>
 
-          {/* Imagem mãe + filho colorindo — placeholder visual */}
-          <div className="bg-gradient-to-br from-purple-100 via-purple-50 to-amber-50 rounded-2xl p-6 text-center space-y-2">
-            <div className="text-5xl">👩‍👧</div>
-            <p className="text-sm font-semibold text-gray-800">Momentos assim não têm preço</p>
-            <p className="text-xs text-gray-500">Mães como você estão criando memórias colorindo com seus filhos todos os dias</p>
+          {/* Imagem mãe + filho colorindo */}
+          <div className="rounded-2xl overflow-hidden shadow-md">
+            <div className="relative aspect-[16/10]">
+              <Image
+                src="/images/lp/mae-filho-colorindo.png"
+                alt="Mãe e filho colorindo juntos"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 90vw, 400px"
+              />
+            </div>
+            <p className="text-center text-xs text-gray-500 py-2 bg-white">
+              Momentos assim não têm preço ✨
+            </p>
           </div>
 
           {/* Comparativo — o que inclui */}
