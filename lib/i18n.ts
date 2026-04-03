@@ -147,8 +147,8 @@ const translations = {
         aprendizado:
           "Coordenação, criatividade e foco — colorindo o próprio rosto.",
       } as Record<string, string>,
-      headlineDefault:
-        "Desbloqueie a página de colorir personalizada do seu filho agora.",
+      headlineDefault: (genero?: string) =>
+        `Desbloqueie a página de colorir personalizada ${genero === "menina" ? "da sua filha" : "do seu filho"} agora.`,
       subtitleBlur: "Sua página está pronta! Desbloqueie para baixar.",
 
       // Planos
@@ -174,8 +174,8 @@ const translations = {
       reviewEstrelas: 5,
 
       // CTA
-      ctaAnual: (nome: string) =>
-        `Desbloquear a página do ${nome} agora`,
+      ctaAnual: (nome: string, genero?: string) =>
+        `Desbloquear a página ${genero === "menina" ? "da" : "do"} ${nome} agora`,
       ctaMensal: "Começar por R$39,90/mês",
 
       // Eventos
@@ -193,11 +193,11 @@ const translations = {
       // Benefits
       beneficiosTitulo: "Ambos os planos incluem:",
       beneficio1: "Até 15 páginas de colorir por mês",
-      beneficio2: (nome: string) => `Personalizadas com o rosto do ${nome}`,
+      beneficio2: (nome: string, genero?: string) => `Personalizadas com o rosto ${genero === "menina" ? "da" : "do"} ${nome}`,
       beneficio3: "Vários estilos artísticos para escolher",
       beneficio4: "PDF em alta resolução — imprima quantas vezes quiser",
       beneficio5: "Receba pelo e-mail ou direto no celular",
-      beneficio6: (nome: string) => `Novas páginas toda semana — ${nome} nunca enjoa`,
+      beneficio6: (nome: string, genero?: string) => `Novas páginas toda semana — ${genero === "menina" ? "ela" : "ele"} nunca enjoa`,
 
       // Urgency
       urgenciaTitulo: "Oferta especial de lançamento",

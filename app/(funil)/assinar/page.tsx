@@ -59,7 +59,7 @@ export default function AssinarPage() {
     return `${min.toString().padStart(2, "0")}:${sec.toString().padStart(2, "0")}`;
   };
 
-  const headline = txt.headlines[store.objetivo] || txt.headlineDefault;
+  const headline = txt.headlines[store.objetivo] || (typeof txt.headlineDefault === "function" ? txt.headlineDefault(genero || undefined) : txt.headlineDefault);
 
   // Hook emocional baseado no quiz
   const getEmotionalHook = () => {
@@ -111,7 +111,7 @@ export default function AssinarPage() {
         className="w-full bg-purple-600 hover:bg-purple-700 active:scale-[0.98] text-white py-4 rounded-full font-bold text-lg transition-all shadow-lg shadow-purple-200"
       >
         {planoSelecionado === "anual"
-          ? txt.ctaAnual(nome)
+          ? txt.ctaAnual(nome, genero || undefined)
           : txt.ctaMensal}
       </button>
       <p className="text-center text-xs text-gray-500">
@@ -290,11 +290,11 @@ export default function AssinarPage() {
             <div className="space-y-2.5">
               {[
                 { icon: "🎨", text: txt.beneficio1 },
-                { icon: "📸", text: txt.beneficio2(nome) },
+                { icon: "📸", text: txt.beneficio2(nome, genero || undefined) },
                 { icon: "✨", text: txt.beneficio3 },
                 { icon: "📄", text: txt.beneficio4 },
                 { icon: "📱", text: txt.beneficio5 },
-                { icon: "🔄", text: txt.beneficio6(nome) },
+                { icon: "🔄", text: txt.beneficio6(nome, genero || undefined) },
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <span className="text-base flex-shrink-0">{item.icon}</span>
