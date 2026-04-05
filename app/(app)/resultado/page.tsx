@@ -17,10 +17,7 @@ export default function ResultadoPage() {
   const { comprouLivro, comprouClube } = useCompras();
 
   const isIntl = getLocale() !== "pt-BR";
-  const LIVRO_LINK_VENDA = isIntl
-    ? (process.env.NEXT_PUBLIC_CHECKOUT_LINK_OTO1_INTL || "#")
-    : (process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO1_UPSELL || "https://perfectpay.com");
-  const LIVRO_LINK_ACESSO = "https://meu-livro-magico-umber.vercel.app/personalizar";
+  const LIVRO_LINK = "https://meu-livro-magico-umber.vercel.app/lp";
   const CLUBE_LINK_VENDA = isIntl
     ? (process.env.NEXT_PUBLIC_CHECKOUT_LINK_OTO3_INTL || "#")
     : (process.env.NEXT_PUBLIC_PERFECTPAY_LINK_OTO3_UPSELL || "https://perfectpay.com");
@@ -242,7 +239,7 @@ export default function ResultadoPage() {
           </button>
 
           <a
-            href={comprouLivro ? LIVRO_LINK_ACESSO : LIVRO_LINK_VENDA}
+            href={LIVRO_LINK}
             target="_blank"
             rel="noopener noreferrer"
             className={`relative bg-white rounded-xl shadow-md p-4 flex items-center gap-4 ${
