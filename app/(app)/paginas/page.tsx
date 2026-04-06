@@ -165,87 +165,93 @@ export default function PaginasPage() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-4">
-            {imagensFiltradas.map((img) => (
-              <button
-                key={img.id}
-                onClick={() => {
-                  sessionStorage.setItem("app_foto_gerada", img.url_gerada);
-                  if (img.url_original) sessionStorage.setItem("app_foto_original_url", img.url_original);
-                  const filho = filhos.find((f) => f.id === img.filho_id);
-                  if (filho) sessionStorage.setItem("app_filho_nome", filho.nome);
-                  router.push("/resultado");
-                }}
-                className="bg-white rounded-xl shadow-md overflow-hidden group"
+          <div className="space-y-4">
+            {/* Upsell cards — sempre no topo */}
+            <div className="grid grid-cols-2 gap-4">
+              {/* Livro de História */}
+              <a
+                href={LIVRO_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`bg-white rounded-xl shadow-md overflow-hidden relative block ${comprouLivro ? "border-2 border-green-300" : "border-2 border-purple-300"}`}
               >
-                <div className="aspect-[3/4] bg-gray-100 relative">
-                  <Image
-                    src={img.url_gerada}
-                    alt="Coloring page"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 45vw, 200px"
-                  />
-                  <div className="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 text-purple-600">
-                      <path d="M10.75 2.75a.75.75 0 0 0-1.5 0v8.614L6.295 8.235a.75.75 0 1 0-1.09 1.03l4.25 4.5a.75.75 0 0 0 1.09 0l4.25-4.5a.75.75 0 0 0-1.09-1.03l-2.955 3.129V2.75Z" />
-                      <path d="M3.5 12.75a.75.75 0 0 0-1.5 0v2.5A2.75 2.75 0 0 0 4.75 18h10.5A2.75 2.75 0 0 0 18 15.25v-2.5a.75.75 0 0 0-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5Z" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="p-3">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-medium text-gray-800 truncate">
-                      {getFilhoNome(img.filho_id)}
-                      {img.estilo && ` \u2022 ${img.estilo}`}
+                <div className={`aspect-[3/4] relative flex items-center justify-center ${comprouLivro ? "bg-gradient-to-br from-green-50 to-emerald-50" : "bg-gradient-to-br from-amber-50 to-orange-50"}`}>
+                  <div className="relative text-center space-y-2 p-5 z-10">
+                    <span className="text-5xl block">📖</span>
+                    <h3 className="font-bold text-gray-800 text-sm">{txt.paginasLivroHistoria}</h3>
+                    <p className="text-[11px] text-gray-600 leading-snug">
+                      {comprouLivro ? txt.paginasLivroAcessar : txt.paginasLivroDesc}
                     </p>
-                    <p className="text-xs text-gray-500 flex-shrink-0 ml-1">{formatDate(img.criado_em)}</p>
+                    <span className={`inline-block px-4 py-2 rounded-full text-xs font-medium shadow-md ${comprouLivro ? "bg-green-600 text-white" : "bg-purple-600 text-white"}`}>
+                      {comprouLivro ? txt.paginasAcessar : txt.paginasDesbloquear}
+                    </span>
                   </div>
                 </div>
-              </button>
-            ))}
+              </a>
 
-            {/* Livro de História */}
-            <a
-              href={LIVRO_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`bg-white rounded-xl shadow-md overflow-hidden relative block ${comprouLivro ? "border-2 border-green-300" : "border-2 border-purple-300"}`}
-            >
-              <div className={`aspect-[3/4] relative flex items-center justify-center ${comprouLivro ? "bg-gradient-to-br from-green-50 to-emerald-50" : "bg-gradient-to-br from-amber-50 to-orange-50"}`}>
-                <div className="relative text-center space-y-2 p-5 z-10">
-                  <span className="text-5xl block">📖</span>
-                  <h3 className="font-bold text-gray-800 text-sm">{txt.paginasLivroHistoria}</h3>
-                  <p className="text-[11px] text-gray-600 leading-snug">
-                    {comprouLivro ? txt.paginasLivroAcessar : txt.paginasLivroDesc}
-                  </p>
-                  <span className={`inline-block px-4 py-2 rounded-full text-xs font-medium shadow-md ${comprouLivro ? "bg-green-600 text-white" : "bg-purple-600 text-white"}`}>
-                    {comprouLivro ? txt.paginasAcessar : txt.paginasDesbloquear}
-                  </span>
+              {/* Clube de Atividades */}
+              <a
+                href={comprouClube ? "#" : CLUBE_LINK_VENDA}
+                target={comprouClube ? undefined : "_blank"}
+                rel={comprouClube ? undefined : "noopener noreferrer"}
+                className={`bg-white rounded-xl shadow-md overflow-hidden relative block ${comprouClube ? "border-2 border-green-300" : "border-2 border-purple-300"}`}
+              >
+                <div className={`aspect-[3/4] relative flex items-center justify-center ${comprouClube ? "bg-gradient-to-br from-green-50 to-emerald-50" : "bg-gradient-to-br from-purple-100 to-purple-50"}`}>
+                  <div className="relative text-center space-y-2 p-5 z-10">
+                    <span className="text-5xl block">🎨</span>
+                    <h3 className="font-bold text-gray-800 text-sm">{txt.paginasClubeAtividades}</h3>
+                    <p className="text-[11px] text-gray-600 leading-snug">
+                      {comprouClube ? txt.paginasClubeAcessar : txt.paginasClubeDesc}
+                    </p>
+                    <span className={`inline-block px-4 py-2 rounded-full text-xs font-medium shadow-md ${comprouClube ? "bg-green-600 text-white" : "bg-purple-600 text-white"}`}>
+                      {comprouClube ? txt.paginasAcessar : txt.paginasDesbloquear}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </a>
+              </a>
+            </div>
 
-            {/* Clube de Atividades */}
-            <a
-              href={comprouClube ? "#" : CLUBE_LINK_VENDA}
-              target={comprouClube ? undefined : "_blank"}
-              rel={comprouClube ? undefined : "noopener noreferrer"}
-              className={`bg-white rounded-xl shadow-md overflow-hidden relative block ${comprouClube ? "border-2 border-green-300" : "border-2 border-purple-300"}`}
-            >
-              <div className={`aspect-[3/4] relative flex items-center justify-center ${comprouClube ? "bg-gradient-to-br from-green-50 to-emerald-50" : "bg-gradient-to-br from-purple-100 to-purple-50"}`}>
-                <div className="relative text-center space-y-2 p-5 z-10">
-                  <span className="text-5xl block">🎨</span>
-                  <h3 className="font-bold text-gray-800 text-sm">{txt.paginasClubeAtividades}</h3>
-                  <p className="text-[11px] text-gray-600 leading-snug">
-                    {comprouClube ? txt.paginasClubeAcessar : txt.paginasClubeDesc}
-                  </p>
-                  <span className={`inline-block px-4 py-2 rounded-full text-xs font-medium shadow-md ${comprouClube ? "bg-green-600 text-white" : "bg-purple-600 text-white"}`}>
-                    {comprouClube ? txt.paginasAcessar : txt.paginasDesbloquear}
-                  </span>
-                </div>
-              </div>
-            </a>
+            {/* Páginas geradas */}
+            <div className="grid grid-cols-2 gap-4">
+              {imagensFiltradas.map((img) => (
+                <button
+                  key={img.id}
+                  onClick={() => {
+                    sessionStorage.setItem("app_foto_gerada", img.url_gerada);
+                    if (img.url_original) sessionStorage.setItem("app_foto_original_url", img.url_original);
+                    const filho = filhos.find((f) => f.id === img.filho_id);
+                    if (filho) sessionStorage.setItem("app_filho_nome", filho.nome);
+                    router.push("/resultado");
+                  }}
+                  className="bg-white rounded-xl shadow-md overflow-hidden group"
+                >
+                  <div className="aspect-[3/4] bg-gray-100 relative">
+                    <Image
+                      src={img.url_gerada}
+                      alt="Coloring page"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 45vw, 200px"
+                    />
+                    <div className="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 text-purple-600">
+                        <path d="M10.75 2.75a.75.75 0 0 0-1.5 0v8.614L6.295 8.235a.75.75 0 1 0-1.09 1.03l4.25 4.5a.75.75 0 0 0 1.09 0l4.25-4.5a.75.75 0 0 0-1.09-1.03l-2.955 3.129V2.75Z" />
+                        <path d="M3.5 12.75a.75.75 0 0 0-1.5 0v2.5A2.75 2.75 0 0 0 4.75 18h10.5A2.75 2.75 0 0 0 18 15.25v-2.5a.75.75 0 0 0-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5Z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="p-3">
+                    <div className="flex items-center justify-between">
+                      <p className="text-sm font-medium text-gray-800 truncate">
+                        {getFilhoNome(img.filho_id)}
+                        {img.estilo && ` \u2022 ${img.estilo}`}
+                      </p>
+                      <p className="text-xs text-gray-500 flex-shrink-0 ml-1">{formatDate(img.criado_em)}</p>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
           </div>
         )}
       </main>
