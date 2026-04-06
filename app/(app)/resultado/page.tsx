@@ -75,34 +75,50 @@ export default function ResultadoPage() {
     }
   };
 
-  const handlePrint = () => {
+  const handlePrint = async () => {
     if (!fotoGerada) return;
     posthog.capture("app_print_clicked");
 
-    const old = document.getElementById("print-frame");
-    if (old) old.remove();
+    try {
+      // Fetch image as blob to avoid CORS issues in iframe
+      const response = await fetch(fotoGerada);
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
 
-    const iframe = document.createElement("iframe");
-    iframe.id = "print-frame";
-    iframe.style.cssText = "position:fixed;top:-10000px;left:-10000px;width:0;height:0";
-    document.body.appendChild(iframe);
+      const old = document.getElementById("print-frame");
+      if (old) old.remove();
 
-    const doc = iframe.contentDocument || iframe.contentWindow?.document;
-    if (!doc) return;
+      const iframe = document.createElement("iframe");
+      iframe.id = "print-frame";
+      iframe.style.cssText = "position:fixed;top:-10000px;left:-10000px;width:0;height:0";
+      document.body.appendChild(iframe);
 
-    doc.open();
-    doc.write(`<!DOCTYPE html><html><head><style>
-      @page{size:A4 portrait;margin:10mm;margin-top:0;margin-bottom:0}
-      *{margin:0;padding:0;box-sizing:border-box}
-      body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:white}
-      img{max-width:100%;max-height:100vh;object-fit:contain}
-    </style></head><body><img src="${fotoGerada}" /></body></html>`);
-    doc.close();
+      const doc = iframe.contentDocument || iframe.contentWindow?.document;
+      if (!doc) return;
 
-    const img = doc.querySelector("img");
-    if (img) {
-      img.onload = () => iframe.contentWindow?.print();
-      if (img.complete) iframe.contentWindow?.print();
+      doc.open();
+      doc.write(`<!DOCTYPE html><html><head><style>
+        @page{size:A4 portrait;margin:10mm;margin-top:0;margin-bottom:0}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:white}
+        img{max-width:100%;max-height:100vh;object-fit:contain}
+      </style></head><body><img src="${blobUrl}" /></body></html>`);
+      doc.close();
+
+      const img = doc.querySelector("img");
+      if (img) {
+        img.onload = () => {
+          iframe.contentWindow?.print();
+          URL.revokeObjectURL(blobUrl);
+        };
+        if (img.complete) {
+          iframe.contentWindow?.print();
+          URL.revokeObjectURL(blobUrl);
+        }
+      }
+    } catch {
+      // Fallback: open image in new tab for manual print
+      window.open(fotoGerada, "_blank");
     }
   };
 
