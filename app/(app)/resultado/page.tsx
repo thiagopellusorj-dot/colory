@@ -89,9 +89,14 @@ export default function ResultadoPage() {
     printWindow.document.write(`<!DOCTYPE html><html><head>
       <title>Colory</title>
       <style>
-        @page{size:A4 portrait;margin:0}
-        html,body{margin:0;padding:0;width:100%;height:100%;background:white;overflow:hidden}
-        img{width:100%;height:100vh;object-fit:contain;display:block}
+        @page{size:A4 portrait;margin:5mm}
+        html,body{margin:0;padding:0;background:white}
+        body{display:flex;align-items:center;justify-content:center;height:100vh}
+        img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+        @media print{
+          body{height:auto}
+          img{max-width:190mm;max-height:277mm;width:auto;height:auto}
+        }
         .loading{display:flex;align-items:center;justify-content:center;height:100vh;color:#9333ea;font-size:18px;font-family:sans-serif}
       </style>
     </head><body><div class="loading">Loading...</div></body></html>`);
