@@ -75,47 +75,49 @@ export default function ResultadoPage() {
     }
   };
 
-  const handlePrint = async () => {
+  const handlePrint = () => {
     if (!fotoGerada) return;
     posthog.capture("app_print_clicked");
 
-    try {
-      const response = await fetch(fotoGerada);
-      const blob = await response.blob();
-      const blobUrl = URL.createObjectURL(blob);
-
-      const printWindow = window.open("", "_blank");
-      if (!printWindow) {
-        // Popup blocked — fallback to direct open
-        window.open(fotoGerada, "_blank");
-        return;
-      }
-
-      printWindow.document.write(`<!DOCTYPE html><html><head>
-        <title>Colory</title>
-        <style>
-          @page{size:A4 portrait;margin:10mm}
-          *{margin:0;padding:0;box-sizing:border-box}
-          body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:white}
-          img{max-width:100%;max-height:100vh;object-fit:contain}
-        </style>
-      </head><body><img src="${blobUrl}" /></body></html>`);
-      printWindow.document.close();
-
-      const img = printWindow.document.querySelector("img");
-      if (img) {
-        img.onload = () => {
-          printWindow.print();
-          URL.revokeObjectURL(blobUrl);
-        };
-        if (img.complete) {
-          printWindow.print();
-          URL.revokeObjectURL(blobUrl);
-        }
-      }
-    } catch {
+    // Open window synchronously (before any await) to avoid popup blocker
+    const printWindow = window.open("", "_blank");
+    if (!printWindow) {
       window.open(fotoGerada, "_blank");
+      return;
     }
+
+    // Show loading while image fetches
+    printWindow.document.write(`<!DOCTYPE html><html><head>
+      <title>Colory</title>
+      <style>
+        @page{size:A4 portrait;margin:10mm}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:white;font-family:sans-serif}
+        img{max-width:100%;max-height:100vh;object-fit:contain}
+        .loading{color:#9333ea;font-size:18px}
+      </style>
+    </head><body><p class="loading">Loading...</p></body></html>`);
+
+    fetch(fotoGerada)
+      .then((res) => res.blob())
+      .then((blob) => {
+        const blobUrl = URL.createObjectURL(blob);
+        printWindow.document.body.innerHTML = `<img src="${blobUrl}" />`;
+        const img = printWindow.document.querySelector("img");
+        if (img) {
+          img.onload = () => {
+            printWindow.print();
+            URL.revokeObjectURL(blobUrl);
+          };
+          if (img.complete) {
+            printWindow.print();
+            URL.revokeObjectURL(blobUrl);
+          }
+        }
+      })
+      .catch(() => {
+        printWindow.location.href = fotoGerada;
+      });
   };
 
   if (!fotoGerada) {
