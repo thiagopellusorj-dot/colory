@@ -86,17 +86,15 @@ export default function ResultadoPage() {
       return;
     }
 
-    // Show loading while image fetches
     printWindow.document.write(`<!DOCTYPE html><html><head>
       <title>Colory</title>
       <style>
-        @page{size:A4 portrait;margin:10mm}
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:white;font-family:sans-serif}
-        img{max-width:100%;max-height:100vh;object-fit:contain}
-        .loading{color:#9333ea;font-size:18px}
+        @page{size:A4 portrait;margin:0}
+        html,body{margin:0;padding:0;width:100%;height:100%;background:white;overflow:hidden}
+        img{width:100%;height:100vh;object-fit:contain;display:block}
+        .loading{display:flex;align-items:center;justify-content:center;height:100vh;color:#9333ea;font-size:18px;font-family:sans-serif}
       </style>
-    </head><body><p class="loading">Loading...</p></body></html>`);
+    </head><body><div class="loading">Loading...</div></body></html>`);
 
     fetch(fotoGerada)
       .then((res) => res.blob())
@@ -107,10 +105,12 @@ export default function ResultadoPage() {
         if (img) {
           img.onload = () => {
             printWindow.print();
+            printWindow.close();
             URL.revokeObjectURL(blobUrl);
           };
           if (img.complete) {
             printWindow.print();
+            printWindow.close();
             URL.revokeObjectURL(blobUrl);
           }
         }
