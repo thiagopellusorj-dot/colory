@@ -2,10 +2,11 @@
 
 import { OtoLayout } from "@/components/funil/OtoLayout";
 import { useFunilStore } from "@/store/funilStore";
+import { t } from "@/lib/i18n";
 
 export default function Oto2Page() {
   const store = useFunilStore();
-  const nome = store.nome_filho || "seu filho";
+  const nome = store.nome_filho || t().landing.seuFilho;
 
   return (
     <OtoLayout

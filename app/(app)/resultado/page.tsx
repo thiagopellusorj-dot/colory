@@ -12,7 +12,7 @@ export default function ResultadoPage() {
   const txt = t().app;
   const [fotoGerada, setFotoGerada] = useState<string | null>(null);
   const [fotoOriginal, setFotoOriginal] = useState<string | null>(null);
-  const [filhoNome, setFilhoNome] = useState("seu filho");
+  const [filhoNome, setFilhoNome] = useState<string>(t().landing.seuFilho);
   const [showingOriginal, setShowingOriginal] = useState(false);
   const { comprouLivro, comprouClube } = useCompras();
 

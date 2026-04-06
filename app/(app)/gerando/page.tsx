@@ -13,7 +13,7 @@ export default function GerandoAppPage() {
   const [fatoIndex, setFatoIndex] = useState(0);
   const [fotoOriginal, setFotoOriginal] = useState<string | null>(null);
   const [erro, setErro] = useState(false);
-  const [nome, setNome] = useState("seu filho");
+  const [nome, setNome] = useState<string>(t().landing.seuFilho);
   const [estilo, setEstilo] = useState("simple");
   const hasStarted = useRef(false);
   const progressRef = useRef(0);
@@ -25,7 +25,7 @@ export default function GerandoAppPage() {
       return;
     }
     setFotoOriginal(foto);
-    setNome(sessionStorage.getItem("app_filho_nome") || "seu filho");
+    setNome(sessionStorage.getItem("app_filho_nome") || t().landing.seuFilho);
     setEstilo(sessionStorage.getItem("app_estilo") || "simple");
   }, [router]);
 

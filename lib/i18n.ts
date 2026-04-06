@@ -12,6 +12,7 @@ const translations = {
       paginaColorir: "Página de colorir",
       antesDepois: "Antes e depois",
       arrasteComparar: "Arraste para comparar",
+      seuFilho: "seu filho",
     },
 
     // Quiz
@@ -669,6 +670,7 @@ const translations = {
       paginaColorir: "Coloring page",
       antesDepois: "Before and after",
       arrasteComparar: "Drag to compare",
+      seuFilho: "your child",
     },
 
     // Quiz
@@ -1172,7 +1174,7 @@ const translations = {
       configIdadeOptions: ["0-2 years", "3-5 years", "6-8 years", "9-12 years"] as string[],
 
       // Create page extras
-      criarTransformar: (nome: string) => `Turn ${nome}'s photo into a coloring page`,
+      criarTransformar: (nome: string) => `Turn a photo of ${nome} into a coloring page`,
       criarAdicionarFoto: "Add Photo +",
       criarOtimizando: "Optimizing...",
       criarTrocarFoto: "Change photo",
@@ -1326,6 +1328,7 @@ const translations = {
       paginaColorir: "Página para colorear",
       antesDepois: "Antes y después",
       arrasteComparar: "Arrastra para comparar",
+      seuFilho: "tu hijo",
     },
 
     // Quiz
@@ -1983,6 +1986,7 @@ const translations = {
       paginaColorir: "Page de coloriage",
       antesDepois: "Avant et après",
       arrasteComparar: "Glissez pour comparer",
+      seuFilho: "votre enfant",
     },
 
     // Quiz
@@ -2640,6 +2644,7 @@ const translations = {
       paginaColorir: "Pagina da colorare",
       antesDepois: "Prima e dopo",
       arrasteComparar: "Trascina per confrontare",
+      seuFilho: "tuo figlio",
     },
 
     // Quiz

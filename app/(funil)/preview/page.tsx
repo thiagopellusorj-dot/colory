@@ -11,7 +11,7 @@ export default function PreviewPage() {
   const router = useRouter();
   const store = useFunilStore();
   const txt = t().resultado;
-  const nome = store.nome_filho || "seu filho";
+  const nome = store.nome_filho || t().landing.seuFilho;
 
   // Guard: sem imagem gerada → volta pro upload
   useEffect(() => {

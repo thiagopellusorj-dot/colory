@@ -18,7 +18,7 @@ export default function AssinarPage() {
   const txt = t().paywall;
   const [planoSelecionado, setPlanoSelecionado] = useState<Plano>("anual");
   const [timerSeconds, setTimerSeconds] = useState(TIMER_DURATION);
-  const nome = store.nome_filho || "seu filho";
+  const nome = store.nome_filho || t().landing.seuFilho;
   const genero = store.genero;
   const artigo = genero === "menina" ? "a" : "o";
   const artigoDe = genero === "menina" ? "da" : "do";

@@ -77,7 +77,7 @@ export default function UploadPage() {
     }
   };
 
-  const nome = store.nome_filho || "seu filho";
+  const nome = store.nome_filho || t().landing.seuFilho;
 
   return (
     <main className="flex min-h-screen flex-col bg-white">

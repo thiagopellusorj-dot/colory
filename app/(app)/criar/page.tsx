@@ -28,7 +28,7 @@ export default function CriarPage() {
   const [creditos, setCreditos] = useState<number | null>(null);
   const [planoExpirado, setPlanoExpirado] = useState(false);
 
-  const filhoNome = filhos.length > 0 ? filhos[0].nome : "seu filho";
+  const filhoNome = filhos.length > 0 ? filhos[0].nome : t().landing.seuFilho;
 
   useEffect(() => {
     async function loadFilhos() {

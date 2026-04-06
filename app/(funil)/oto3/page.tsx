@@ -6,7 +6,7 @@ import { t, getLocale } from "@/lib/i18n";
 
 export default function Oto3Page() {
   const store = useFunilStore();
-  const nome = store.nome_filho || "seu filho";
+  const nome = store.nome_filho || t().landing.seuFilho;
   const txt = t().oto;
 
   return (

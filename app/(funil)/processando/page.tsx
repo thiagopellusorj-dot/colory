@@ -18,7 +18,7 @@ export default function ProcessandoPage() {
   const [isTimeout, setIsTimeout] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
   const hasStarted = useRef(false);
-  const nome = store.nome_filho || "seu filho";
+  const nome = store.nome_filho || t().landing.seuFilho;
 
   const etapas = [
     txt.etapa1(nome),

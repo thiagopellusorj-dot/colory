@@ -9,7 +9,7 @@ import { t } from "@/lib/i18n";
 export default function ObrigadoPage() {
   const store = useFunilStore();
   const txt = t().obrigado;
-  const nome = store.nome_filho || "seu filho";
+  const nome = store.nome_filho || t().landing.seuFilho;
   const otos = [...new Set(store.otos_aceitos)];
   const comprouLivro = otos.some((o) => o.includes("livro"));
   const comprouClube = otos.some((o) => o.includes("clube"));
