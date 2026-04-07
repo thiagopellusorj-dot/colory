@@ -5,9 +5,11 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase";
 import { posthog } from "@/lib/posthog";
+import { t } from "@/lib/i18n";
 
 export default function LoginPage() {
   const router = useRouter();
+  const txt = t().app;
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -16,7 +18,6 @@ export default function LoginPage() {
     posthog.capture("login_page_viewed");
   }, []);
 
-  // Checar se já tem sessão ativa
   useEffect(() => {
     async function checkSession() {
       const supabase = createClient();
@@ -34,7 +35,6 @@ export default function LoginPage() {
     setError("");
 
     try {
-      // 1. Verificar se email tem assinatura ativa
       const checkRes = await fetch("/api/verificar-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -43,22 +43,19 @@ export default function LoginPage() {
       const checkData = await checkRes.json();
 
       if (!checkData.exists) {
-        setError("Este email não tem uma assinatura ativa.");
+        setError(txt.loginErroSemAssinatura);
         setLoading(false);
         return;
       }
 
       if (!checkData.active) {
-        setError("Sua assinatura expirou. Renove para continuar.");
+        setError(txt.loginErroExpirada);
         setLoading(false);
         return;
       }
 
-      // 2. Login direto — criar sessão via signInWithPassword com senha fixa interna
-      // Como não temos senha, usar signInWithOtp + verificar automaticamente
       const supabase = createClient();
 
-      // Usar admin endpoint pra criar sessão direto
       const res = await fetch("/api/login-direto", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -73,7 +70,6 @@ export default function LoginPage() {
         return;
       }
 
-      // Setar sessão no browser
       if (data.session) {
         await supabase.auth.setSession({
           access_token: data.session.access_token,
@@ -83,11 +79,11 @@ export default function LoginPage() {
         posthog.capture("login_success", { email: email.trim() });
         router.push("/criar");
       } else {
-        setError("Erro ao criar sessão. Tente novamente.");
+        setError(txt.loginErroSessao);
       }
     } catch (err) {
       console.error("Login error:", err);
-      setError("Erro ao entrar. Tente novamente.");
+      setError(txt.loginErroGeral);
     } finally {
       setLoading(false);
     }
@@ -105,9 +101,12 @@ export default function LoginPage() {
       });
     } catch (err) {
       console.error("Google login error:", err);
-      setError("Erro ao conectar com Google. Tente novamente.");
+      setError(txt.loginErroGoogle);
     }
   };
+
+  const isNoAccount = error === txt.loginErroSemAssinatura;
+  const isExpired = error === txt.loginErroExpirada;
 
   return (
     <main className="flex min-h-screen flex-col bg-gradient-to-b from-purple-50 to-white">
@@ -122,8 +121,8 @@ export default function LoginPage() {
               height={80}
               className="mx-auto rounded-2xl"
             />
-            <h1 className="text-2xl font-bold text-gray-900">Acesse sua conta</h1>
-            <p className="text-sm text-gray-500">Digite o email usado na compra</p>
+            <h1 className="text-2xl font-bold text-gray-900">{txt.loginTitulo}</h1>
+            <p className="text-sm text-gray-500">{txt.loginSubtitulo}</p>
           </div>
 
           <div className="space-y-5">
@@ -137,7 +136,7 @@ export default function LoginPage() {
                 <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
                 <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
               </svg>
-              Entrar com Google
+              {txt.loginGoogle}
             </button>
 
             <div className="relative">
@@ -145,18 +144,18 @@ export default function LoginPage() {
                 <div className="w-full border-t border-gray-200" />
               </div>
               <div className="relative flex justify-center">
-                <span className="bg-gradient-to-b from-purple-50 to-white px-4 text-sm text-gray-400">ou</span>
+                <span className="bg-gradient-to-b from-purple-50 to-white px-4 text-sm text-gray-400">{txt.loginOu}</span>
               </div>
             </div>
 
             <form onSubmit={handleLogin} className="space-y-3">
               <div>
-                <label className="text-sm font-medium text-gray-700 block mb-1.5">Email de compra</label>
+                <label className="text-sm font-medium text-gray-700 block mb-1.5">{txt.loginEmailLabel}</label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => { setEmail(e.target.value); setError(""); }}
-                  placeholder="email@usado-na-compra.com"
+                  placeholder={txt.loginEmailPlaceholder}
                   required
                   className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
                 />
@@ -164,14 +163,14 @@ export default function LoginPage() {
               {error && (
                 <div className="bg-red-50 rounded-xl p-3 space-y-2">
                   <p className="text-sm text-red-600">{error}</p>
-                  {error.includes("não tem") && (
+                  {isNoAccount && (
                     <a href="/" className="text-sm text-purple-600 font-medium hover:underline block">
-                      Assinar o Colory →
+                      {txt.loginAssinar} →
                     </a>
                   )}
-                  {error.includes("expirou") && (
+                  {isExpired && (
                     <a href="/" className="text-sm text-purple-600 font-medium hover:underline block">
-                      Renovar assinatura →
+                      {txt.loginRenovar} →
                     </a>
                   )}
                 </div>
@@ -184,10 +183,10 @@ export default function LoginPage() {
                 {loading ? (
                   <span className="flex items-center justify-center gap-2">
                     <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    Entrando...
+                    {txt.loginEntrando}
                   </span>
                 ) : (
-                  "Entrar"
+                  txt.loginEntrar
                 )}
               </button>
             </form>
@@ -195,9 +194,9 @@ export default function LoginPage() {
 
           <div className="text-center">
             <p className="text-xs text-gray-400">
-              Ainda não tem conta?{" "}
+              {txt.loginSemConta}{" "}
               <a href="/" className="text-purple-600 font-medium hover:underline">
-                Assine o Colory
+                {txt.loginAssinar}
               </a>
             </p>
           </div>
