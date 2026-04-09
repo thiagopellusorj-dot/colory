@@ -31,6 +31,7 @@ interface OtoLayoutProps {
   // Bloco 2 — Validation + Incompleteness
   validacaoTexto: string;
   fomoTexto: string;
+  fomoDestaque?: string;
   // Bloco 3 — Curiosity Gap
   curiosidadeTexto: string;
   // Bloco 3.5 — Product Preview (optional)
@@ -63,6 +64,7 @@ export function OtoLayout({
   alertaTexto,
   validacaoTexto,
   fomoTexto,
+  fomoDestaque,
   curiosidadeTexto,
   previewSection,
   reframeTitulo,
@@ -151,7 +153,12 @@ export function OtoLayout({
             <p className="text-green-600 font-semibold text-sm">
               ✅ {validacaoTexto}
             </p>
-            <p className="text-gray-700 leading-relaxed">{fomoTexto}</p>
+            <p className="text-gray-700 leading-relaxed">
+              {fomoTexto}
+              {fomoDestaque && (
+                <span className="block mt-2 font-bold text-red-600">{fomoDestaque}</span>
+              )}
+            </p>
           </div>
 
           {/* Divider */}

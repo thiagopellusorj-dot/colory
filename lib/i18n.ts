@@ -311,7 +311,7 @@ const translations = {
       oto3Emoji: "🎨",
 
       // OtoLayout framework text
-      continueLendo: "↓ Continue lendo ↓",
+      continueLendo: "↓ Veja como funciona ↓",
       oQueVoceRecebe: "O que você vai receber:",
       valorTotalLabel: "Valor total:",
       precoNormal: "Preço normal",
@@ -323,8 +323,9 @@ const translations = {
       oto1PassoLabel: "Passo 1 de 2 — Não feche esta página",
       oto1AlertaTexto: "Sua compra NÃO está finalizada ainda...",
       oto1ValidacaoTexto: "Sua assinatura do Colory foi confirmada!",
-      oto1FomoTexto: (nome: string) => `Você acabou de dar um passo incrível pro ${nome}. Mas precisamos ser honestos: sair desta página agora pode fazer você perder a oportunidade de transformar a experiência dele em algo muito maior.`,
-      oto1CuriosidadeTexto: (nome: string) => `E se o ${nome} pudesse ser o HERÓI da própria história? Imagine ele abrindo um livro e vendo o próprio rosto em cada página.`,
+      oto1FomoTexto: (nome: string) => `Você acabou de dar um passo incrível pro ${nome}. Mas precisamos ser honestos:`,
+      oto1FomoDestaque: "Sair desta página agora significa perder o único momento em que você consegue o livro personalizado com desconto exclusivo.",
+      oto1CuriosidadeTexto: (nome: string) => `E se o ${nome} pudesse ser o HERÓI da própria história? Imagina a carinha dele ao virar cada página e se ver como personagem.`,
       oto1ReframeTitulo: "Mais que um livro. Uma memória que ele vai guardar pra sempre.",
       oto1ReframeTexto: "Livros personalizados não são só entretenimento. São ferramentas que desenvolvem o amor pela leitura, fortalecem a identidade e criam momentos de conexão entre mãe e filho que não tem preço.",
       oto1Beneficios: (nome: string) => [
@@ -997,7 +998,7 @@ const translations = {
       oto3Emoji: "🎨",
 
       // OtoLayout framework text
-      continueLendo: "↓ Keep reading ↓",
+      continueLendo: "↓ See how it works ↓",
       oQueVoceRecebe: "What you'll receive:",
       valorTotalLabel: "Total value:",
       precoNormal: "Regular price",
@@ -1009,8 +1010,9 @@ const translations = {
       oto1PassoLabel: "Step 1 of 2 — Don't close this page",
       oto1AlertaTexto: "Your purchase is NOT finalized yet...",
       oto1ValidacaoTexto: "Your Colory subscription has been confirmed!",
-      oto1FomoTexto: (nome: string) => `You just took an incredible step for ${nome}. But let's be honest: leaving this page now could mean missing the chance to turn their experience into something much bigger.`,
-      oto1CuriosidadeTexto: (nome: string) => `What if ${nome} could be the HERO of their own story? Imagine them opening a book and seeing their own face on every page.`,
+      oto1FomoTexto: (nome: string) => `You just took an incredible step for ${nome}. But let's be honest:`,
+      oto1FomoDestaque: "Leaving this page now means missing the only chance to get the personalized book at an exclusive discount.",
+      oto1CuriosidadeTexto: (nome: string) => `What if ${nome} could be the HERO of their own story? Imagine the look on their face as they turn each page and see themselves as the character.`,
       oto1ReframeTitulo: "More than a book. A memory they'll treasure forever.",
       oto1ReframeTexto: "Personalized books aren't just entertainment. They're tools that nurture a love for reading, strengthen identity, and create priceless bonding moments between parent and child.",
       oto1Beneficios: (nome: string) => [
@@ -1683,7 +1685,7 @@ const translations = {
       oto3Emoji: "🎨",
 
       // OtoLayout framework text
-      continueLendo: "↓ Sigue leyendo ↓",
+      continueLendo: "↓ Mira cómo funciona ↓",
       oQueVoceRecebe: "Lo que vas a recibir:",
       valorTotalLabel: "Valor total:",
       precoNormal: "Precio normal",
@@ -1695,8 +1697,9 @@ const translations = {
       oto1PassoLabel: "Paso 1 de 2 — No cierres esta página",
       oto1AlertaTexto: "Tu compra NO está finalizada aún...",
       oto1ValidacaoTexto: "¡Tu suscripción a Colory ha sido confirmada!",
-      oto1FomoTexto: (nome: string) => `Acabas de dar un paso increíble por ${nome}. Pero seamos honestos: salir de esta página ahora podría hacerte perder la oportunidad de transformar su experiencia en algo mucho más grande.`,
-      oto1CuriosidadeTexto: (nome: string) => `¿Y si ${nome} pudiera ser el HÉROE de su propia historia? Imagina que abre un libro y ve su propio rostro en cada página.`,
+      oto1FomoTexto: (nome: string) => `Acabas de dar un paso increíble por ${nome}. Pero seamos honestos:`,
+      oto1FomoDestaque: "Salir de esta página ahora significa perder la única oportunidad de conseguir el libro personalizado con descuento exclusivo.",
+      oto1CuriosidadeTexto: (nome: string) => `¿Y si ${nome} pudiera ser el HÉROE de su propia historia? Imagina su carita al pasar cada página y verse como personaje.`,
       oto1ReframeTitulo: "Más que un libro. Un recuerdo que guardará para siempre.",
       oto1ReframeTexto: "Los libros personalizados no son solo entretenimiento. Son herramientas que fomentan el amor por la lectura, fortalecen la identidad y crean momentos de conexión entre madre e hijo que no tienen precio.",
       oto1Beneficios: (nome: string) => [
@@ -2369,7 +2372,7 @@ const translations = {
       oto3Emoji: "🎨",
 
       // OtoLayout framework text
-      continueLendo: "↓ Continuez à lire ↓",
+      continueLendo: "↓ Découvrez comment ça marche ↓",
       oQueVoceRecebe: "Ce que vous allez recevoir :",
       valorTotalLabel: "Valeur totale :",
       precoNormal: "Prix normal",
@@ -2381,8 +2384,9 @@ const translations = {
       oto1PassoLabel: "Étape 1 sur 2 — Ne fermez pas cette page",
       oto1AlertaTexto: "Votre achat N'EST PAS encore finalisé...",
       oto1ValidacaoTexto: "Votre abonnement Colory a été confirmé !",
-      oto1FomoTexto: (nome: string) => `Vous venez de faire un pas incroyable pour ${nome}. Mais soyons honnêtes : quitter cette page maintenant pourrait vous faire manquer l'opportunité de transformer son expérience en quelque chose de bien plus grand.`,
-      oto1CuriosidadeTexto: (nome: string) => `Et si ${nome} pouvait être le HÉROS de sa propre histoire ? Imaginez-le ouvrant un livre et voyant son propre visage sur chaque page.`,
+      oto1FomoTexto: (nome: string) => `Vous venez de faire un pas incroyable pour ${nome}. Mais soyons honnêtes :`,
+      oto1FomoDestaque: "Quitter cette page maintenant signifie perdre la seule chance d'obtenir le livre personnalisé avec une réduction exclusive.",
+      oto1CuriosidadeTexto: (nome: string) => `Et si ${nome} pouvait être le HÉROS de sa propre histoire ? Imaginez son visage en tournant chaque page et en se découvrant comme personnage.`,
       oto1ReframeTitulo: "Plus qu'un livre. Un souvenir qu'il gardera pour toujours.",
       oto1ReframeTexto: "Les livres personnalisés ne sont pas qu'un divertissement. Ce sont des outils qui développent l'amour de la lecture, renforcent l'identité et créent des moments de complicité entre parent et enfant qui n'ont pas de prix.",
       oto1Beneficios: (nome: string) => [
@@ -3055,7 +3059,7 @@ const translations = {
       oto3Emoji: "🎨",
 
       // OtoLayout framework text
-      continueLendo: "↓ Continua a leggere ↓",
+      continueLendo: "↓ Scopri come funziona ↓",
       oQueVoceRecebe: "Cosa riceverai:",
       valorTotalLabel: "Valore totale:",
       precoNormal: "Prezzo normale",
@@ -3067,8 +3071,9 @@ const translations = {
       oto1PassoLabel: "Passo 1 di 2 — Non chiudere questa pagina",
       oto1AlertaTexto: "Il tuo acquisto NON è ancora finalizzato...",
       oto1ValidacaoTexto: "Il tuo abbonamento Colory è stato confermato!",
-      oto1FomoTexto: (nome: string) => `Hai appena fatto un passo incredibile per ${nome}. Ma siamo onesti: lasciare questa pagina ora potrebbe farti perdere l'opportunità di trasformare la sua esperienza in qualcosa di molto più grande.`,
-      oto1CuriosidadeTexto: (nome: string) => `E se ${nome} potesse essere l'EROE della propria storia? Immagina che apra un libro e veda il suo volto su ogni pagina.`,
+      oto1FomoTexto: (nome: string) => `Hai appena fatto un passo incredibile per ${nome}. Ma siamo onesti:`,
+      oto1FomoDestaque: "Lasciare questa pagina ora significa perdere l'unica occasione per ottenere il libro personalizzato con uno sconto esclusivo.",
+      oto1CuriosidadeTexto: (nome: string) => `E se ${nome} potesse essere l'EROE della propria storia? Immagina la sua faccina nel girare ogni pagina e vedersi come personaggio.`,
       oto1ReframeTitulo: "Più di un libro. Un ricordo che custodirà per sempre.",
       oto1ReframeTexto: "I libri personalizzati non sono solo intrattenimento. Sono strumenti che sviluppano l'amore per la lettura, rafforzano l'identità e creano momenti di connessione tra genitore e figlio che non hanno prezzo.",
       oto1Beneficios: (nome: string) => [
