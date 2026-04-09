@@ -1,7 +1,7 @@
 const GEMINI_MODEL = "gemini-2.5-flash-image";
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
-const BASE_INSTRUCTIONS = "The output image MUST be in vertical portrait orientation (3:4 aspect ratio, taller than wide, like an A4 page). Preserve ALL people, pets, and elements visible in the photo — not just the child. White background. Leave some white margin around the edges for printing.";
+const BASE_INSTRUCTIONS = "CRITICAL: The output MUST be strictly BLACK AND WHITE ONLY — black outlines on a pure white background. Absolutely NO colors, NO gray tones, NO shading, NO blue, NO red, NO any color at all. Only black lines on white. The image MUST be in vertical portrait orientation (3:4 aspect ratio, taller than wide, like an A4 page). Preserve ALL people, pets, and elements visible in the photo — not just the child. Leave some white margin around the edges for printing.";
 
 export const STYLE_PROMPTS: Record<string, string> = {
   simple: `Transform this photo into a simple black and white coloring book page for young children. Use clean, thick outlines with minimal detail. Few lines, large areas to color, very kid-friendly. No shading, no gray areas. ${BASE_INSTRUCTIONS}`,
