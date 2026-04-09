@@ -90,6 +90,7 @@ const translations = {
       gerar: "Gerar página de colorir",
       formatos: "JPG, PNG ou WEBP — máx. 10MB",
       comprimindo: "Otimizando imagem...",
+      estiloTitulo: "Escolha o estilo",
     },
 
     // Processando
@@ -260,6 +261,15 @@ const translations = {
 
       // FAQ title (replacing hardcoded)
       faqTituloV2: "Perguntas frequentes",
+
+      // Exit-intent popup
+      exitIntentTitulo: "Espera! Temos um presente pra você",
+      exitIntentSubtitulo: "Use o cupom abaixo e ganhe 10% de desconto no plano anual",
+      exitIntentCupom: "GIFT10",
+      exitIntentCopiar: "Copiar cupom",
+      exitIntentCopiado: "Copiado!",
+      exitIntentCta: "Aproveitar desconto",
+      exitIntentFechar: "Não, obrigado",
     },
 
     // OTOs
@@ -766,6 +776,7 @@ const translations = {
       gerar: "Generate coloring page",
       formatos: "JPG, PNG or WEBP — max 10MB",
       comprimindo: "Optimizing image...",
+      estiloTitulo: "Choose the style",
     },
 
     // Processing
@@ -936,6 +947,15 @@ const translations = {
 
       // FAQ title (replacing hardcoded)
       faqTituloV2: "Frequently asked questions",
+
+      // Exit-intent popup
+      exitIntentTitulo: "Wait! We have a gift for you",
+      exitIntentSubtitulo: "Use the coupon below and get 10% off the annual plan",
+      exitIntentCupom: "GIFT10",
+      exitIntentCopiar: "Copy coupon",
+      exitIntentCopiado: "Copied!",
+      exitIntentCta: "Get my discount",
+      exitIntentFechar: "No, thanks",
     },
 
     // OTOs
@@ -1442,6 +1462,7 @@ const translations = {
       gerar: "Generar página para colorear",
       formatos: "JPG, PNG o WEBP — máx. 10MB",
       comprimindo: "Optimizando imagen...",
+      estiloTitulo: "Elige el estilo",
     },
 
     // Procesando
@@ -1612,6 +1633,15 @@ const translations = {
 
       // FAQ title (replacing hardcoded)
       faqTituloV2: "Preguntas frecuentes",
+
+      // Exit-intent popup
+      exitIntentTitulo: "¡Espera! Tenemos un regalo para ti",
+      exitIntentSubtitulo: "Usa el cupón y obtén 10% de descuento en el plan anual",
+      exitIntentCupom: "GIFT10",
+      exitIntentCopiar: "Copiar cupón",
+      exitIntentCopiado: "¡Copiado!",
+      exitIntentCta: "Aprovechar descuento",
+      exitIntentFechar: "No, gracias",
     },
 
     // OTOs
@@ -2118,6 +2148,7 @@ const translations = {
       gerar: "Générer la page de coloriage",
       formatos: "JPG, PNG ou WEBP — max 10 Mo",
       comprimindo: "Optimisation de l'image...",
+      estiloTitulo: "Choisissez le style",
     },
 
     // Traitement
@@ -2288,6 +2319,15 @@ const translations = {
 
       // FAQ title (replacing hardcoded)
       faqTituloV2: "Questions fréquentes",
+
+      // Exit-intent popup
+      exitIntentTitulo: "Attendez ! Nous avons un cadeau pour vous",
+      exitIntentSubtitulo: "Utilisez le coupon ci-dessous et obtenez 10% de réduction sur le plan annuel",
+      exitIntentCupom: "GIFT10",
+      exitIntentCopiar: "Copier le coupon",
+      exitIntentCopiado: "Copié !",
+      exitIntentCta: "Profiter de la réduction",
+      exitIntentFechar: "Non, merci",
     },
 
     // OTOs
@@ -2794,6 +2834,7 @@ const translations = {
       gerar: "Genera pagina da colorare",
       formatos: "JPG, PNG o WEBP — max 10MB",
       comprimindo: "Ottimizzazione immagine...",
+      estiloTitulo: "Scegli lo stile",
     },
 
     // Elaborazione
@@ -2964,6 +3005,15 @@ const translations = {
 
       // FAQ title (replacing hardcoded)
       faqTituloV2: "Domande frequenti",
+
+      // Exit-intent popup
+      exitIntentTitulo: "Aspetta! Abbiamo un regalo per te",
+      exitIntentSubtitulo: "Usa il coupon qui sotto e ottieni il 10% di sconto sul piano annuale",
+      exitIntentCupom: "GIFT10",
+      exitIntentCopiar: "Copia coupon",
+      exitIntentCopiado: "Copiato!",
+      exitIntentCta: "Approfitta dello sconto",
+      exitIntentFechar: "No, grazie",
     },
 
     // OTOs

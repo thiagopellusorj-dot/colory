@@ -12,6 +12,7 @@ interface FunilState {
   objetivo: string;
   url_foto_original: string;
   url_foto_gerada: string;
+  estilo: string;
   job_id: string;
   lead_id: string;
   whatsapp: string;
@@ -26,6 +27,7 @@ interface FunilState {
   setObjetivo: (objetivo: string) => void;
   setFotoOriginal: (url: string) => void;
   setFotoGerada: (url: string) => void;
+  setEstilo: (estilo: string) => void;
   setJobId: (id: string) => void;
   setLead: (data: { lead_id: string; whatsapp: string; email: string }) => void;
   addOto: (oto: string) => void;
@@ -41,6 +43,7 @@ const initialState = {
   objetivo: "",
   url_foto_original: "",
   url_foto_gerada: "",
+  estilo: "detailed",
   job_id: "",
   lead_id: "",
   whatsapp: "",
@@ -61,6 +64,7 @@ export const useFunilStore = create<FunilState>()(
       setObjetivo: (objetivo) => set({ objetivo }),
       setFotoOriginal: (url_foto_original) => set({ url_foto_original }),
       setFotoGerada: (url_foto_gerada) => set({ url_foto_gerada }),
+      setEstilo: (estilo) => set({ estilo }),
       setJobId: (job_id) => set({ job_id }),
       setLead: (data) => set(data),
       addOto: (oto) =>

@@ -12,12 +12,14 @@ export default function UploadPage() {
   const router = useRouter();
   const store = useFunilStore();
   const txt = t().upload;
+  const appTxt = t().app;
   const fileRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [isCompressing, setIsCompressing] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [dragOver, setDragOver] = useState(false);
+  const [selectedStyle, setSelectedStyle] = useState(store.estilo || "detailed");
 
   useEffect(() => {
     if (!store.nome_filho) {
@@ -156,6 +158,47 @@ export default function UploadPage() {
             className="hidden"
             onChange={handleFileChange}
           />
+
+          {/* Seletor de estilos */}
+          {preview && (
+            <div className="space-y-3">
+              <h2 className="font-semibold text-gray-800 text-center">{txt.estiloTitulo}</h2>
+              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+                {appTxt.criarEstilos.map((style) => {
+                  const isSelected = selectedStyle === style.id;
+                  return (
+                    <button
+                      key={style.id}
+                      onClick={() => {
+                        setSelectedStyle(style.id);
+                        store.setEstilo(style.id);
+                      }}
+                      className={`flex-shrink-0 w-20 transition-all ${
+                        isSelected ? "ring-2 ring-purple-600 ring-offset-2 rounded-xl" : ""
+                      }`}
+                    >
+                      <div className="bg-white rounded-xl shadow-md overflow-hidden">
+                        <div className="aspect-square bg-gray-100 relative">
+                          <Image
+                            src={`/images/styles/${style.id}.${style.id === "ink" ? "png" : "jpg"}`}
+                            alt={style.name}
+                            fill
+                            className="object-cover"
+                            sizes="80px"
+                          />
+                        </div>
+                        <div className="p-1">
+                          <p className="text-[10px] text-gray-700 leading-tight text-center line-clamp-1">
+                            {style.name}
+                          </p>
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {preview && (
             <button

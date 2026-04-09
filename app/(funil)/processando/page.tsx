@@ -63,7 +63,7 @@ export default function ProcessandoPage() {
         const response = await fetch("/api/gerar", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ image_base64: store.url_foto_original }),
+          body: JSON.stringify({ image_base64: store.url_foto_original, estilo: store.estilo || "detailed" }),
         });
 
         if (!response.ok) {

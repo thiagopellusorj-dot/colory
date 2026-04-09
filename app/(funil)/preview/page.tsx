@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useFunilStore } from "@/store/funilStore";
@@ -11,7 +11,9 @@ export default function PreviewPage() {
   const router = useRouter();
   const store = useFunilStore();
   const txt = t().resultado;
+  const appTxt = t().app;
   const nome = store.nome_filho || t().landing.seuFilho;
+  const [showingOriginal, setShowingOriginal] = useState(false);
 
   // Guard: sem imagem gerada → volta pro upload
   useEffect(() => {
@@ -36,16 +38,40 @@ export default function PreviewPage() {
             <p className="text-gray-500">{txt.subtitle}</p>
           </div>
 
-          {/* Imagem gerada */}
-          <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl border-4 border-purple-100">
-            <Image
-              src={store.url_foto_gerada}
-              alt={`Página de colorir do ${nome}`}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 90vw, 400px"
-              unoptimized
-            />
+          {/* Imagem gerada com before/after */}
+          <div className="relative rounded-2xl overflow-hidden shadow-xl border-4 border-purple-100">
+            <div className="relative aspect-[3/4]">
+              <Image
+                src={showingOriginal && store.url_foto_original ? store.url_foto_original : store.url_foto_gerada}
+                alt={showingOriginal ? appTxt.resultadoFotoOriginal : appTxt.resultadoPaginaColorir}
+                fill
+                className="object-contain bg-gray-50 transition-opacity duration-200"
+                sizes="(max-width: 768px) 90vw, 400px"
+                unoptimized
+              />
+              {/* Label */}
+              <div className="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white text-xs font-medium px-3 py-1.5 rounded-full">
+                {showingOriginal ? `📷 ${appTxt.resultadoFotoOriginal}` : `🎨 ${appTxt.resultadoPaginaColorir}`}
+              </div>
+            </div>
+
+            {/* Botão comparar */}
+            {store.url_foto_original && (
+              <button
+                onMouseDown={() => setShowingOriginal(true)}
+                onMouseUp={() => setShowingOriginal(false)}
+                onMouseLeave={() => setShowingOriginal(false)}
+                onTouchStart={() => setShowingOriginal(true)}
+                onTouchEnd={() => setShowingOriginal(false)}
+                className="absolute bottom-3 left-3 bg-black/50 backdrop-blur-sm text-white text-xs font-medium px-3 py-2 rounded-full flex items-center gap-1.5 select-none active:bg-black/70 transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
+                  <path d="M10 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+                  <path fillRule="evenodd" d="M.664 10.59a1.651 1.651 0 0 1 0-1.186A10.004 10.004 0 0 1 10 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0 1 10 17c-4.257 0-7.893-2.66-9.336-6.41ZM14 10a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" clipRule="evenodd" />
+                </svg>
+                {appTxt.resultadoSegurarComparar}
+              </button>
+            )}
           </div>
 
           {/* Botão "Baixar" fake → vai para paywall */}

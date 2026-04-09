@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useFunilStore } from "@/store/funilStore";
@@ -22,6 +22,37 @@ export default function AssinarPage() {
   const genero = store.genero;
   const artigo = genero === "menina" ? "a" : "o";
   const artigoDe = genero === "menina" ? "da" : "do";
+  const [showExitPopup, setShowExitPopup] = useState(false);
+  const [cupomCopiado, setCupomCopiado] = useState(false);
+
+  // Exit-intent: desktop (mouseleave) + mobile (back button)
+  const handleExitIntent = useCallback(() => {
+    if (sessionStorage.getItem("colory-exit-shown")) return;
+    sessionStorage.setItem("colory-exit-shown", "1");
+    setShowExitPopup(true);
+    posthog.capture("exit_intent_shown");
+  }, []);
+
+  useEffect(() => {
+    // Desktop: mouse leaves window
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (e.clientY <= 0) handleExitIntent();
+    };
+    document.addEventListener("mouseleave", handleMouseLeave);
+
+    // Mobile: back button
+    history.pushState(null, "", window.location.href);
+    const handlePopState = () => {
+      handleExitIntent();
+      history.pushState(null, "", window.location.href);
+    };
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      document.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [handleExitIntent]);
 
   useEffect(() => {
     const isDev = new URLSearchParams(window.location.search).get("dev") === "1";
@@ -361,6 +392,57 @@ export default function AssinarPage() {
           </p>
         </div>
       </div>
+
+      {/* Exit-intent popup */}
+      {showExitPopup && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center px-6">
+          <div className="bg-white rounded-2xl p-6 w-full max-w-sm space-y-5 shadow-2xl animate-fade-in">
+            <div className="text-center space-y-2">
+              <span className="text-4xl block">🎁</span>
+              <h2 className="text-xl font-bold text-gray-900">{txt.exitIntentTitulo}</h2>
+              <p className="text-sm text-gray-600">{txt.exitIntentSubtitulo}</p>
+            </div>
+
+            {/* Cupom */}
+            <div className="bg-purple-50 border-2 border-dashed border-purple-300 rounded-xl p-4 text-center">
+              <p className="text-2xl font-bold text-purple-600 tracking-widest">{txt.exitIntentCupom}</p>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(txt.exitIntentCupom);
+                  setCupomCopiado(true);
+                  setTimeout(() => setCupomCopiado(false), 2000);
+                }}
+                className="mt-2 text-xs text-purple-500 font-medium hover:underline"
+              >
+                {cupomCopiado ? txt.exitIntentCopiado : txt.exitIntentCopiar}
+              </button>
+            </div>
+
+            {/* CTA */}
+            <button
+              onClick={() => {
+                posthog.capture("exit_intent_cta_clicked");
+                setShowExitPopup(false);
+                handleComprar(planoSelecionado);
+              }}
+              className="w-full bg-purple-600 hover:bg-purple-700 text-white py-4 rounded-full font-bold text-lg transition-all shadow-lg"
+            >
+              {txt.exitIntentCta}
+            </button>
+
+            {/* Fechar */}
+            <button
+              onClick={() => {
+                posthog.capture("exit_intent_dismissed");
+                setShowExitPopup(false);
+              }}
+              className="w-full text-gray-400 hover:text-gray-600 text-xs py-2 transition-colors"
+            >
+              {txt.exitIntentFechar}
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
