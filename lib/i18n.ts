@@ -363,8 +363,9 @@ const translations = {
       oto1DownPassoLabel: "Última chance — oferta reduzida",
       oto1DownAlertaTexto: "Espera! Temos algo especial pra você...",
       oto1DownValidacaoTexto: "Entendemos que o valor pode pesar.",
-      oto1DownFomoTexto: (nome: string) => `E se você pudesse dar ao ${nome} pelo menos 1 livro personalizado — com ele como protagonista — por menos da metade?`,
-      oto1DownCuriosidadeTexto: (nome: string) => `Imagine o ${nome} abrindo um livro e vendo ELE MESMO como herói da história.`,
+      oto1DownFomoTexto: (nome: string) => `Não perca essa oportunidade de dar essa memória inesquecível para o ${nome}!`,
+      oto1DownFomoDestaque: "Ele(a) merece lembrar que sempre será um herói!",
+      oto1DownCuriosidadeTexto: (nome: string) => `Imagina a carinha do ${nome} ao virar cada página e se ver como personagem da história.`,
       oto1DownReframeTitulo: "1 livro. 1 história. 100% dele.",
       oto1DownReframeTexto: "Um livro PDF personalizado com seu filho como protagonista. Pronto pra imprimir ou ler no tablet.",
       oto1DownBeneficios: [
@@ -372,6 +373,7 @@ const translations = {
         "Ilustrações personalizadas em cada página",
         "PDF em alta resolução — imprima quantas vezes quiser",
         "Seu filho como herói da própria história",
+        "1 música personalizada com o nome do seu filho de bônus",
       ] as string[],
       oto1DownDepoimentos: [
         { nome: "Juliana M.", texto: "Meu filho não para de pedir pra ler 'o livro dele'. Toda noite é o mesmo: 'mãe, lê o MEU livro!'", cidade: "Belo Horizonte" },
@@ -380,6 +382,7 @@ const translations = {
       oto1DownModulos: (nome: string) => [
         { emoji: "📖", titulo: "1 Livro PDF Personalizado", descricao: `História com ${nome} como protagonista`, valorIndividual: "R$67" },
         { emoji: "🎨", titulo: "Ilustrações Personalizadas", descricao: "Rosto do seu filho em cada página", valorIndividual: "R$30" },
+        { emoji: "🎵", titulo: "1 Música Personalizada", descricao: `Música com o nome do ${nome} de bônus`, valorIndividual: "R$37" },
       ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
       oto1DownValorTotal: "R$97",
       oto1DownPrecoOriginal: "R$67",
@@ -1052,8 +1055,9 @@ const translations = {
       oto1DownPassoLabel: "Last chance — reduced offer",
       oto1DownAlertaTexto: "Wait! We have something special for you...",
       oto1DownValidacaoTexto: "We understand the price may feel like a lot.",
-      oto1DownFomoTexto: (nome: string) => `What if you could give ${nome} at least 1 personalized book — with them as the main character — for less than half the price?`,
-      oto1DownCuriosidadeTexto: (nome: string) => `Imagine ${nome} opening a book and seeing THEMSELVES as the hero of the story.`,
+      oto1DownFomoTexto: (nome: string) => `Don't miss this chance to give ${nome} an unforgettable memory!`,
+      oto1DownFomoDestaque: "They deserve to remember they'll always be a hero!",
+      oto1DownCuriosidadeTexto: (nome: string) => `Imagine the look on ${nome}'s face as they turn each page and see themselves as the character.`,
       oto1DownReframeTitulo: "1 book. 1 story. 100% theirs.",
       oto1DownReframeTexto: "A personalized PDF book with your child as the main character. Ready to print or read on a tablet.",
       oto1DownBeneficios: [
@@ -1061,6 +1065,7 @@ const translations = {
         "Personalized illustrations on every page",
         "High-resolution PDF — print as many times as you want",
         "Your child as the hero of their own story",
+        "1 personalized song with your child's name as a bonus",
       ] as string[],
       oto1DownDepoimentos: [
         { nome: "Julie M.", texto: "My son won't stop asking to read 'his book'. Every night it's the same: 'Mom, read MY book!'", cidade: "Boston" },
@@ -1069,6 +1074,7 @@ const translations = {
       oto1DownModulos: (nome: string) => [
         { emoji: "📖", titulo: "1 Personalized PDF Book", descricao: `Story with ${nome} as the main character`, valorIndividual: "$13.90" },
         { emoji: "🎨", titulo: "Personalized Illustrations", descricao: "Your child's face on every page", valorIndividual: "$6.00" },
+        { emoji: "🎵", titulo: "1 Personalized Song", descricao: `Song with ${nome}'s name as a bonus`, valorIndividual: "$7.00" },
       ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
       oto1DownValorTotal: "$19.90",
       oto1DownPrecoOriginal: "$13.90",
@@ -1741,7 +1747,8 @@ const translations = {
       oto1DownPassoLabel: "Última oportunidad — oferta reducida",
       oto1DownAlertaTexto: "¡Espera! Tenemos algo especial para ti...",
       oto1DownValidacaoTexto: "Entendemos que el precio puede ser mucho.",
-      oto1DownFomoTexto: (nome: string) => `¿Y si pudieras darle a ${nome} al menos 1 libro personalizado — con él como protagonista — por menos de la mitad?`,
+      oto1DownFomoTexto: (nome: string) => `¡No pierdas esta oportunidad de darle a ${nome} un recuerdo inolvidable!`,
+      oto1DownFomoDestaque: "¡Él/ella merece recordar que siempre será un héroe!",
       oto1DownCuriosidadeTexto: (nome: string) => `Imagina a ${nome} abriendo un libro y viéndose A SÍ MISMO como el héroe de la historia.`,
       oto1DownReframeTitulo: "1 libro. 1 historia. 100% suyo.",
       oto1DownReframeTexto: "Un libro PDF personalizado con tu hijo como protagonista. Listo para imprimir o leer en la tablet.",
@@ -1750,6 +1757,7 @@ const translations = {
         "Ilustraciones personalizadas en cada página",
         "PDF en alta resolución — imprímelo cuantas veces quieras",
         "Tu hijo como héroe de su propia historia",
+        "1 canción personalizada con el nombre de tu hijo de regalo",
       ] as string[],
       oto1DownDepoimentos: [
         { nome: "Juliana M.", texto: "Mi hijo no para de pedir que le lea 'su libro'. Cada noche es lo mismo: '¡mami, lee MI libro!'", cidade: "Barcelona" },
@@ -1758,6 +1766,7 @@ const translations = {
       oto1DownModulos: (nome: string) => [
         { emoji: "📖", titulo: "1 Libro PDF Personalizado", descricao: `Historia con ${nome} como protagonista`, valorIndividual: "$13.90" },
         { emoji: "🎨", titulo: "Ilustraciones Personalizadas", descricao: "El rostro de tu hijo en cada página", valorIndividual: "$6.00" },
+        { emoji: "🎵", titulo: "1 Canción Personalizada", descricao: `Canción con el nombre de ${nome} de regalo`, valorIndividual: "$7.00" },
       ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
       oto1DownValorTotal: "$19.90",
       oto1DownPrecoOriginal: "$13.90",
@@ -2430,7 +2439,8 @@ const translations = {
       oto1DownPassoLabel: "Dernière chance — offre réduite",
       oto1DownAlertaTexto: "Attendez ! Nous avons quelque chose de spécial pour vous...",
       oto1DownValidacaoTexto: "Nous comprenons que le prix peut peser.",
-      oto1DownFomoTexto: (nome: string) => `Et si vous pouviez offrir à ${nome} au moins 1 livre personnalisé — avec lui comme protagoniste — pour moins de la moitié ?`,
+      oto1DownFomoTexto: (nome: string) => `Ne manquez pas cette opportunité d'offrir à ${nome} un souvenir inoubliable !`,
+      oto1DownFomoDestaque: "Il/elle mérite de se rappeler qu'il sera toujours un héros !",
       oto1DownCuriosidadeTexto: (nome: string) => `Imaginez ${nome} ouvrant un livre et se voyant LUI-MÊME comme le héros de l'histoire.`,
       oto1DownReframeTitulo: "1 livre. 1 histoire. 100% à lui.",
       oto1DownReframeTexto: "Un livre PDF personnalisé avec votre enfant comme protagoniste. Prêt à imprimer ou à lire sur tablette.",
@@ -2439,6 +2449,7 @@ const translations = {
         "Illustrations personnalisées sur chaque page",
         "PDF en haute résolution — imprimez autant de fois que vous voulez",
         "Votre enfant comme héros de sa propre histoire",
+        "1 chanson personnalisée avec le prénom de votre enfant en bonus",
       ] as string[],
       oto1DownDepoimentos: [
         { nome: "Julie M.", texto: "Mon fils n'arrête pas de demander 'son livre'. Chaque soir c'est pareil : 'maman, lis MON livre !'", cidade: "Bordeaux" },
@@ -2447,6 +2458,7 @@ const translations = {
       oto1DownModulos: (nome: string) => [
         { emoji: "📖", titulo: "1 Livre PDF Personnalisé", descricao: `Histoire avec ${nome} comme protagoniste`, valorIndividual: "$13.90" },
         { emoji: "🎨", titulo: "Illustrations Personnalisées", descricao: "Le visage de votre enfant sur chaque page", valorIndividual: "$6.00" },
+        { emoji: "🎵", titulo: "1 Chanson Personnalisée", descricao: `Chanson avec le prénom de ${nome} en bonus`, valorIndividual: "7,00€" },
       ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
       oto1DownValorTotal: "$19.90",
       oto1DownPrecoOriginal: "$13.90",
@@ -3119,7 +3131,8 @@ const translations = {
       oto1DownPassoLabel: "Ultima occasione — offerta ridotta",
       oto1DownAlertaTexto: "Aspetta! Abbiamo qualcosa di speciale per te...",
       oto1DownValidacaoTexto: "Capiamo che il prezzo possa sembrare alto.",
-      oto1DownFomoTexto: (nome: string) => `E se potessi regalare a ${nome} almeno 1 libro personalizzato — con lui come protagonista — a meno della metà?`,
+      oto1DownFomoTexto: (nome: string) => `Non perdere questa opportunità di dare a ${nome} un ricordo indimenticabile!`,
+      oto1DownFomoDestaque: "Lui/lei merita di ricordare che sarà sempre un eroe!",
       oto1DownCuriosidadeTexto: (nome: string) => `Immagina ${nome} che apre un libro e si vede LUI STESSO come l'eroe della storia.`,
       oto1DownReframeTitulo: "1 libro. 1 storia. 100% suo.",
       oto1DownReframeTexto: "Un libro PDF personalizzato con il tuo bambino come protagonista. Pronto da stampare o leggere sul tablet.",
@@ -3128,6 +3141,7 @@ const translations = {
         "Illustrazioni personalizzate su ogni pagina",
         "PDF in alta risoluzione — stampa quante volte vuoi",
         "Il tuo bambino come eroe della propria storia",
+        "1 canzone personalizzata con il nome di tuo figlio come bonus",
       ] as string[],
       oto1DownDepoimentos: [
         { nome: "Giuliana M.", texto: "Mio figlio non smette di chiedere di leggere 'il suo libro'. Ogni sera è uguale: 'mamma, leggi il MIO libro!'", cidade: "Napoli" },
@@ -3136,6 +3150,7 @@ const translations = {
       oto1DownModulos: (nome: string) => [
         { emoji: "📖", titulo: "1 Libro PDF Personalizzato", descricao: `Storia con ${nome} come protagonista`, valorIndividual: "$13.90" },
         { emoji: "🎨", titulo: "Illustrazioni Personalizzate", descricao: "Il volto del tuo bambino su ogni pagina", valorIndividual: "$6.00" },
+        { emoji: "🎵", titulo: "1 Canzone Personalizzata", descricao: `Canzone con il nome di ${nome} come bonus`, valorIndividual: "7,00€" },
       ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
       oto1DownValorTotal: "$19.90",
       oto1DownPrecoOriginal: "$13.90",
