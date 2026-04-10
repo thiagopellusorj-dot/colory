@@ -152,9 +152,11 @@ export function OtoLayout({
         <div className="w-full max-w-md space-y-8">
           {/* BLOCO 2: Validation + Incompleteness */}
           <div className="space-y-3 text-center">
-            <p className="text-green-600 font-semibold text-sm">
-              ✅ {validacaoTexto}
-            </p>
+            {validacaoTexto && (
+              <p className="text-green-600 font-semibold text-sm">
+                ✅ {validacaoTexto}
+              </p>
+            )}
             <p className="text-gray-700 leading-relaxed">
               {fomoTexto}{" "}
               {fomoDestaque && (
