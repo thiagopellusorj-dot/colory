@@ -25,29 +25,37 @@ export default function Oto1Page() {
       previewSection={
         <div className="space-y-6">
           <BookPreview nomeFilho={nome} />
-
-          {/* Vídeos demonstrativos */}
-          <div className="space-y-3">
-            <p className="text-xs text-gray-400 uppercase tracking-wide text-center font-semibold">
-              {txt.oto1VideosLabel}
-            </p>
-            <video
-              src="/videos/demo-personalizacao.mp4"
-              controls
-              playsInline
-              preload="none"
-              className="w-full rounded-xl shadow-md"
-            />
-            <video
-              src="/videos/demo-livro-musica.mp4"
-              controls
-              playsInline
-              preload="none"
-              className="w-full rounded-xl shadow-md"
-            />
-          </div>
-
           <ComoFunciona />
+
+          {/* Vídeos demonstrativos — só PT-BR por enquanto */}
+          {getLocale() === "pt-BR" && (
+            <div className="space-y-3">
+              <p className="text-xs text-gray-400 uppercase tracking-wide text-center font-semibold">
+                {txt.oto1VideosLabel}
+              </p>
+              <video
+                src="/videos/demo-personalizacao.mp4"
+                controls
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="w-full rounded-xl shadow-md"
+              />
+              <video
+                src="/videos/demo-livro-musica.mp4"
+                controls
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="w-full rounded-xl shadow-md"
+              />
+            </div>
+          )}
+
           <TransformacaoVisual />
           <div>
             <p className="text-xs text-gray-400 uppercase tracking-wide text-center font-semibold mb-3">
