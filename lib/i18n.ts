@@ -351,6 +351,7 @@ const translations = {
       oto1PrecoFinal: "R$67",
       oto1Temas: ["Dinossauros", "Princesas", "Aventura", "Unicórnios", "Espaço", "Piratas", "Animais", "Super-Heróis"] as string[],
       oto1TemasLabel: "Temas disponíveis",
+      oto1VideosLabel: "Veja como funciona",
       oto1Faqs: [
         { pergunta: "Como personalizo o livro?", resposta: "Após confirmar o pagamento, você envia uma foto do seu filho e escolhe o tema. Nossa IA cria as ilustrações com o rosto dele em cada página. Simples assim." },
         { pergunta: "Quanto tempo leva para receber?", resposta: "Em até 24 horas após o pagamento, você recebe o PDF personalizado no seu e-mail, pronto para imprimir." },
@@ -1038,6 +1039,7 @@ const translations = {
       oto1PrecoFinal: "$13.90",
       oto1Temas: ["Dinosaurs", "Princesses", "Adventure", "Unicorns", "Space", "Pirates", "Animals", "Superheroes"] as string[],
       oto1TemasLabel: "Available themes",
+      oto1VideosLabel: "See how it works",
       oto1Faqs: [
         { pergunta: "How do I personalize the book?", resposta: "After confirming payment, you upload a photo of your child and choose a theme. Our AI creates illustrations with their face on every page. Simple as that." },
         { pergunta: "How long until I receive it?", resposta: "Within 24 hours of payment, you'll receive the personalized PDF in your email, ready to print." },
@@ -1725,6 +1727,7 @@ const translations = {
       oto1PrecoFinal: "$13.90",
       oto1Temas: ["Dinosaurios", "Princesas", "Aventura", "Unicornios", "Espacio", "Piratas", "Animales", "Superhéroes"] as string[],
       oto1TemasLabel: "Temas disponibles",
+      oto1VideosLabel: "Mira cómo funciona",
       oto1Faqs: [
         { pergunta: "¿Cómo personalizo el libro?", resposta: "Después de confirmar el pago, envías una foto de tu hijo y eliges el tema. Nuestra IA crea las ilustraciones con su rostro en cada página. Así de simple." },
         { pergunta: "¿Cuánto tarda en llegar?", resposta: "En un máximo de 24 horas después del pago, recibes el PDF personalizado en tu correo, listo para imprimir." },
@@ -2412,6 +2415,7 @@ const translations = {
       oto1PrecoFinal: "$13.90",
       oto1Temas: ["Dinosaures", "Princesses", "Aventure", "Licornes", "Espace", "Pirates", "Animaux", "Super-héros"] as string[],
       oto1TemasLabel: "Thèmes disponibles",
+      oto1VideosLabel: "Découvrez comment ça marche",
       oto1Faqs: [
         { pergunta: "Comment je personnalise le livre ?", resposta: "Après avoir confirmé le paiement, vous envoyez une photo de votre enfant et choisissez le thème. Notre IA crée les illustrations avec son visage sur chaque page. C'est aussi simple que ça." },
         { pergunta: "Combien de temps pour le recevoir ?", resposta: "Dans les 24 heures suivant le paiement, vous recevez le PDF personnalisé par e-mail, prêt à imprimer." },
@@ -3099,6 +3103,7 @@ const translations = {
       oto1PrecoFinal: "$13.90",
       oto1Temas: ["Dinosauri", "Principesse", "Avventura", "Unicorni", "Spazio", "Pirati", "Animali", "Supereroi"] as string[],
       oto1TemasLabel: "Temi disponibili",
+      oto1VideosLabel: "Scopri come funziona",
       oto1Faqs: [
         { pergunta: "Come personalizzo il libro?", resposta: "Dopo aver confermato il pagamento, invii una foto del tuo bambino e scegli il tema. La nostra IA crea le illustrazioni con il suo volto su ogni pagina. Semplice così." },
         { pergunta: "Quanto tempo ci vuole per riceverlo?", resposta: "Entro 24 ore dal pagamento, ricevi il PDF personalizzato via e-mail, pronto per la stampa." },
