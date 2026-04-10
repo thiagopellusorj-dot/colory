@@ -344,6 +344,7 @@ const translations = {
       oto1Modulos: (nome: string) => [
         { emoji: "📖", titulo: "2 Livros PDF Personalizados", descricao: `Histórias únicas com ${nome} como protagonista`, valorIndividual: "R$67" },
         { emoji: "🎨", titulo: "Ilustrações com IA", descricao: "Rosto do seu filho em cada página da história", valorIndividual: "R$40" },
+        { emoji: "🎵", titulo: "1 Música Personalizada", descricao: `Música com o nome do ${nome} pra cada história`, valorIndividual: "R$37" },
         { emoji: "🖨️", titulo: "Alta Resolução para Impressão", descricao: "PDF pronto pra imprimir em casa ou gráfica", valorIndividual: "R$20" },
         { emoji: "🎁", titulo: "Bônus: Capa Personalizada", descricao: `Nome do ${nome} na capa como autor e herói`, valorIndividual: "R$15" },
       ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
@@ -1036,6 +1037,7 @@ const translations = {
       oto1Modulos: (nome: string) => [
         { emoji: "📖", titulo: "2 Personalized PDF Books", descricao: `Unique stories with ${nome} as the main character`, valorIndividual: "$13.90" },
         { emoji: "🎨", titulo: "AI-Generated Illustrations", descricao: "Your child's face on every page of the story", valorIndividual: "$8.00" },
+        { emoji: "🎵", titulo: "1 Personalized Song", descricao: `Song with ${nome}'s name for each story`, valorIndividual: "$7.00" },
         { emoji: "🖨️", titulo: "High Resolution for Printing", descricao: "PDF ready to print at home or at a print shop", valorIndividual: "$4.00" },
         { emoji: "🎁", titulo: "Bonus: Personalized Cover", descricao: `${nome}'s name on the cover as author and hero`, valorIndividual: "$3.00" },
       ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
@@ -1728,6 +1730,7 @@ const translations = {
       oto1Modulos: (nome: string) => [
         { emoji: "📖", titulo: "2 Libros PDF Personalizados", descricao: `Historias únicas con ${nome} como protagonista`, valorIndividual: "$13.90" },
         { emoji: "🎨", titulo: "Ilustraciones con IA", descricao: "El rostro de tu hijo en cada página de la historia", valorIndividual: "$8.00" },
+        { emoji: "🎵", titulo: "1 Canción Personalizada", descricao: `Canción con el nombre de ${nome} para cada historia`, valorIndividual: "$7.00" },
         { emoji: "🖨️", titulo: "Alta Resolución para Imprimir", descricao: "PDF listo para imprimir en casa o imprenta", valorIndividual: "$4.00" },
         { emoji: "🎁", titulo: "Bono: Portada Personalizada", descricao: `Nombre de ${nome} en la portada como autor y héroe`, valorIndividual: "$3.00" },
       ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
@@ -2420,6 +2423,7 @@ const translations = {
       oto1Modulos: (nome: string) => [
         { emoji: "📖", titulo: "2 Livres PDF Personnalisés", descricao: `Histoires uniques avec ${nome} comme protagoniste`, valorIndividual: "$13.90" },
         { emoji: "🎨", titulo: "Illustrations par IA", descricao: "Le visage de votre enfant sur chaque page de l'histoire", valorIndividual: "$8.00" },
+        { emoji: "🎵", titulo: "1 Chanson Personnalisée", descricao: `Chanson avec le prénom de ${nome} pour chaque histoire`, valorIndividual: "7,00€" },
         { emoji: "🖨️", titulo: "Haute Résolution pour Impression", descricao: "PDF prêt à imprimer à la maison ou chez l'imprimeur", valorIndividual: "$4.00" },
         { emoji: "🎁", titulo: "Bonus : Couverture Personnalisée", descricao: `Le prénom de ${nome} en couverture comme auteur et héros`, valorIndividual: "$3.00" },
       ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],
@@ -3112,6 +3116,7 @@ const translations = {
       oto1Modulos: (nome: string) => [
         { emoji: "📖", titulo: "2 Libri PDF Personalizzati", descricao: `Storie uniche con ${nome} come protagonista`, valorIndividual: "$13.90" },
         { emoji: "🎨", titulo: "Illustrazioni con IA", descricao: "Il volto del tuo bambino su ogni pagina della storia", valorIndividual: "$8.00" },
+        { emoji: "🎵", titulo: "1 Canzone Personalizzata", descricao: `Canzone con il nome di ${nome} per ogni storia`, valorIndividual: "7,00€" },
         { emoji: "🖨️", titulo: "Alta Risoluzione per la Stampa", descricao: "PDF pronto da stampare a casa o in tipografia", valorIndividual: "$4.00" },
         { emoji: "🎁", titulo: "Bonus: Copertina Personalizzata", descricao: `Il nome di ${nome} in copertina come autore ed eroe`, valorIndividual: "$3.00" },
       ] as { emoji: string; titulo: string; descricao: string; valorIndividual: string }[],

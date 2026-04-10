@@ -35,6 +35,8 @@ interface OtoLayoutProps {
   fomoDesconto?: string;
   // Bloco 3 — Curiosity Gap
   curiosidadeTexto: string;
+  // Bloco 3.1 — Early CTA (optional, appears right after curiosity gap)
+  earlyCtaSection?: React.ReactNode;
   // Bloco 3.5 — Product Preview (optional)
   previewSection?: React.ReactNode;
   // Bloco 5 — Emotional Reframe
@@ -68,6 +70,7 @@ export function OtoLayout({
   fomoDestaque,
   fomoDesconto,
   curiosidadeTexto,
+  earlyCtaSection,
   previewSection,
   reframeTitulo,
   reframeTexto,
@@ -175,6 +178,11 @@ export function OtoLayout({
           <p className="text-center text-lg font-bold text-gray-900 leading-snug">
             {curiosidadeTexto}
           </p>
+
+          {/* BLOCO 3.1: Early CTA */}
+          {earlyCtaSection && (
+            <div>{earlyCtaSection}</div>
+          )}
 
           {/* BLOCO 4: Micro CTA */}
           <p className="text-center text-purple-600 text-sm font-medium animate-bounce">
