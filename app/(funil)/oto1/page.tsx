@@ -44,6 +44,7 @@ export default function Oto1Page() {
       validacaoTexto={txt.oto1ValidacaoTexto}
       fomoTexto={txt.oto1FomoTexto(nome)}
       fomoDestaque={txt.oto1FomoDestaque}
+      fomoDesconto={txt.oto1FomoDesconto}
       curiosidadeTexto={txt.oto1CuriosidadeTexto(nome)}
       previewSection={
         <div className="space-y-6">
