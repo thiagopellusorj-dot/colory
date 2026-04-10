@@ -1,12 +1,35 @@
 "use client";
 
+import { useRef, useEffect } from "react";
 import { OtoLayout } from "@/components/funil/OtoLayout";
 import { BookPreview } from "@/components/funil/BookPreview";
 import { ComoFunciona } from "@/components/funil/ComoFunciona";
-import { TransformacaoVisual } from "@/components/funil/TransformacaoVisual";
 import { GarantiaBadge } from "@/components/funil/GarantiaBadge";
 import { useFunilStore } from "@/store/funilStore";
 import { t, getLocale } from "@/lib/i18n";
+
+function AutoPlayVideo({ src, className }: { src: string; className?: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (el) {
+      el.muted = true;
+      el.play().catch(() => {});
+    }
+  }, []);
+  return (
+    <video
+      ref={ref}
+      src={src}
+      controls
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      className={className}
+    />
+  );
+}
 
 export default function Oto1Page() {
   const store = useFunilStore();
@@ -29,34 +52,28 @@ export default function Oto1Page() {
 
           {/* Vídeos demonstrativos — só PT-BR por enquanto */}
           {getLocale() === "pt-BR" && (
-            <div className="space-y-3">
+            <div className="space-y-4">
               <p className="text-xs text-gray-400 uppercase tracking-wide text-center font-semibold">
                 {txt.oto1VideosLabel}
               </p>
-              <video
+
+              <p className="text-sm text-gray-600 text-center">
+                👇 Veja como é simples personalizar o livro do {nome}:
+              </p>
+              <AutoPlayVideo
                 src="/videos/demo-personalizacao.mp4"
-                controls
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
                 className="w-full rounded-xl shadow-md"
               />
-              <video
+
+              <p className="text-sm text-gray-600 text-center">
+                📖 E o resultado final — com uma música de bônus! <span className="font-semibold text-purple-600">Ative o som 🔊</span>
+              </p>
+              <AutoPlayVideo
                 src="/videos/demo-livro-musica.mp4"
-                controls
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
                 className="w-full rounded-xl shadow-md"
               />
             </div>
           )}
-
-          <TransformacaoVisual />
           <div>
             <p className="text-xs text-gray-400 uppercase tracking-wide text-center font-semibold mb-3">
               {txt.oto1TemasLabel}
