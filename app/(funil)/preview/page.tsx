@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useFunilStore } from "@/store/funilStore";
 import { posthog } from "@/lib/posthog";
+import { trackMeta } from "@/lib/tracking";
 import { t } from "@/lib/i18n";
 
 export default function PreviewPage() {
@@ -14,6 +15,7 @@ export default function PreviewPage() {
   const appTxt = t().app;
   const nome = store.nome_filho || t().landing.seuFilho;
   const [showingOriginal, setShowingOriginal] = useState(false);
+  const hasTrackedView = useRef(false);
 
   // Guard: sem imagem gerada → volta pro upload
   useEffect(() => {
@@ -21,6 +23,17 @@ export default function PreviewPage() {
       router.replace("/upload");
     }
   }, [store.url_foto_gerada, router]);
+
+  // Meta Pixel: ViewContent — preview do resultado
+  useEffect(() => {
+    if (!hasTrackedView.current && store.url_foto_gerada) {
+      hasTrackedView.current = true;
+      trackMeta("ViewContent", {
+        content_category: "colory_preview",
+        content_name: store.nome_filho || "unknown",
+      });
+    }
+  }, [store.url_foto_gerada, store.nome_filho]);
 
   const handleBaixar = () => {
     posthog.capture("resultado_download_clicked");

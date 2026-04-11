@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { PosthogProvider } from "@/components/providers/PosthogProvider";
+import { TrackingProvider } from "@/components/providers/TrackingProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -56,7 +57,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${inter.variable} h-full antialiased`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
-        <PosthogProvider>{children}</PosthogProvider>
+        <TrackingProvider>
+          <PosthogProvider>{children}</PosthogProvider>
+        </TrackingProvider>
       </body>
     </html>
   );

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useFunilStore } from "@/store/funilStore";
 import { posthog } from "@/lib/posthog";
+import { trackMeta } from "@/lib/tracking";
 import { t } from "@/lib/i18n";
 
 const ETAPAS_DELAY = [0, 2000, 5000, 8000];
@@ -33,6 +34,11 @@ export default function ProcessandoPage() {
       router.replace("/upload");
     }
   }, [store.url_foto_original, router]);
+
+  // Meta Pixel: quiz terminou, geração começando
+  useEffect(() => {
+    trackMeta("CompleteRegistration");
+  }, []);
 
   // Animação das etapas
   useEffect(() => {

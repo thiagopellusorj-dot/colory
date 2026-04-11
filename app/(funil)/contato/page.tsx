@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useFunilStore } from "@/store/funilStore";
 import { posthog } from "@/lib/posthog";
+import { trackMeta } from "@/lib/tracking";
 import { t } from "@/lib/i18n";
 
 export default function ContatoPage() {
@@ -53,6 +54,10 @@ export default function ContatoPage() {
         }),
       });
 
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+
       const data = await res.json();
 
       store.setLead({
@@ -62,6 +67,9 @@ export default function ContatoPage() {
       });
 
       posthog.capture("contato_submitted", { whatsapp: cleanWhatsapp, email });
+
+      // Meta Pixel: Lead — só após sucesso confirmado do fetch
+      trackMeta("Lead");
 
       // Vai para resultado — imagem pode já estar pronta
       router.push("/preview");

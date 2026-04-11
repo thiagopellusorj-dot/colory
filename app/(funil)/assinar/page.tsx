@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useFunilStore } from "@/store/funilStore";
 import { posthog } from "@/lib/posthog";
+import { trackMeta } from "@/lib/tracking";
 import { t, getLocale } from "@/lib/i18n";
 
 type Plano = "anual" | "mensal";
@@ -24,6 +25,7 @@ export default function AssinarPage() {
   const artigoDe = genero === "menina" ? "da" : "do";
   const [showExitPopup, setShowExitPopup] = useState(false);
   const [cupomCopiado, setCupomCopiado] = useState(false);
+  const hasTrackedPaywallView = useRef(false);
 
   // Exit-intent: desktop (mouseleave) + mobile (back button)
   const handleExitIntent = useCallback(() => {
@@ -64,6 +66,17 @@ export default function AssinarPage() {
   useEffect(() => {
     posthog.capture("paywall_viewed");
   }, []);
+
+  // Meta Pixel: ViewContent — paywall
+  useEffect(() => {
+    if (!hasTrackedPaywallView.current && store.nome_filho) {
+      hasTrackedPaywallView.current = true;
+      trackMeta("ViewContent", {
+        content_category: "colory_paywall",
+        content_name: store.nome_filho,
+      });
+    }
+  }, [store.nome_filho]);
 
   // Timer persistente
   useEffect(() => {
@@ -123,17 +136,48 @@ export default function AssinarPage() {
     const locale = getLocale();
     posthog.capture("purchase_initiated", { plano, locale });
 
+    // Meta Pixel: InitiateCheckout — sem `value` numérico de propósito.
+    // O valor real vem do Purchase server-side que a UTMify dispara via CAPI.
+    trackMeta("InitiateCheckout", {
+      currency: "BRL",
+      content_name: plano,
+    });
+
     const isIntl = locale !== "pt-BR";
     const link =
       plano === "anual"
         ? (isIntl ? process.env.NEXT_PUBLIC_CHECKOUT_LINK_ANUAL_INTL : process.env.NEXT_PUBLIC_PERFECTPAY_LINK_ANUAL)
         : (isIntl ? process.env.NEXT_PUBLIC_CHECKOUT_LINK_MENSAL_INTL : process.env.NEXT_PUBLIC_PERFECTPAY_LINK_MENSAL);
 
-    if (link && link !== "https://perfectpay.com.br/pay/xxx") {
-      window.location.href = link;
-    } else {
+    if (!link || link === "https://perfectpay.com.br/pay/xxx") {
       alert(t().oto.alertaPagamento);
+      return;
     }
+
+    // Forward manual das UTMs. O script da UTMify grava as UTMs no localStorage
+    // mas só intercepta cliques em <a> tags — como aqui usamos window.location.href
+    // (navegação programática), precisamos appendar manualmente. Sem isso a UTMify
+    // não consegue atribuir a venda à campanha certa.
+    const fullUrl = new URL(link);
+    if (typeof window !== "undefined") {
+      const attributionKeys = [
+        "utm_source",
+        "utm_medium",
+        "utm_campaign",
+        "utm_content",
+        "utm_term",
+        "src",
+        "sck",
+        "xcod",
+        "fbclid",
+      ];
+      attributionKeys.forEach((key) => {
+        const value = window.localStorage.getItem(key);
+        if (value) fullUrl.searchParams.set(key, value);
+      });
+    }
+
+    window.location.href = fullUrl.toString();
   };
 
   // Componente CTA reutilizável
